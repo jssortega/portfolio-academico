@@ -1,0 +1,5 @@
+Instrucciones para acceder al ejecutable:
+1.Descomprimir la carpeta del proyecto.
+2.Acceder a la ruta CastWave/bin/Debug
+3.Seleccionar el ejecutable CastWave.exe
+4.La grabación se guarda en esa misma ruta en grabacion.wav

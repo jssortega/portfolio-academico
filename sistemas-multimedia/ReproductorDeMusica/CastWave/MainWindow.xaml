@@ -1,0 +1,545 @@
+﻿<Window x:Class="CastWave.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:fa="http://schemas.fontawesome.com/wpf"
+        xmlns:local="clr-namespace:CastWave"
+        xmlns:wpf="http://schemas.fontawesome.io/icons/"
+        mc:Ignorable="d"
+        Title="CastWave" Height="1080" Width="1920">
+
+    <Window.Resources>
+        <!-- Estilo del Botón Redondo -->
+        <Style x:Key="BotonRedondo" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Ellipse Fill="{TemplateBinding Background}"
+                                     Stroke="Black" StrokeThickness="5"/>
+
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Estilo de la barra de progreso -->
+        <Style x:Key="CustomProgressBarStyle" TargetType="ProgressBar">
+            <Setter Property="Foreground" Value="Gray" />
+            <!-- Color de la barra de progreso -->
+            <Setter Property="Background" Value="FloralWhite" />
+            <!-- Color de fondo del ProgressBar -->
+            <Setter Property="BorderBrush" Value="Black" />
+            <!-- Color del borde -->
+            <Setter Property="BorderThickness" Value="1" />
+            <!-- Grosor del borde -->
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ProgressBar">
+                        <Border Background="{TemplateBinding Background}"
+						        BorderBrush="{TemplateBinding BorderBrush}"
+						        BorderThickness="{TemplateBinding BorderThickness}"
+						        CornerRadius="15">
+                            <!-- Bordes redondeados -->
+                            <Grid x:Name="PART_Track">
+                                <Rectangle x:Name="PART_Indicator"
+								           HorizontalAlignment="Left"
+								           Fill="{TemplateBinding Foreground}" />
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="BotonNormal" TargetType="Button">
+
+            <Setter Property="Background" Value="LightGray"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="10">
+                            <!-- Aquí ajustas el valor de CornerRadius para cambiar la curvatura -->
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
+
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/fondoApp.jpg"/>
+        </Grid.Background>
+
+        <Grid.RowDefinitions>
+            <!--Fila Superior-->
+            <RowDefinition Height="173*" />
+            <!--Fila Central-->
+            <RowDefinition Height="410*" />
+            <!--Fila Inferior-->
+            <RowDefinition Height="481*" />
+        </Grid.RowDefinitions>
+        
+        <!--Fila Superior-->
+        <Grid Grid.Row="0">
+            <Button x:Name="RecordButton" Style="{StaticResource BotonRedondo}" Width="100" Height="100" Background="#FFA90000"
+                Content="Grabar" Foreground="White" FontSize="23"  HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Cooper Black"/>
+        </Grid>
+
+        <!-- Fila central -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <!--Musica Izquierda-->
+                <ColumnDefinition Width="*"/>
+                <!--Musica Derecha-->
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Musica izquierda -->
+            <Border BorderThickness="2" BorderBrush="White">
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <!--Fila Superior-->
+                        <RowDefinition Height="2*" />
+                        <!--Fila Central-->
+                        <RowDefinition Height="*" />
+                        <!--Fila Inferior-->
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <!-- Fila superior -->
+                    <Grid Grid.Row="0">
+                        <WrapPanel Orientation="Horizontal" Margin="100,0,0,0" VerticalAlignment="Center">
+                            <!-- Imagen a la izquierda -->
+                            <Image x:Name="ImgSong" Source="/DefaultSong.png" Width="100" Height="100" VerticalAlignment="Center"/>
+
+                            <!-- Contenedor de texto a la derecha -->
+                            <StackPanel Orientation="Vertical" Margin="10">
+                                <!-- Titulo de la cancion -->
+                                <TextBlock x:Name="TxtSongName" Text="Cancion 1" FontSize="18" FontWeight="Bold" Foreground="White"/>
+                                <!-- Artista -->
+                                <TextBlock x:Name="TxtArtist" Text="Artista 1" FontSize="14" Foreground="Gray"/>
+                            </StackPanel>
+                        </WrapPanel>
+                    </Grid>
+
+                    <!-- Fila intermedia -->
+                    <Grid Grid.Row="1">
+                        <WrapPanel Orientation="Horizontal" Margin="100,0,0,0" VerticalAlignment="Center">
+                            <!-- Botón de pausa y play -->
+                            <Button x:Name="BtnPlayPause1" Style="{StaticResource BotonRedondo}" Width="50" Height="50" Background="White" Margin="0,0,50,0">
+                                <wpf:FontAwesome Icon="Play" FontSize="20" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Button>
+                            <!-- Barra de progreso de la cancion -->
+                            <ProgressBar x:Name="ProgressBar" Style="{StaticResource CustomProgressBarStyle}" Minimum="0" Maximum="100" Value="50" Width="400"/>
+                        </WrapPanel>
+                    </Grid>
+
+
+                    <!-- Fila inferior -->
+                    <Grid Grid.Row="2">
+                        <WrapPanel Orientation="Horizontal" Margin="150,0,0,0" VerticalAlignment="Center">
+                            <!-- Icono de volumen -->
+                            <wpf:FontAwesome Icon="VolumeUp" FontSize="20" Foreground="White" />
+                            <!-- Slider para subir o bajar el volumen -->
+                            <Slider x:Name="VolumeSlider" ValueChanged="VolumeSlider_ValueChanged" Minimum="0" Maximum="1" Value="0.5" Width="400" TickFrequency="0.1"/>
+                        </WrapPanel>
+                    </Grid>
+
+                </Grid>
+            </Border>
+
+            <!-- Musica derecha -->
+
+            <Grid Grid.Column="1">
+                <Border BorderThickness="2" BorderBrush="White">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <!--Fila Superior-->
+                            <RowDefinition Height="2*" />
+                            <!--Fila Central-->
+                            <RowDefinition Height="*" />
+                            <!--Fila Inferior-->
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <!-- Fila superior -->
+
+                        <Grid Grid.Row="0">
+                            <WrapPanel Orientation="Horizontal" Margin="100,0,0,0" VerticalAlignment="Center">
+                                <!-- Imagen a la izquierda -->
+                                <Image x:Name="ImgSong2" Source="/DefaultSong.png" Width="100" Height="100" VerticalAlignment="Center"/>
+
+                                <!-- Contenedor de texto a la derecha -->
+                                <StackPanel Orientation="Vertical" Margin="10">
+                                    <!-- Titulo de la cancion -->
+                                    <TextBlock x:Name="TxtSongName2" Text="Cancion 2" FontSize="18" FontWeight="Bold" Foreground="White"/>
+                                    <!-- Artista -->
+                                    <TextBlock x:Name="TxtArtist2" Text="Artista 2" FontSize="14" Foreground="Gray"/>
+                                </StackPanel>
+                            </WrapPanel>
+                        </Grid>
+
+                        <!-- Fila intermedia -->
+                        <Grid Grid.Row="1">
+                            <WrapPanel Orientation="Horizontal" Margin="100,0,0,0" VerticalAlignment="Center">
+                                <!-- Botón de pausa y play -->
+                                <Button x:Name="BtnPlayPause2" Style="{StaticResource BotonRedondo}" Width="50" Height="50" Background="White" Margin="0,0,50,0">
+                                    <wpf:FontAwesome Icon="Play" FontSize="20" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Button>
+                                <!-- Barra de progreso de la cancion -->
+                                <ProgressBar x:Name="ProgressBar2" Style="{StaticResource CustomProgressBarStyle}" Minimum="0" Maximum="100" Value="50" Width="400" />
+                            </WrapPanel>
+                        </Grid>
+
+                        <!-- Fila inferior -->
+                        <Grid Grid.Row="2">
+                            <WrapPanel Orientation="Horizontal" Margin="150,0,0,0" VerticalAlignment="Center">
+                                <!-- Icono de volumen -->
+                                <wpf:FontAwesome Icon="VolumeUp" FontSize="20" Foreground="White" />
+                                <!-- Slider para subir o bajar el volumen -->
+                                <Slider x:Name="VolumeSlider2" ValueChanged="VolumeSlider_ValueChanged" Minimum="0" Maximum="100" Value="50" Width="400"/>
+                            </WrapPanel>
+                        </Grid>
+
+                    </Grid>
+                </Border>
+            </Grid>
+
+
+        </Grid>
+
+        
+        <!--Fila Inferior-->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <!--Faders-->
+                <ColumnDefinition Width="*"/>
+                <!--Pads-->
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!--Cada uno de los faders-->
+            <Grid Grid.Column="0">
+                <!--faders-->
+                <Grid.ColumnDefinitions>
+                    <!--Fader 1-->
+                    <ColumnDefinition Width="*">
+                    </ColumnDefinition>
+                    
+                    <!--Fader 2-->
+                    <ColumnDefinition Width="*">
+                    </ColumnDefinition>
+                    
+                    <!--Fader 3-->
+                    <ColumnDefinition Width="*">
+                    </ColumnDefinition>
+                    
+                    <!--Fader 4-->
+                    <ColumnDefinition Width="*">
+                    </ColumnDefinition>
+                    
+                    <!--Fader 5-->
+                    <ColumnDefinition Width="*">
+                    </ColumnDefinition>
+                    
+                </Grid.ColumnDefinitions>
+                <!--Fader 1-->
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <!--Fader 1 Arriba-->
+                        <RowDefinition Height="*"></RowDefinition>
+                        <!--Fader 1 Abajo-->
+                        <RowDefinition Height="5*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    
+                    <!--Fader 1 Arriba-->
+                    <Grid Grid.Row="0">
+                        <!--Mute-->
+                        <Button Name="mute1" Background="Orange" Style="{StaticResource BotonNormal}" BorderBrush="Black" BorderThickness="1" Margin="3,3,3,3">
+                            Mute
+                        </Button>
+                    </Grid>
+                    <!--Fader 1 Abajo-->
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="13*"/>
+                            <ColumnDefinition Width="35*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Vertical" Grid.ColumnSpan="2">
+                            <Slider Name="volume1" 
+                                    Orientation="Vertical" 
+                                    Minimum="0" Maximum="100"
+                                    Value="100"
+                                    TickFrequency="1" IsSnapToTickEnabled="True" 
+                                    HorizontalAlignment="Center"
+                                    Height="260" Margin="0,0,0,10"
+                                    ValueChanged="volume_ValueChanged"/>
+                            <Button x:Name="mic1" Background="LightGray" Style="{StaticResource BotonNormal}" BorderBrush="Black" BorderThickness="1" Margin="3,3,3,3" >
+                                Micrófono 1
+                            </Button>
+
+                        </StackPanel>
+
+                    </Grid>
+                </Grid>
+                
+                <!--Fader 2-->
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <!--Fader 2 Arriba-->
+                        <RowDefinition Height="*"></RowDefinition>
+                        <!--Fader 2 Abajo-->
+                        <RowDefinition Height="5*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <!--Fader 2 Arriba-->
+                    <Grid Grid.Row="0">
+                        
+                        <!--Mute-->
+                        <Button Name="mute2" Background="Orange" Style="{StaticResource BotonNormal}" BorderBrush="Black" BorderThickness="1" Margin="3,3,3,3" >
+                            Mute
+                        </Button>
+                    </Grid>
+                    
+                    <!--Fader 2 Abajo-->
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="13*"/>
+                            <ColumnDefinition Width="35*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Vertical" Grid.ColumnSpan="2">
+                            <Slider Name="volume2" Orientation="Vertical" 
+                                    Minimum="0" 
+                                    Maximum="100" 
+                                    TickFrequency="1" 
+                                    IsSnapToTickEnabled="True" 
+                                    HorizontalAlignment="Center"
+                                    Height="260" 
+                                    Margin="0,0,0,10"
+                                    ValueChanged="volume_ValueChanged"/>
+                            <Button Name="mic2" Background="LightGray" Style="{StaticResource BotonNormal}" BorderBrush="Black" BorderThickness="1" Margin="3,3,3,3" >
+                                Micrófono 2
+                            </Button>
+
+                        </StackPanel>
+
+                    </Grid>
+                </Grid>
+                
+                <!--Fader 3-->
+                <Grid Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <!--Fader 3 Arriba-->
+                        <RowDefinition Height="*"></RowDefinition>
+                        <!--Fader 3 Abajo-->
+                        <RowDefinition Height="5*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <!--Fader 3 Arriba-->
+                    <Grid Grid.Row="0">
+                        <!--Mute-->
+                        <Button Name="mute3" Background="Orange" Style="{StaticResource BotonNormal}" BorderBrush="Black" BorderThickness="1" Margin="3,3,3,3" >
+                            Mute
+                        </Button>
+                    </Grid>
+                    
+                    <!--Fader 3 Abajo-->
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="13*"/>
+                            <ColumnDefinition Width="35*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Vertical" Grid.ColumnSpan="2">
+                            <Slider Name="volume3" Orientation="Vertical" 
+                                    Minimum="0" 
+                                    Maximum="100" 
+                                    TickFrequency="1" 
+                                    IsSnapToTickEnabled="True" 
+                                    HorizontalAlignment="Center"
+                                    Height="260" 
+                                    Margin="0,0,0,10"
+                                    ValueChanged="volume_ValueChanged"/>
+                            <Button Name="mic3" Background="LightGray" Style="{StaticResource BotonNormal}" BorderBrush="Black" BorderThickness="1" Margin="3,3,3,3" >
+                                Micrófono 3
+                            </Button>
+
+                        </StackPanel>
+
+                    </Grid>
+                </Grid>
+                
+                <!--Fader 4-->
+                <Grid Grid.Column="3">
+                    <Grid.RowDefinitions>
+                        <!--Fader 4 Arriba-->
+                        <RowDefinition Height="*"></RowDefinition>
+                        <!--Fader 4 Abajo-->
+                        <RowDefinition Height="5*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    
+                    <!--Fader 4 Arriba-->
+                    <Grid Grid.Row="0">
+                        <!--Mute-->
+                        <Button Name="mute4" Background="Orange" Style="{StaticResource BotonNormal}" BorderBrush="Black" BorderThickness="1" Margin="3,3,3,3" >
+                            Mute
+                        </Button>
+                    </Grid>
+                    
+                    <!--Fader 4 Abajo-->
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="13*"/>
+                            <ColumnDefinition Width="35*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Vertical" Grid.ColumnSpan="2">
+                            <Slider Name="volume4" Orientation="Vertical" 
+                                    Minimum="0" 
+                                    Maximum="100" 
+                                    TickFrequency="1" 
+                                    IsSnapToTickEnabled="True" 
+                                    HorizontalAlignment="Center"
+                                    Height="260" 
+                                    Margin="0,0,0,10"
+                                    ValueChanged="volume_ValueChanged"/>
+                            <Button Name="mic4" Background="LightGray" Style="{StaticResource BotonNormal}" BorderBrush="Black" BorderThickness="1" Margin="3,3,3,3" >
+                                Micrófono 4
+                            </Button>
+
+                        </StackPanel>
+
+                    </Grid>
+                </Grid>
+                
+                <!--Fader 5-->
+                <Grid Grid.Column="4">
+                    <Grid.RowDefinitions>
+                        <!--Fader 5 Arriba-->
+                        <RowDefinition Height="*"></RowDefinition>
+                        <!--Fader 5 Abajo-->
+                        <RowDefinition Height="5*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    
+                    <!--Fader 5 Arriba-->
+                    <Grid Grid.Row="0">
+                        <!--Mute-->
+                        <Button Name="mute5" Background="Orange" Style="{StaticResource BotonNormal}" BorderBrush="Black" BorderThickness="1" Margin="3,3,3,3" >
+                            Mute
+                        </Button>
+                    </Grid>
+                    
+                    <!--Fader 5 abajo-->
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="13*"/>
+                            <ColumnDefinition Width="35*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Vertical" Grid.ColumnSpan="2">
+                            <Slider Name="volume5" Orientation="Vertical" 
+                                    Minimum="0" 
+                                    Maximum="100" 
+                                    TickFrequency="1" 
+                                    IsSnapToTickEnabled="True" 
+                                    HorizontalAlignment="Center"
+                                    Height="260" 
+                                    Margin="0,0,0,10"
+                                    ValueChanged="volume_ValueChanged"/>
+                            <Button Name="mic5" Background="LightGray" Style="{StaticResource BotonNormal}" BorderBrush="Black" BorderThickness="1" Margin="3,3,3,3" >
+                                Micrófono 5
+                            </Button>
+
+                        </StackPanel>
+
+                    </Grid>
+                </Grid>
+            </Grid>
+            
+            
+            <!--Pads-->
+            <Grid Grid.Column="1">
+                
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <!--Comenzamos a definir los pads-->
+                
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Button Name="pad_1" Background="DarkRed" Style="{StaticResource BotonNormal}" 
+                                BorderBrush="Black" BorderThickness="1" Margin="3,3,3,3">
+                            <TextBlock x:Name="TxtPad1" Text="Sonido 1" FontSize="18" FontWeight="Bold" Foreground="White"/>
+                        </Button>
+                    </Grid>
+                    
+                    <Grid Grid.Column="1">
+                        <Button Name="pad_2" Background="DarkRed" Style="{StaticResource BotonNormal}" 
+                                BorderBrush="Black" BorderThickness="1" Margin="3,3,3,3" >
+                            <TextBlock x:Name="TxtPad2" Text="Sonido 2" FontSize="18" FontWeight="Bold" Foreground="White"/>
+                        </Button>
+                    </Grid>
+
+                    <Grid Grid.Column="2">
+                        <Button Name="pad_3" Background="DarkRed" Style="{StaticResource BotonNormal}" 
+                             BorderBrush="Black" BorderThickness="1" Margin="3,3,3,3" >
+                            <TextBlock x:Name="TxtPad3" Text="Sonido 3" FontSize="18" FontWeight="Bold" Foreground="White"/>
+                        </Button>
+                    </Grid>
+                    
+                </Grid>
+
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Button Name="pad_4" Background="DarkRed" Style="{StaticResource BotonNormal}" 
+                                BorderBrush="Black" BorderThickness="1" Margin="3,3,3,3" >
+                            <TextBlock x:Name="TxtPad4" Text="Sonido 4" FontSize="18" FontWeight="Bold" Foreground="White"/>
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Button Name="pad_5" Background="DarkRed" Style="{StaticResource BotonNormal}" 
+                                BorderBrush="Black" BorderThickness="1" Margin="3,3,3,3">
+                            <TextBlock x:Name="TxtPad5" Text="Sonido 5" FontSize="18" FontWeight="Bold" Foreground="White"/>
+                        </Button>
+                    </Grid>
+                    
+                    <Grid Grid.Column="2">
+                        <Button Name="pad_6" Background="DarkRed" Style="{StaticResource BotonNormal}" 
+                                BorderBrush="Black" BorderThickness="1" Margin="3,3,3,3">
+                            <TextBlock x:Name="TxtPad6" Text="Sonido 6" FontSize="18" FontWeight="Bold" Foreground="White"/>
+                        </Button>
+                    </Grid>
+                    
+                </Grid>
+                
+
+            </Grid>
+
+
+        </Grid>
+    </Grid>
+</Window>
+
+
+
