@@ -1,0 +1,3 @@
+/home/jortega/CLionProjects/pr4_conan/cmake-build-debug/CMakeFiles/pr4.dir
+/home/jortega/CLionProjects/pr4_conan/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/jortega/CLionProjects/pr4_conan/cmake-build-debug/CMakeFiles/rebuild_cache.dir
