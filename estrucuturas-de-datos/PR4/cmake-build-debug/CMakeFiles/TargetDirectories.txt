@@ -1,0 +1,3 @@
+C:/Users/gabis/Desktop/UJA/EEDD/Practicas/PR4/cmake-build-debug/CMakeFiles/imagenes.dir
+C:/Users/gabis/Desktop/UJA/EEDD/Practicas/PR4/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/gabis/Desktop/UJA/EEDD/Practicas/PR4/cmake-build-debug/CMakeFiles/rebuild_cache.dir
