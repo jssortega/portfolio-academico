@@ -1,0 +1,44 @@
+#! /bin/bash
+#Autor
+#Descripcion 
+if [ ${#} -eq 0 ]
+then 
+	echo "ERROR. Debes pasar al menos 1 argumento"
+	exit
+fi
+
+
+
+for i in ${*}
+do
+errores=0
+linea1=1
+echo "Analizando el fichero ${i}"
+	if [ "${i##*.}" != "adn" ]
+	then
+		echo "ERROR. No acaba en .adn"
+	elif [ -d ${i} ] || [ ! -r ${i} ]
+	then
+		echo "No se ha procesado ${i}, no es un fichero o no tiene permisos de lectura"	
+	else
+		while read linea
+		do
+			pos=0
+			contador=1
+			while [ ${contador} != ${#linea} ]
+			do
+				caracter=$(echo "${linea}" | cut -c ${contador})
+				if [ "${caracter}" != "G" ] && [ "${caracter}" != "C" ] && [ "${caracter}" != "A" ] && [ "${caracter}" != "T" ]
+				then
+					echo "Error en la linea ${linea1} letra numero ${pos}, ${caracter}"
+					errores=$(( ${errores}+1 ))
+				fi
+				pos=$(( ${pos}+1 ))
+				contador=$((${contador}+1))
+			done
+			linea1=$(( ${linea1}+1 ))
+		done < ${i}
+		echo "Total errores del fichero ${i}: ${errores}"
+	fi
+	echo "---------------------------------------------------"	
+done
