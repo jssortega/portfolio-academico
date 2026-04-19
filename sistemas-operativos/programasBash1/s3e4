@@ -1,0 +1,27 @@
+#!/bin/bash
+
+#Autor: Jesús Ortega Castillo
+#Descripción: Escribe un script que reciba como argumentos exactamente dos nombres de directorios accesibles desde el directorio de trabajo actual, y que copie los archivos del primer directorio en el segundo, siempre y cuando no existan ya en el segundo directorio, o bien, que el archivo que se copia sea más reciente que el que se sobreescribe.
+
+if [ ${#} -eq 2 ]
+then 
+	if [ -d ${1} ] && [ -d ${2} ]
+	then
+		for i in $(ls ${1})
+		do
+			if [ -e ${2}/${i} ]
+			then
+				if [ ${1}/${i} -nt ${2}/${i} ]
+				then
+					cp ${1}/${i} ${2}
+				fi
+			else 
+				cp ${1}/${i} ${2}
+			fi
+		done
+	else
+		echo "Uno de los dos directorios no existen"
+	fi
+else
+	echo "Error, debe pasar exactamente dos argumentos, ha pasado ${#}"
+fi

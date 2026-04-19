@@ -1,0 +1,21 @@
+#!/bin/bash
+
+#Autor: Jesús Ortega Castillo
+#Descripción: eciba como argumentos una lista de directorios accesibles desde el directorio de trabajo actual y que liste el contenido de cada directorio.
+
+if [ ${#} -gt 0 ]
+then
+	for i in ${*}
+	do	
+		if [ -d ${i} ]
+		then
+			echo "EL contenido del directorio ${i} es: "
+			ls ${i}
+		else
+			echo "${i} no es un directorio"
+		fi
+	done
+else
+	echo "Error debes pasar al menos un directorio"
+fi
+		

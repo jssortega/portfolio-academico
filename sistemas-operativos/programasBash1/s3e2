@@ -1,0 +1,22 @@
+#!/bin/bash
+
+#Autor: Jesús Ortega Castillo
+#Descripción: reciba como argumentos una lista de nombres de usuario, y que compruebe si existen indicando por pantalla si el usuario existe o no.
+
+usuarios=${*}
+
+if [ $# -ne 0 ]
+then 
+	for i in ${usuarios}
+	do
+		usuario=$(cut -f1 -d: /etc/passwd | grep -ic ${i})
+		if [ ${i} -eq ${usuario} ]
+		then 
+			echo "El usuario existe"
+		else
+			echo "El ususario no existe"
+		fi
+	done
+else
+	echo "Error, debe pasar al menos un usuario"
+fi
