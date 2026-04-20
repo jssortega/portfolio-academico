@@ -1,0 +1,3 @@
+Para ejecutar el jar:
+1. Colocarse en la carpeta JAR, con cd desde la linea de comandos.
+2. Ejecutar el siguiente comando: $java -jar Peliculas-1.0-SNAPSHOT.jar

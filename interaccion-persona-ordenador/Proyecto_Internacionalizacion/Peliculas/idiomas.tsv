@@ -1,0 +1,71 @@
+2
+es
+30
+Español
+Principal
+Funciones
+Opciones
+Idioma
+Agregar pelicula
+Eliminar pelicula
+Consultar peliculas
+Modificar pelicula
+Bienvenido a la aplicacion de gestion de peliculas
+Titulo
+Año de estreno
+Director
+¡La pelicula ya existe!
+Aceptar
+Hay campos vacios
+Pelicula agregada correctamente
+Inserte el titulo de la pelicula que desea eliminar:
+Pelicula eliminada correctamente
+La pelicula introducida no existe
+Inserte el titulo de una película
+Busca la pelicula que quieras modificar
+Buscar
+Nuevo titulo
+Nueva fecha de estreno
+Nuevo director
+Aplicar
+Informacion
+Atencion
+Operacion fallida
+2
+/imagen_es.png
+/bandera_es.png
+en
+30
+English
+Main
+Tools
+Edit
+Language
+Add film
+Remove film
+Browse films
+Modify film
+Welcome to the movie management application
+Title
+Release year
+Director
+The movie already exists!
+Ok
+There are empty fields
+Film added correctly
+Insert the title of the movie you want to delete:
+Film deleted correctly
+The inserted film does not exist
+Insert the title of a film
+Search for the film you want to modify
+Search
+New title
+New release date
+New director
+Apply
+Information
+Attention
+Failed operation
+2
+/imagen_en.png
+/bandera_en.png
