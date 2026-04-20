@@ -5,7 +5,7 @@ Repositorio personal donde recopilo proyectos y prácticas desarrollados durante
 ## Sobre este portfolio
 
 Este repositorio reúne trabajos realizados en distintas asignaturas del grado, organizados por carpetas según la materia correspondiente.  
-El objetivo es mostrar de forma estructurada los proyectos desarrollados en áreas como programación, desarrollo móvil, multimedia, informática gráfica, visión por computador y sistemas operativos.
+El objetivo es mostrar de forma estructurada proyectos desarrollados en áreas como programación, desarrollo móvil, multimedia, informática gráfica, visión por computador, interacción persona-ordenador y sistemas operativos.
 
 ## Tecnologías utilizadas
 
@@ -15,12 +15,13 @@ A lo largo de las distintas asignaturas he trabajado con tecnologías como:
 - Python
 - Dart / Flutter
 - C#
+- Java
 - Bash
 - OpenGL
 - OpenCV
 - Jupyter Notebook
 - Linux
-- git
+- Java Swing
 
 ## Asignaturas incluidas
 
@@ -32,6 +33,7 @@ A lo largo de las distintas asignaturas he trabajado con tecnologías como:
 | [Informática Gráfica y Visualización](./informatica-grafica-y-visualizacion/) | C++, OpenGL | Prácticas de modelado, cámaras, escenas y visualización 3D |
 | [Procesamiento de Información Visual](./procesamiento-de-informacion-visual/) | Python, OpenCV | Prácticas de visión por computador y procesamiento de imágenes |
 | [Sistemas Operativos](./sistemas-operativos/) | Bash, Linux | Scripts y automatización de tareas en entornos Linux |
+| [Interacción Persona-Ordenador](./interaccion-persona-ordenador/) | Java, Swing | Interfaces gráficas de escritorio y proyecto de gestión de películas multilenguaje |
 
 ## Organización del repositorio
 
@@ -42,7 +44,8 @@ portfolio-academico/
 ├── README.md
 ├── estructuras-de-datos/
 ├── desarrollo-software-dispositivos-moviles/
-├── multimedia/
+├── sistemas-multimedia/
 ├── informatica-grafica-y-visualizacion/
 ├── procesamiento-de-informacion-visual/
-└── sistemas-operativos/
+├── sistemas-operativos/
+└── interaccion-persona-ordenador/
