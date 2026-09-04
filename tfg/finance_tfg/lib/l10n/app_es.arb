@@ -1,0 +1,452 @@
+{
+  "ocultarSaldo": "Ocultar saldo",
+  "@ocultarSaldo": {
+    "description": "[InicioPantalla] Texto del botón para ocultar los importes y el saldo de la cuenta"
+  },
+
+  "mostrarSaldo": "Mostrar saldo",
+  "@mostrarSaldo": {
+    "description": "[InicioPantalla] Texto del botón para mostrar los importes y el saldo de la cuenta"
+  },
+
+  "saldoActual": "Saldo actual",
+  "@saldoActual": {
+    "description": "[CardSaldoActual] Texto para indicar el saldo que tiene la cuenta"
+  },
+
+  "ultimosMovimientos": "Últimos movimientos",
+  "@ultimosMovimientos": {
+    "description": "[InicioPantalla] Texto para indicar los últimos movimientos de la cuenta"
+  },
+
+  "todosChip": "Todos",
+  "@todosChip": {
+    "description": "[InicioPantalla] Texto del chip para filtrar todos los movimientos de la cuenta"
+  },
+
+  "fijosChip": "Fijos",
+  "@fijosChip": {
+    "description": "[InicioPantalla] Texto del chip para filtrar los movimientos fijos de la cuenta"
+  },
+
+  "ingresosChip": "Ingresos",
+  "@ingresosChip": {
+    "description": "[InicioPantalla] Texto del chip para filtrar los movimientos que corresponden a ingresos de la cuenta"
+  },
+
+  "gastosChip": "Gastos",
+  "@gastosChip": {
+    "description": "[InicioPantalla] Texto del chip para filtrar los movimientos que corresponden a gastos de la cuenta"
+  },
+
+  "mostrarMas": "Mostrar más",
+  "@mostrarMas": {
+    "description": "[InicioPantalla] Texto del botón que lleva a mostrar todos los movimientos de la cuenta"
+  },
+
+  "editarPerfilDrawer": "Editar perfil",
+  "@editarPerfilDrawer": {
+    "description": "[InicioPantalla] Texto del botón editar perfil del drawer"
+  },
+
+  "cambiarCuentaDrawer": "Cambiar cuenta",
+  "@cambiarCuentaDrawer": {
+    "description": "[InicioPantalla] Texto para acceder a la pantalla de cuentas en el drawer"
+  },
+
+  "editarCuenta": "Editar cuenta",
+  "@editarCuenta": {
+    "description": "[InicioPantalla] Texto para acceder a la pantalla de editar cuenta en el drawer y encabezado de su propia pantalla"
+  },
+
+  "gestionarUsuarios": "Gestionar usuarios",
+  "@gestionarUsuarios": {
+    "description": "[InicioPantalla] Texto para acceder a la pantalla de gestionar usuarios en el drawer y encabezado de su propia pantalla"
+  },
+
+  "bandejaDeEntrada": "Bandeja de entrada",
+  "@bandejaDeEntrada": {
+    "description": "[InicioPantalla] Texto para acceder a la pantalla de bandeja de entrada en el drawer y encabezado de su propia pantalla"
+  },
+
+  "idiomaDivisa": "Idioma y divisa",
+  "@idiomaDivisa": {
+    "description": "[InicioPantalla] Texto para acceder a la pantalla de idioma y divisa en el drawer y encabezado de su propia pantalla"
+  },
+
+  "cerrarSesion": "Cerrar sesión",
+  "@cerrarSesion": {
+    "description": "[InicioPantalla] Texto del botón de cerrar sesión que se encuentra en el drawer"
+  },
+
+  "ocioCategoria": "Ocio",
+  "@ocioCategoria": {
+    "description": "[Categoría] Texto de la categoría de ocio"
+  },
+
+  "trabajoCategoria": "Trabajo",
+  "@trabajoCategoria  ": {
+    "description": "[Categoría] Texto de la categoría de trabajo"
+  },
+
+  "viajeCategoria": "Viaje",
+  "@viajeCategoria": {
+    "description": "[Categoría] Texto de la categoría de viaje"
+  },
+
+  "hogarCategoria": "Hogar",
+  "@hogarCategoria": {
+    "description": "[Categoría] Texto de la categoría de hogar"
+  },
+
+  "nombre": "Nombre",
+  "@nombre": {
+    "description": "[EditarPerfil] Texto que indica el campo del nombre del perfil"
+  },
+
+  "nombreUsuario": "Nombre de usuario",
+  "@nombreUsuario": {
+    "description": "[EditarPerfil] Texto que indica el campo del nombre de usuario del perfil"
+  },
+
+  "email": "Email",
+  "@email": {
+    "description": "[EditarPerfil] Texto que indica el campo del email del perfil"
+  },
+
+  "eliminarCuenta": "Eliminar cuenta",
+  "@eliminarCuenta": {
+    "description": "[EditarPerfil] Texto del botón para eliminar una cuenta de usuario"
+  },
+
+  "cuentasTitulo": "Cuentas",
+  "@cuentasTitulo": {
+    "description": "[Cuentas] Titulo del Appbar de la pantalla Cuentas"
+  },
+
+  "seleccioneCuenta": "Seleccione una cuenta",
+  "@sellecioneCuenta": {
+    "description": "[Cuentas] Texto informativo para que el usuario seleccione una cuenta"
+  },
+
+  "crearCuentaButtom": "Crear cuenta",
+  "@crearCuentaButtom": {
+    "description": "[Cuentas] Texto del botón para crear una cuenta"
+  },
+
+  "sinCuentas": "Todavía no tienes cuentas creadas",
+  "@sinCuentas": {
+    "description": "[Cuentas] Texto que se muestra cuando el usuario no tiene ninguna cuenta creada"
+  },
+
+  "usuarios": "Usuarios",
+  "@usuarios": {
+    "description": "[GestionUsuarios] Texto informativo que indica que se muestran los usuarios de una cuenta"
+  },
+
+  "aniadirUsuarioButtom": "Añadir usuario",
+  "@aniadirUsuarioButtom": {
+    "description": "[GestionarUsuarios] Texto del botón para añadir a un usuario"
+  },
+
+  "administradorRol": "Administrador",
+  "@administradorRol": {
+    "description": "[Rol] Texto del rol administrador"
+  },
+
+  "consultorRol": "Consultor",
+  "@consultorRol": {
+    "description": "[Rol] Texto del rol consultor"
+  },
+
+  "anadirCuenta": "Añadir cuenta",
+  "@anadirCuenta": {
+    "description": "[AniadirCuentaPantalla] Título de la pantalla para crear una nueva cuenta"
+  },
+
+  "nombreCuenta": "Nombre de la cuenta",
+  "@nombreCuenta": {
+    "description": "[AniadirCuentaPantalla] Etiqueta del campo donde se introduce el nombre de la cuenta"
+  },
+
+  "ejemploNombreCuentaTrabajo": "Trabajo",
+  "@ejemploNombreCuentaTrabajo": {
+    "description": "[AniadirCuentaPantalla] Texto de ejemplo del campo de nombre de la cuenta"
+  },
+
+  "saldoInicial": "Saldo inicial",
+  "@saldoInicial": {
+    "description": "[AniadirCuentaPantalla] Etiqueta del campo donde se introduce el saldo inicial de la cuenta"
+  },
+
+  "anadirMovimiento": "Añadir movimiento",
+  "@anadirMovimiento": {
+    "description": "[AnadirMovimientoPantalla] Título de la pantalla para añadir un nuevo movimiento"
+  },
+
+  "tipoMovimientoEtiqueta": "Tipo:",
+  "@tipoMovimientoEtiqueta": {
+    "description": "[AnadirMovimientoPantalla] Etiqueta del selector para elegir si el movimiento es un gasto o un ingreso"
+  },
+
+  "gastoSelector": "Gasto",
+  "@gastoSelector": {
+    "description": "[AnadirMovimientoPantalla] Opción del selector para indicar que el movimiento es un gasto"
+  },
+
+  "ingresoSelector": "Ingreso",
+  "@ingresoSelector": {
+    "description": "[AnadirMovimientoPantalla] Opción del selector para indicar que el movimiento es un ingreso"
+  },
+
+  "recurrenciaEtiqueta": "Recurrencia",
+  "@recurrenciaEtiqueta": {
+    "description": "[AnadirMovimientoPantalla] Etiqueta del selector para elegir si el movimiento es único o recurrente"
+  },
+
+  "unicoSelector": "Único",
+  "@unicoSelector": {
+    "description": "[AnadirMovimientoPantalla] Opción del selector para indicar que el movimiento no se repite"
+  },
+
+  "recurrenteSelector": "Recurrente",
+  "@recurrenteSelector": {
+    "description": "[AnadirMovimientoPantalla] Opción del selector para indicar que el movimiento se repite en el tiempo"
+  },
+
+  "categoriaEtiqueta": "Categoría:",
+  "@categoriaEtiqueta": {
+    "description": "[AnadirMovimientoPantalla] Etiqueta del menú desplegable para seleccionar la categoría del movimiento"
+  },
+
+  "seleccioneFechaInicio": "Seleccione una fecha de inicio",
+  "@seleccioneFechaInicio": {
+    "description": "[AnadirMovimientoPantalla] Texto que indica que se debe seleccionar la fecha de inicio de un movimiento recurrente"
+  },
+
+  "seleccioneFecha": "Seleccione una fecha",
+  "@seleccioneFecha": {
+    "description": "[AnadirMovimientoPantalla] Texto que indica que se debe seleccionar la fecha del movimiento"
+  },
+
+  "anadirFechaFin": "+Añadir fecha fin",
+  "@anadirFechaFin": {
+    "description": "[AnadirMovimientoPantalla] Texto del botón para añadir una fecha de finalización a un movimiento recurrente"
+  },
+
+  "seleccioneRecurrencia": "Seleccione recurrencia",
+  "@seleccioneRecurrencia": {
+    "description": "[AnadirMovimientoPantalla] Texto que indica que se debe seleccionar la frecuencia de repetición del movimiento"
+  },
+
+  "diarioChip": "Diario",
+  "@diarioChip": {
+    "description": "[AnadirMovimientoPantalla] Opción para indicar que el movimiento recurrente se repite diariamente"
+  },
+
+  "semanalChip": "Semanal",
+  "@semanalChip": {
+    "description": "[AnadirMovimientoPantalla] Opción para indicar que el movimiento recurrente se repite semanalmente"
+  },
+
+  "mensualChip": "Mensual",
+  "@mensualChip": {
+    "description": "[AnadirMovimientoPantalla] Opción para indicar que el movimiento recurrente se repite mensualmente"
+  },
+
+  "anualChip": "Anual",
+  "@anualChip": {
+    "description": "[AnadirMovimientoPantalla] Opción para indicar que el movimiento recurrente se repite anualmente"
+  },
+
+  "errorConDetalle": "Error: {error}",
+  "@errorConDetalle": {
+    "description": "[BandejaEntradaInvitacionesPantalla] Mensaje mostrado cuando ocurre un error al cargar las invitaciones",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "No se pudieron cargar las invitaciones"
+      }
+    }
+  },
+
+  "sinInvitacionesPendientes": "Todavía no tienes invitaciones pendientes.",
+  "@sinInvitacionesPendientes": {
+    "description": "[BandejaEntradaInvitacionesPantalla] Mensaje mostrado cuando el usuario no tiene invitaciones pendientes"
+  },
+
+  "invitacionCuentaTexto": "Te ha invitado a la cuenta:",
+  "@invitacionCuentaTexto": {
+    "description": "[BandejaEntradaInvitacionesPantalla] Texto que indica que otro usuario ha invitado al usuario actual a una cuenta"
+  },
+
+  "conRolEtiqueta": "Con rol:",
+  "@conRolEtiqueta": {
+    "description": "[BandejaEntradaInvitacionesPantalla] Etiqueta que precede al rol asignado en una invitación"
+  },
+
+  "aceptarInvitacion": "Aceptar",
+  "@aceptarInvitacion": {
+    "description": "[BandejaEntradaInvitacionesPantalla] Texto del botón para aceptar una invitación"
+  },
+
+  "rechazarInvitacion": "Rechazar",
+  "@rechazarInvitacion": {
+    "description": "[BandejaEntradaInvitacionesPantalla] Texto del botón para rechazar una invitación"
+  },
+  "errorCargarCuentas": "Error al cargar cuentas",
+  "@errorCargarCuentas": {
+    "description": "[CuentasPantalla] Mensaje mostrado cuando ocurre un error al cargar las cuentas del usuario"
+  },
+
+  "eliminarCuentaMenu": "Eliminar",
+  "@eliminarCuentaMenu": {
+    "description": "[CuentasPantalla] Texto de la opción del menú para eliminar una cuenta"
+  },
+
+  "eliminarCuentaTitulo": "Eliminar cuenta",
+  "@eliminarCuentaTitulo": {
+    "description": "[CuentasPantalla] Título del diálogo de confirmación para eliminar una cuenta"
+  },
+
+  "confirmarEliminarCuenta": "¿Estás seguro de realizar esta acción?",
+  "@confirmarEliminarCuenta": {
+    "description": "[CuentasPantalla] Mensaje del diálogo de confirmación antes de eliminar una cuenta"
+  },
+
+  "cancelarEliminarCuenta": "Cancelar",
+  "@cancelarEliminarCuenta": {
+    "description": "[CuentasPantalla] Texto del botón para cancelar la eliminación de una cuenta"
+  },
+
+  "aceptarEliminarCuenta": "Aceptar",
+  "@aceptarEliminarCuenta": {
+    "description": "[CuentasPantalla] Texto del botón para confirmar la eliminación de una cuenta"
+  },
+  "categoriaDetalleMovimiento": "Categoría",
+  "@categoriaDetalleMovimiento": {
+    "description": "[DetalleMovimientoRecurrentePantalla] Etiqueta que muestra la categoría del movimiento recurrente"
+  },
+
+  "frecuenciaDetalleMovimiento": "Frecuencia",
+  "@frecuenciaDetalleMovimiento": {
+    "description": "[DetalleMovimientoRecurrentePantalla] Etiqueta que muestra la frecuencia del movimiento recurrente"
+  },
+
+  "proximoDetalleMovimiento": "Próximo",
+  "@proximoDetalleMovimiento": {
+    "description": "[DetalleMovimientoRecurrentePantalla] Etiqueta que muestra la próxima fecha del movimiento recurrente"
+  },
+
+  "inicioDetalleMovimiento": "Inicio",
+  "@inicioDetalleMovimiento": {
+    "description": "[DetalleMovimientoRecurrentePantalla] Etiqueta que indica la fecha de inicio del movimiento recurrente"
+  },
+
+  "fechaDetalleMovimiento": "Fecha",
+  "@fechaDetalleMovimiento": {
+    "description": "[DetalleMovimientoRecurrentePantalla] Etiqueta que indica la fecha de finalización o referencia del movimiento recurrente"
+  },
+  "estadisticasTitulo": "Estadísticas",
+  "@estadisticasTitulo": {
+    "description": "[EstadisticasPantalla] Título de la pantalla de estadísticas"
+  },
+
+  "resumenMes": "Resumen del mes",
+  "@resumenMes": {
+    "description": "[EstadisticasPantalla] Etiqueta de la sección que muestra el resumen económico del mes"
+  },
+
+  "gastosPorCategoria": "Gastos por categoría",
+  "@gastosPorCategoria": {
+    "description": "[EstadisticasPantalla] Etiqueta de la sección que muestra los gastos agrupados por categoría"
+  },
+  "confirmarCambioEmailTitulo": "Confirmar cambio de email",
+  "@confirmarCambioEmailTitulo": {
+    "description": "[EditarPerfilPantalla] Título del diálogo que solicita la contraseña para confirmar el cambio de email"
+  },
+
+  "introduceContrasenaActual": "Introduce tu contraseña actual:",
+  "@introduceContrasenaActual": {
+    "description": "[EditarPerfilPantalla] Texto del diálogo que pide al usuario introducir su contraseña actual"
+  },
+
+  "contrasenaCampo": "Contraseña",
+  "@contrasenaCampo": {
+    "description": "[EditarPerfilPantalla] Etiqueta del campo de contraseña"
+  },
+
+  "introduceContrasenaHint": "Introduce tu contraseña",
+  "@introduceContrasenaHint": {
+    "description": "[EditarPerfilPantalla] Texto de ayuda del campo donde el usuario introduce su contraseña"
+  },
+
+  "cancelarBoton": "Cancelar",
+  "@cancelarBoton": {
+    "description": "[EditarPerfilPantalla] Texto del botón para cancelar una acción"
+  },
+
+  "confirmarBoton": "Confirmar",
+  "@confirmarBoton": {
+    "description": "[EditarPerfilPantalla] Texto del botón para confirmar una acción"
+  },
+
+  "eliminarCuentaTituloPerfil": "Eliminar cuenta",
+  "@eliminarCuentaTituloPerfil": {
+    "description": "[EditarPerfilPantalla] Título del diálogo para eliminar la cuenta del usuario"
+  },
+
+  "eliminarBoton": "Eliminar",
+  "@eliminarBoton": {
+    "description": "[EditarPerfilPantalla] Texto del botón para confirmar la eliminación de la cuenta"
+  },
+
+  "administradorRolExplicacion": "Acceso total a finanzas y configuraciones",
+  "@administradorRolExplicacion": {
+    "description": "[Rol] Explicación del rol administrador, indicando que tiene acceso completo a las finanzas y configuraciones"
+  },
+
+  "consultorRolExplicacion": "Solo lectura de movimientos y estadísticas",
+  "@consultorRolExplicacion": {
+    "description": "[Rol] Explicación del rol consultor, indicando que solo puede consultar movimientos y estadísticas"
+  },
+  "invitarUsuarioTitulo": "Invitar usuario",
+  "@invitarUsuarioTitulo": {
+    "description": "[InvitarUsuarioPantalla] Título de la pantalla para invitar a otro usuario a una cuenta"
+  },
+
+  "nombreUsuarioCampo": "Nombre de usuario",
+  "@nombreUsuarioCampo": {
+    "description": "[InvitarUsuarioPantalla] Etiqueta del campo donde se introduce el nombre de usuario a invitar"
+  },
+
+  "ejemploNombreUsuario": "example_000",
+  "@ejemploNombreUsuario": {
+    "description": "[InvitarUsuarioPantalla] Texto de ejemplo del campo para buscar un nombre de usuario"
+  },
+
+  "seleccioneRol": "Seleccione rol",
+  "@seleccioneRol": {
+    "description": "[InvitarUsuarioPantalla] Etiqueta de la sección donde se selecciona el rol que tendrá el usuario invitado"
+  },
+
+  "invitarBoton": "Invitar",
+  "@invitarBoton": {
+    "description": "[InvitarUsuarioPantalla] Texto del botón para enviar una invitación a otro usuario"
+  },
+
+  "usuarioActualNoCargado": "No se ha cargado el usuario actual",
+  "@usuarioActualNoCargado": {
+    "description": "[InvitarUsuarioPantalla] Mensaje mostrado cuando no se ha podido cargar el usuario actual"
+  },
+
+  "sinCuentaSeleccionada": "No hay ninguna cuenta seleccionada",
+  "@sinCuentaSeleccionada": {
+    "description": "[InvitarUsuarioPantalla] Mensaje mostrado cuando el usuario intenta invitar a alguien sin tener una cuenta seleccionada"
+  },
+
+  "seleccionaUsuarioValido": "Selecciona un usuario válido",
+  "@seleccionaUsuarioValido": {
+    "description": "[InvitarUsuarioPantalla] Mensaje mostrado cuando el usuario intenta enviar una invitación sin seleccionar un usuario válido"
+  }
+}

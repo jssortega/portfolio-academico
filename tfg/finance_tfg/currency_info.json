@@ -1,0 +1,50 @@
+{
+  "BGN": {
+    "symbol": "лв",
+    "flag": "BG",
+    "currency_name": "Bulgarian Lev",
+    "country_name": "Bulgaria"
+  },
+  "CAD": {
+    "symbol": "C$",
+    "flag": "CA",
+    "currency_name": "Canadian Dollar",
+    "country_name": "Canada"
+  },
+  "CNY": {
+    "symbol": "¥",
+    "flag": "CN",
+    "currency_name": "Chinese Yuan",
+    "country_name": "China"
+  },
+  "CZK": {
+    "symbol": "Kč",
+    "flag": "CZ",
+    "currency_name": "Czech Koruna",
+    "country_name": "Czech Republic"
+  },
+  "EUR": {
+    "symbol": "€",
+    "flag": "EU",
+    "currency_name": "Euro",
+    "country_name": "European Union"
+  },
+  "GBP": {
+    "symbol": "£",
+    "flag": "GB",
+    "currency_name": "British Pound",
+    "country_name": "United Kingdom"
+  },
+  "MXN": {
+    "symbol": "$",
+    "flag": "MX",
+    "currency_name": "Mexican Peso",
+    "country_name": "Mexico"
+  },
+  "USD": {
+    "symbol": "$",
+    "flag": "US",
+    "currency_name": "United States Dollar",
+    "country_name": "United States"
+  }
+}
