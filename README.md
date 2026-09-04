@@ -6,7 +6,7 @@ Repositorio personal donde recopilo proyectos y prácticas desarrollados durante
 
 Este repositorio reúne trabajos realizados en distintas asignaturas del grado, organizados por carpetas según la materia correspondiente.
 
-El objetivo es mostrar de forma estructurada proyectos desarrollados en áreas como programación, desarrollo móvil, multimedia, informática gráfica, visión por computador, interacción persona-ordenador y sistemas operativos.
+El objetivo es mostrar de forma estructurada proyectos desarrollados en áreas como programación, desarrollo móvil, sistemas multiagente, multimedia, informática gráfica, visión por computador, interacción persona-ordenador y sistemas operativos.
 
 ## Trabajo de Fin de Grado
 
@@ -26,6 +26,7 @@ A lo largo de las distintas asignaturas y proyectos he trabajado con tecnología
 
 - C++
 - Python
+- SPADE
 - Dart / Flutter
 - Firebase
 - C#
@@ -42,9 +43,10 @@ A lo largo de las distintas asignaturas y proyectos he trabajado con tecnología
 | Proyecto / Asignatura | Tecnologías principales | Contenido |
 |-----------------------|-------------------------|-----------|
 | [Trabajo de Fin de Grado](./tfg/finance_tfg/) | Flutter, Dart, Firebase | Aplicación móvil para la gestión personal y colaborativa de finanzas |
+| [Sistemas Multiagentes](./sistemas-multiagentes/) | Python, SPADE | Desarrollo de sistemas basados en agentes autónomos, comunicación, coordinación y simulación de entornos multiagente |
 | [Estructuras de Datos](./estructuras-de-datos/) | C++ | Prácticas de programación orientada a objetos y estructuras de datos |
-| [Desarrollo de Software para Dispositivos Móviles](./desarrollo-software-dispositivos-moviles/) | Flutter, Dart | Aplicaciones móviles desarrolladas en Flutter |
-| [Multimedia](./multimedia/) | C#, WPF | Proyecto de reproductor de música con grabación, micrófonos y pads |
+| [Desarrollo de Software para Dispositivos Móviles](./desarrollo-software-para-dispositivos-moviles/) | Flutter, Dart | Aplicaciones móviles desarrolladas en Flutter |
+| [Sistemas Multimedia](./sistemas-multimedia/) | C#, WPF | Proyecto de reproductor de música con grabación, micrófonos y pads |
 | [Informática Gráfica y Visualización](./informatica-grafica-y-visualizacion/) | C++, OpenGL | Prácticas de modelado, cámaras, escenas y visualización 3D |
 | [Procesamiento de Información Visual](./procesamiento-de-informacion-visual/) | Python, OpenCV | Prácticas de visión por computador y procesamiento de imágenes |
 | [Sistemas Operativos](./sistemas-operativos/) | Bash, Linux | Scripts y automatización de tareas en entornos Linux |
@@ -59,8 +61,12 @@ portfolio-academico/
 ├── README.md
 ├── tfg/
 │   └── finance_tfg/
+├── sistemas-multiagentes/
+│   ├── primerapractica/
+│   ├── tictactoe-nivel1/
+│   └── villa_olivar_nivel1/
 ├── estructuras-de-datos/
-├── desarrollo-software-dispositivos-moviles/
+├── desarrollo-software-para-dispositivos-moviles/
 ├── sistemas-multimedia/
 ├── informatica-grafica-y-visualizacion/
 ├── procesamiento-de-informacion-visual/
