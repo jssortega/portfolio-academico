@@ -1,0 +1,164 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Ontología del supervisor del profesor — Villa Olivar (Nivel 2)",
+  "description": "Esquema JSON de los cuatro tipos de mensaje que viajan entre el agente supervisor del profesor y los agentes del grupo. Este fichero complementa esquema_emergencias.json, que describe la mensajería interna del grupo. Aquí solo se describe la frontera supervisor ↔ grupo. La fuente de verdad son los modelos Pydantic de ontologia/modelos_compartidos.py; este JSON-Schema replica esos modelos para que los grupos puedan validar sin depender de Python. El contrato textual (performativas FIPA-ACL, plazos, cabeceras, criterios de corrección) vive en docs/contrato_supervisor.md.",
+
+  "definitions": {
+
+    "datos_emergencia": {
+      "description": "Cuerpo del mensaje 'request' que el supervisor envía a la Centralita del grupo para inyectar un incidente. Equivale al modelo Pydantic DatosEmergencia.",
+      "type": "object",
+      "properties": {
+        "tipo_mensaje": {
+          "type": "string",
+          "default": "alerta_emergencia",
+          "description": "Discriminador del tipo de mensaje. Si se omite, Pydantic usa el valor por defecto."
+        },
+        "id_emergencia": {
+          "type": "string",
+          "description": "Identificador único de la emergencia. La Centralita debe replicarlo intacto en su 'agree' y en el 'inform' final."
+        },
+        "tipo_emergencia": {
+          "type": "string",
+          "enum": ["incendio", "derrame_quimico", "accidente_trafico", "inundacion", "derrumbe", "otro"]
+        },
+        "ubicacion": {
+          "type": "object",
+          "description": "Ubicación del incidente: dirección textual y, opcionalmente, coordenadas geográficas.",
+          "properties": {
+            "direccion": {
+              "type": "string",
+              "description": "Dirección en texto libre."
+            },
+            "coordenadas": {
+              "type": ["object", "null"],
+              "description": "Opcional: si Pydantic serializa con coordenadas=None, el campo viaja como null y debe seguir siendo válido.",
+              "properties": {
+                "latitud": { "type": "number" },
+                "longitud": { "type": "number" }
+              },
+              "required": ["latitud", "longitud"]
+            }
+          },
+          "required": ["direccion"]
+        },
+        "prioridad": {
+          "type": "string",
+          "enum": ["baja", "media", "alta", "critica"]
+        },
+        "descripcion": {
+          "type": "string",
+          "description": "Descripción en lenguaje natural del incidente."
+        },
+        "marca_temporal": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Instante en que el supervisor genera la inyección (ISO 8601). Tiene default en Pydantic; el supervisor lo envía siempre."
+        }
+      },
+      "required": ["id_emergencia", "tipo_emergencia", "ubicacion", "prioridad", "descripcion"]
+    },
+
+    "informe_resolucion": {
+      "description": "Cuerpo del mensaje 'inform' final que la Centralita envía al supervisor cuando ha terminado de gestionar la emergencia inyectada. Equivale al modelo Pydantic InformeResolucion.",
+      "type": "object",
+      "properties": {
+        "tipo_mensaje": {
+          "type": "string",
+          "default": "informe_resolucion"
+        },
+        "id_emergencia": {
+          "type": "string",
+          "description": "Idéntico al del 'request' original. El supervisor lo usa para correlacionar el seguimiento."
+        },
+        "tipo_emergencia": {
+          "type": "string",
+          "enum": ["incendio", "derrame_quimico", "accidente_trafico", "inundacion", "derrumbe", "otro"]
+        },
+        "prioridad": {
+          "type": "string",
+          "enum": ["baja", "media", "alta", "critica"]
+        },
+        "estado_final": {
+          "type": "string",
+          "description": "Estado de cierre del incidente (p. ej. 'resuelto', 'parcialmente_resuelto')."
+        },
+        "resumen": {
+          "type": "string",
+          "description": "Texto breve que describe la resolución alcanzada."
+        },
+        "agentes_participantes": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": [],
+          "description": "JIDs (o roles) de los agentes del grupo que participaron en la resolución. El modelo Pydantic acepta lista vacía, pero el supervisor PENALIZA en la corrección si está vacía (ver docs/contrato_supervisor.md §2.3)."
+        },
+        "acciones_realizadas": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": [],
+          "description": "Acciones concretas ejecutadas durante la respuesta. Misma observación: vacía es aceptada por Pydantic, penalizada en corrección."
+        },
+        "marca_temporal": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["id_emergencia", "tipo_emergencia", "prioridad", "estado_final", "resumen"]
+    },
+
+    "consulta_estado": {
+      "description": "Cuerpo del mensaje 'query-ref' que el supervisor envía a CUALQUIER agente del grupo para preguntarle por su estado interno. Equivale al modelo Pydantic ConsultaEstado.",
+      "type": "object",
+      "properties": {
+        "tipo_mensaje": {
+          "type": "string",
+          "default": "consulta_estado"
+        },
+        "agente_destino": {
+          "type": "string",
+          "description": "JID o rol del agente al que va dirigida la consulta. El supervisor lo rellena con el destinatario del query-ref."
+        },
+        "marca_temporal": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["agente_destino"]
+    },
+
+    "estado_agente": {
+      "description": "Cuerpo del mensaje 'inform' con el que un agente del grupo responde a una 'consulta_estado' del supervisor. Equivale al modelo Pydantic EstadoAgente.",
+      "type": "object",
+      "properties": {
+        "tipo_mensaje": {
+          "type": "string",
+          "default": "estado_agente"
+        },
+        "agente": {
+          "type": "string",
+          "description": "JID o rol del agente que responde."
+        },
+        "estado": {
+          "type": "string",
+          "description": "Estado actual del agente, en texto libre acordado por el grupo (p. ej. 'libre', 'ocupado', 'esperando_recurso')."
+        },
+        "emergencia_actual": {
+          "type": ["string", "null"],
+          "default": null,
+          "description": "id_emergencia que el agente está atendiendo en este momento, si lo hay."
+        },
+        "detalle": {
+          "type": "string",
+          "default": "",
+          "description": "Texto libre con información adicional (carga de trabajo, errores, etc.)."
+        },
+        "marca_temporal": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["agente", "estado"]
+    }
+  }
+}

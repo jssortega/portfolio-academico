@@ -1,0 +1,29 @@
+# sala_examen.yaml — Sala MUC oficial de la prueba de examen
+#
+# Este fichero es solo informativo para el alumno: indica cuál es la
+# sala MUC del examen para que cualquier prueba o herramienta de
+# diagnóstico apunte al JID correcto. El profesor utiliza el mismo
+# fichero para arrancar su supervisor con `--modo examen`.
+#
+# El servidor Prosody del profesor está configurado de modo que solo
+# el JID `supervisor@<dominio>` pueda crear esta sala. Por tanto:
+#
+#   - Mientras el supervisor del profesor no esté activo, la sala NO
+#     existe y los agentes alumno NO pueden unirse a ella. El servidor
+#     les devuelve un error de presencia con la marca
+#     '[Examen]' y una explicación en español.
+#
+#   - Cuando el profesor da la señal de inicio, ya ha arrancado el
+#     supervisor (la sala ya existe y es persistente). El alumno
+#     puede lanzar `python main.py` con `modalidad: examen` en
+#     `config/config.yaml` y sus agentes se unirán normalmente.
+#
+# El alumno no debe modificar este fichero. Si necesita cambiar la
+# modalidad activa, lo hace en `config/config.yaml`.
+
+torneos:
+  - nombre: examen
+    sala: examen
+    descripcion: "Prueba de examen — sala oficial creada por el supervisor"
+    tableros: []
+    jugadores: []

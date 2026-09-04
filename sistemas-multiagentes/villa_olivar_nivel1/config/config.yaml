@@ -1,0 +1,173 @@
+# config.yaml — Configuración centralizada del sistema multiagente
+# del grupo (Nivel 3 — A2A sobre HTTP).
+#
+# Este fichero es la única fuente de verdad para los datos de
+# conexión: ningún módulo del grupo debe fijar literalmente en el
+# código una URL, un puerto o una ruta del registro REST. El
+# lanzador `main.py` lee este fichero junto con `agents.yaml` y
+# pasa los valores a la factoría de agentes.
+#
+# La estructura, los separadores y el estilo de las notas se
+# corresponden con `config/config.yaml` de la rama
+# `coordinador-profesor` para mantener una maquetación común entre
+# las dos series de validación.
+#
+# USO:
+#   Cambiar `red.perfil_activo` para alternar entre el entorno de
+#   ensayo en el equipo del alumno (Docker local) y el aula real,
+#   sin modificar ningún fichero de código fuente.
+
+# ══════════════════════════════════════════════════════════════════
+# PERFILES DE RED — Registro REST y dirección publicada
+# ══════════════════════════════════════════════════════════════════
+# El registro REST del aula se documenta en
+# `doc/registro_rest_para_clientes.md`. Cada agente público se
+# inscribe allí al arrancar y mantiene una señal de vida; la
+# Centralita consulta `GET /agentes` para descubrir agentes
+# públicos de otros grupos (Hito 5).
+#
+# `direccion_publicada` es la URL que cada agente declara en su
+# Agent Card. En el perfil `local` apunta a `localhost`; en el
+# perfil `servidor`, a la IP privada del PC del aula (el alumno la
+# completa el día del examen).
+#
+# PERFILES disponibles:
+#   - local:    Despliegue Docker local del repositorio de
+#               infraestructura de la asignatura. Permite **probar
+#               en casa** antes del examen sin acceso al aula
+#               (recomendado durante el desarrollo).
+#   - servidor: Aula real. El registro REST y la IP de publicación
+#               se ajustan a la red del aula.
+
+red:
+  perfil_activo: local    # "local" (en casa, Docker) | "servidor" (aula real)
+
+  perfiles:
+    local:
+      registro_central: "http://localhost:8020"
+      direccion_publicada: "localhost"
+      tiempo_espera_segundos: 30
+
+    servidor:
+      registro_central: "http://sinbad2.ujaen.es:8020"
+      direccion_publicada: ""    # Rellenar con la IP privada del PC del aula
+      tiempo_espera_segundos: 60
+
+
+# ══════════════════════════════════════════════════════════════════
+# CAPA A2A — Parámetros comunes de los agentes
+# ══════════════════════════════════════════════════════════════════
+# Estos parámetros los aplica la factoría a todos los agentes salvo
+# que cada agente los redefina en `agents.yaml`.
+#
+# `host_por_defecto` es la interfaz de escucha de los servidores
+# aiohttp. En desarrollo basta con `127.0.0.1`; el día del examen,
+# usar `0.0.0.0` para exponerse en la IP del aula.
+
+a2a:
+  host_por_defecto: "127.0.0.1"
+  ruta_agent_card: "/.well-known/agent.json"
+
+
+# ══════════════════════════════════════════════════════════════════
+# CONFIGURACIÓN DEL LLM (Nivel 2 reutilizado)
+# ══════════════════════════════════════════════════════════════════
+# Los agentes Nivel 3 reutilizan el LLM del Nivel 2 a través de
+# ADK/SPADE-LLM. Esta sección replica la del nivel anterior para
+# mantener la compatibilidad de las `FunctionTool` existentes.
+#
+# PERFILES disponibles:
+#   - local:    Ollama local (Docker) descrito en el repositorio de
+#               infraestructura de la asignatura.
+#   - servidor: Servidor Ollama oficial de la asignatura.
+
+llm:
+  perfil_activo: local
+
+  perfiles:
+    local:
+      base_url: "http://localhost:11434"
+      modelo: "ollama/llama3.2:3b"
+      timeout_segundos: 120
+
+    servidor:
+      base_url: "http://sinbad2ia.ujaen.es:8050"
+      modelo: "ollama/qwen3.5:35b"   # Modelo más reciente del servidor del aula (mezcla de expertos)
+      timeout_segundos: 180
+
+
+# ══════════════════════════════════════════════════════════════════
+# PARÁMETROS GENERALES
+# ══════════════════════════════════════════════════════════════════
+# Reparto de puertos en el rango 81xx, coherente con la
+# planificación de la asignatura:
+#
+#   8110          Centralita 112 (siempre pública).
+#   8120, 8130    Especialistas públicos (el grupo decide cuáles).
+#   8140, 8150    Especialistas privados (el grupo decide cuáles).
+#   8009          Panel auxiliar de los tests de integración.
+#
+# El Coordinador del profesor usa el rango 80xx, de modo que un
+# alumno puede arrancar a la vez su sistema y, en modo simulación,
+# el Coordinador del profesor sin que los puertos se solapen.
+
+sistema:
+  nivel_log: "INFO"
+
+
+# ══════════════════════════════════════════════════════════════════
+# BLOQUE PARA LAS PRUEBAS DEL PROFESOR (DÍA DEL EXAMEN)
+# ══════════════════════════════════════════════════════════════════
+# Las pruebas de ``tests/profesor/integracion/`` necesitan conocer
+# las URL locales del sistema del grupo (Centralita, especialistas
+# públicos y privados) para poder ejercitar el contrato externo
+# en caja negra. Como la elección de qué especialistas son
+# públicos y cuáles privados es decisión de cada grupo, esa
+# información no puede fijarse en el código de las pruebas: el
+# grupo la declara aquí según el reparto consignado en
+# ``agents.yaml`` y en su entrega.
+#
+# Procedimiento que el alumno debe seguir:
+#
+#   1. Descomentar el bloque ``evaluacion:`` de más abajo.
+#   2. Ajustar las URL para que coincidan con su despliegue
+#      (típicamente ``http://localhost:<puerto>`` en el modo
+#      local y ``http://<ip-aula>:<puerto>`` el día del examen).
+#   3. Marcar exactamente DOS roles como públicos y DOS como
+#      privados (Hito 3). La Centralita es siempre pública.
+#   4. Ejecutar ``pytest tests/profesor/integracion/ -v`` desde
+#      la raíz para verificar el sistema.
+#
+# La URL del registro REST del aula no se duplica en este bloque:
+# las pruebas la reaprovechan automáticamente del perfil activo
+# de ``red.perfiles[<perfil_activo>].registro_central``.
+#
+# Las variables de entorno ``CENTRALITA_URL``,
+# ``URL_BOMBEROS_PUBLICOS``, ``URL_PRIVADO_PROHIBIDO`` y
+# ``REGISTRO_REST_URL`` siguen aceptándose como sustitución
+# puntual para integración continua; cuando están definidas
+# tienen precedencia sobre los valores declarados aquí.
+
+evaluacion:
+  centralita:
+    url: "http://localhost:8110"
+
+  publicos:
+    bomberos: "http://localhost:8120"
+    municipal: "http://localhost:8150"
+
+#   # Especialistas privados: NO registrados en el directorio
+#   # REST y NO alcanzables desde fuera del grupo. La URL local
+#   # se declara exclusivamente para que las pruebas del profesor
+#   # puedan verificar el aislamiento (un test intenta invocarlos
+#   # directamente y exige que la petición falle).
+#   #
+#   # Si el grupo opta por no exponer ninguna URL local para sus
+#   # privados (porque, por ejemplo, viven dentro del mismo
+#   # proceso que la Centralita), se puede dejar este bloque
+#   # vacío y la prueba de aislamiento directo se omitirá con
+#   # ``pytest.skip``.
+
+  privados:
+    policia: "http://localhost:8140"
+    sanitario: "http://localhost:8130"

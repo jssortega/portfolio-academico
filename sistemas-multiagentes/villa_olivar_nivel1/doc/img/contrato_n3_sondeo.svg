@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 420"
+     font-family="'Helvetica Neue', Arial, sans-serif">
+  <defs>
+    <marker id="arrow-sol-son-n3" viewBox="0 0 10 10" refX="10" refY="5"
+            markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#0f172a"/>
+    </marker>
+    <marker id="arrow-ret-son-n3" viewBox="0 0 10 10" refX="10" refY="5"
+            markerWidth="10" markerHeight="10" orient="auto">
+      <path d="M0,0 L10,5 L0,10" fill="none" stroke="#0f172a"
+            stroke-width="1.3"/>
+    </marker>
+  </defs>
+  <style>
+    .title { font-size: 17px; font-weight: 600; fill: #0f172a; }
+    .subtitle { font-size: 12px; fill: #475569; }
+    .lifeline-label { font-size: 13px; font-weight: 600;
+                       fill: #0f172a; text-anchor: middle; }
+    .msg-label { font-size: 12px; fill: #0f172a; }
+    .msg-meta  { font-size: 10.5px; fill: #475569;
+                  font-style: italic; }
+    .plazo     { font-size: 10.5px; fill: #b45309;
+                  font-weight: 600; }
+    .ll-head-sup { fill: #dbeafe; stroke: #2563eb; stroke-width: 1.5; }
+    .ll-head-pub { fill: #dcfce7; stroke: #16a34a; stroke-width: 1.5; }
+    .ll-line     { stroke: #94a3b8; stroke-width: 1;
+                    stroke-dasharray: 4 3; }
+  </style>
+
+  <rect width="100%" height="100%" fill="#ffffff"/>
+
+  <text x="380" y="30" text-anchor="middle" class="title">
+    Protocolo 2 · Sondeo de estado de los públicos (HTTP / A2A)
+  </text>
+  <text x="380" y="50" text-anchor="middle" class="subtitle">
+    Iniciador: Supervisor · Destinatario: cualquiera de los tres agentes públicos
+  </text>
+
+  <rect x="100" y="70" width="200" height="42" rx="6"
+        class="ll-head-sup"/>
+  <text x="200" y="96" class="lifeline-label">Supervisor</text>
+
+  <rect x="460" y="70" width="200" height="42" rx="6"
+        class="ll-head-pub"/>
+  <text x="560" y="96" class="lifeline-label">
+    Agente público (cualquiera)
+  </text>
+
+  <line x1="200" y1="112" x2="200" y2="380" class="ll-line"/>
+  <line x1="560" y1="112" x2="560" y2="380" class="ll-line"/>
+
+  <!-- (1) HTTP POST tasks/send con ConsultaEstado -->
+  <line x1="200" y1="170" x2="555" y2="170" stroke="#0f172a"
+        stroke-width="1.6" marker-end="url(#arrow-sol-son-n3)"/>
+  <text x="378" y="162" text-anchor="middle" class="msg-label">
+    (1) HTTP POST {url_publico}/a2a · tasks/send
+  </text>
+  <text x="378" y="188" text-anchor="middle" class="msg-meta">
+    DataPart = ConsultaEstado (operacion = "consultar_estado")
+  </text>
+
+  <!-- (2) HTTP 200 con EstadoAgente -->
+  <line x1="555" y1="270" x2="205" y2="270" stroke="#0f172a"
+        stroke-width="1.6" marker-end="url(#arrow-ret-son-n3)"/>
+  <text x="378" y="262" text-anchor="middle" class="msg-label">
+    (2) HTTP 200 · Task completed
+  </text>
+  <text x="378" y="288" text-anchor="middle" class="msg-meta">
+    DataPart = EstadoAgente (rol, estado, emergencia_actual, detalle)
+  </text>
+  <text x="600" y="282" class="plazo">≤ 5 s desde (1)</text>
+
+  <!-- Nota -->
+  <text x="200" y="350" class="msg-meta">
+    Los tres públicos (Centralita + dos especialistas) deben atender este protocolo.
+  </text>
+  <text x="200" y="368" class="msg-meta">
+    Habitual: centralizar la respuesta en una clase base de la que hereden los tres.
+  </text>
+  <text x="200" y="385" class="msg-meta">
+    Variantes (penalizadas): Task failed · timeout · cuerpo no interpretable.
+  </text>
+</svg>

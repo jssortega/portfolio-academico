@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" font-family="Helvetica, Arial, sans-serif" font-size="13">
+  <title>Artefactos del proyecto Villa Olivar reutilizados a lo largo de los tres niveles</title>
+  <desc>Cada nivel del proyecto añade artefactos que se preservan en los siguientes. Nivel 1 aporta las funciones puras de logica/ y la ontología JSON, ambas reutilizadas intactas en N2 y N3. Nivel 2 aporta las herramientas FunctionTool ADK, los prompts trasladados como instruction de LlmAgent y los modelos Pydantic compartidos como DataPart, todos reutilizados en N3. Nivel 3 añade las tarjetas de agente JSON (sólo para los 3 públicos del grupo), la clase base agentes/base_agente_a2a.py y el cliente del registro REST en descubrimiento/descubrimiento_a2a.py.</desc>
+
+  <defs>
+    <marker id="flecha-herencia" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1e7e34"/>
+    </marker>
+    <style>
+      .titulo { font-size: 18px; font-weight: 700; fill: #1a1a1a; }
+      .subtitulo { font-size: 13px; fill: #444; text-anchor: middle; }
+      .nivel-caja { stroke-width: 2.5; }
+      .nivel-1 { fill: #fff5ec; stroke: #b86b00; }
+      .nivel-2 { fill: #f0eaf7; stroke: #5b3a8a; }
+      .nivel-3 { fill: #eaf3fb; stroke: #1c5a98; }
+      .nivel-titulo { font-size: 15px; font-weight: 700; }
+      .nivel-titulo-1 { fill: #b86b00; }
+      .nivel-titulo-2 { fill: #5b3a8a; }
+      .nivel-titulo-3 { fill: #1c5a98; }
+      .artefacto { fill: #ffffff; stroke-width: 1.6; }
+      .artefacto-1 { stroke: #b86b00; }
+      .artefacto-2 { stroke: #5b3a8a; }
+      .artefacto-3 { stroke: #1c5a98; }
+      .artefacto-nombre { font-size: 13px; font-weight: 700; font-family: 'Courier New', monospace; fill: #1a1a1a; }
+      .artefacto-desc { font-size: 11px; font-style: italic; fill: #555; }
+      .flecha-herencia { stroke: #1e7e34; stroke-width: 2; fill: none; stroke-dasharray: 5 4; }
+      .herencia-label { font-size: 11px; font-style: italic; fill: #1e7e34; font-weight: 600; text-anchor: middle; }
+    </style>
+  </defs>
+
+  <rect x="0" y="0" width="1200" height="680" fill="#ffffff"/>
+
+  <text class="titulo" x="600" y="40" text-anchor="middle">Artefactos del proyecto reutilizados a lo largo de los tres niveles</text>
+  <text class="subtitulo" x="600" y="62">Cada nivel aporta nuevos artefactos; los anteriores se preservan y se reutilizan en los niveles siguientes.</text>
+
+  <!-- ===== Nivel 1 ===== -->
+  <rect class="nivel-caja nivel-1" x="40" y="100" width="1120" height="120" rx="12"/>
+  <text class="nivel-titulo nivel-titulo-1" x="60" y="128">Nivel 1 (FIPA/SPADE) aporta — funciones puras y ontología</text>
+
+  <rect class="artefacto artefacto-1" x="80" y="148" width="500" height="56" rx="8"/>
+  <text class="artefacto-nombre" x="100" y="174">logica/*.py</text>
+  <text class="artefacto-desc" x="100" y="194">funciones Python puras del dominio (sin frameworks)</text>
+
+  <rect class="artefacto artefacto-1" x="620" y="148" width="500" height="56" rx="8"/>
+  <text class="artefacto-nombre" x="640" y="174">ontologia/esquema_emergencias.json</text>
+  <text class="artefacto-desc" x="640" y="194">esquema JSON de los mensajes del sistema</text>
+
+  <!-- Flecha de herencia N1 → N2 -->
+  <line class="flecha-herencia" x1="600" y1="220" x2="600" y2="260" marker-end="url(#flecha-herencia)"/>
+  <text class="herencia-label" x="650" y="246">se preserva intacto</text>
+
+  <!-- ===== Nivel 2 ===== -->
+  <rect class="nivel-caja nivel-2" x="40" y="270" width="1120" height="120" rx="12"/>
+  <text class="nivel-titulo nivel-titulo-2" x="60" y="298">Nivel 2 (SPADE-LLM + ADK) añade — herramientas, prompts y modelos compartidos</text>
+
+  <rect class="artefacto artefacto-2" x="80" y="318" width="340" height="56" rx="8"/>
+  <text class="artefacto-nombre" x="100" y="344">herramientas/*.py</text>
+  <text class="artefacto-desc" x="100" y="364">FunctionTool de ADK (envoltorios de logica/)</text>
+
+  <rect class="artefacto artefacto-2" x="440" y="318" width="340" height="56" rx="8"/>
+  <text class="artefacto-nombre" x="460" y="344">prompts/*.txt</text>
+  <text class="artefacto-desc" x="460" y="364">instrucciones de sistema → instruction de LlmAgent</text>
+
+  <rect class="artefacto artefacto-2" x="800" y="318" width="320" height="56" rx="8"/>
+  <text class="artefacto-nombre" x="820" y="344">ontologia/modelos_compartidos.py</text>
+  <text class="artefacto-desc" x="820" y="364">modelos Pydantic del N2; reemplazados por contrato/</text>
+
+  <!-- Flecha de herencia N2 → N3 -->
+  <line class="flecha-herencia" x1="600" y1="390" x2="600" y2="430" marker-end="url(#flecha-herencia)"/>
+  <text class="herencia-label" x="650" y="416">se preserva intacto</text>
+
+  <!-- ===== Nivel 3 ===== -->
+  <rect class="nivel-caja nivel-3" x="40" y="440" width="1120" height="200" rx="12"/>
+  <text class="nivel-titulo nivel-titulo-3" x="60" y="468">Nivel 3 (ADK + A2A) añade — agents.yaml, clase base A2A, cliente del registro y paquete `contrato/`</text>
+
+  <rect class="artefacto artefacto-3" x="80" y="488" width="340" height="56" rx="8"/>
+  <text class="artefacto-nombre" x="100" y="514">agents.yaml</text>
+  <text class="artefacto-desc" x="100" y="534">definición de los cinco agentes del sistema</text>
+
+  <rect class="artefacto artefacto-3" x="440" y="488" width="340" height="56" rx="8"/>
+  <text class="artefacto-nombre" x="460" y="514">agentes/base_agente_a2a.py</text>
+  <text class="artefacto-desc" x="460" y="534">servidor aiohttp + despacho del protocolo A2A</text>
+
+  <rect class="artefacto artefacto-3" x="800" y="488" width="320" height="56" rx="8"/>
+  <text class="artefacto-nombre" x="820" y="514">descubrimiento/descubrimiento_a2a.py</text>
+  <text class="artefacto-desc" x="820" y="534">cliente HTTP del registro REST de la asignatura</text>
+
+  <rect class="artefacto artefacto-3" x="80" y="564" width="1040" height="56" rx="8"/>
+  <text class="artefacto-nombre" x="100" y="590">contrato/*.py  (fusionado desde la rama evaluacion-profesor)</text>
+  <text class="artefacto-desc" x="100" y="610">modelos Pydantic vinculantes del N3: AlertaEmergencia, InformeResolucion, EventoTraza, ConsultaEstado, EstadoAgente, AgentCard</text>
+</svg>

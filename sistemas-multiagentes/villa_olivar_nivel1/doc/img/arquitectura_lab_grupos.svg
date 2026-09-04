@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1220 970" font-family="Helvetica, Arial, sans-serif" font-size="13">
+  <title>Topología del laboratorio — un PC, un grupo</title>
+  <desc>Distribución de los PC del aula entre grupos. El Coordinador del profesor se ejecuta en un PC dedicado del laboratorio. Cada otro PC pertenece a un único alumno y aloja agentes de un único grupo. Cada grupo distingue sus agentes públicos (visibles desde otros grupos) de sus agentes privados (exclusivos del grupo).</desc>
+
+  <defs>
+    <style>
+      .titulo { font-size: 19px; font-weight: 700; fill: #1a1a1a; }
+      .subtitulo { font-size: 13px; fill: #444; }
+      .nota { font-size: 11px; fill: #555; font-style: italic; }
+      .lab { fill: #fafbfc; stroke: #6b7280; stroke-width: 2; stroke-dasharray: 8 5; }
+      .area-grupo-1 { fill: #fff5ec; stroke: #b86b00; stroke-width: 1.5; }
+      .area-grupo-2 { fill: #ecf6ee; stroke: #1e7e34; stroke-width: 1.5; }
+      .pc { fill: #ffffff; stroke: #444; stroke-width: 1.6; }
+      .pc-coord { fill: #ffffff; stroke: #1c5a98; stroke-width: 2.5; }
+      .agente-publico { fill: #eaf5ec; stroke: #1e7e34; stroke-width: 1.4; }
+      .agente-privado { fill: #f1f3f6; stroke: #6b7280; stroke-width: 1.4; }
+      .agente-coord { fill: #eaf3fb; stroke: #1c5a98; stroke-width: 1.6; }
+      .nombre-pc { font-size: 13px; font-weight: 700; fill: #1a1a1a; text-anchor: middle; }
+      .ip-pc { font-size: 11px; text-anchor: middle; fill: #555; font-family: 'Courier New', monospace; }
+      .alumno { font-size: 11px; text-anchor: middle; fill: #555; font-style: italic; }
+      .nombre-agente { font-size: 12px; font-weight: 600; fill: #1a1a1a; }
+      .puerto { font-size: 11px; font-family: 'Courier New', monospace; fill: #555; }
+      .visibilidad { font-size: 10px; font-style: italic; }
+      .titulo-zona { font-size: 14px; font-weight: 700; text-anchor: middle; }
+    </style>
+  </defs>
+
+  <!-- Fondo claro -->
+  <rect x="0" y="0" width="1220" height="970" fill="#ffffff"/>
+
+  <!-- Título -->
+  <text class="titulo" x="610" y="42" text-anchor="middle">Topología del laboratorio — un PC, un grupo</text>
+  <text class="subtitulo" x="610" y="66" text-anchor="middle">Cada alumno trabaja en un PC del aula. Los agentes de un grupo nunca conviven con los de otro grupo en el mismo PC.</text>
+
+  <!-- ===== Laboratorio (red privada) ===== -->
+  <rect class="lab" x="40" y="100" width="1140" height="782" rx="14"/>
+  <text x="68" y="132" font-size="14" font-weight="700" fill="#1a1a1a">Laboratorio · red privada del aula (192.168.X.Y)</text>
+
+  <!-- ===== PC del Coordinador del profesor (centrado, holgado) ===== -->
+  <rect class="pc-coord" x="450" y="160" width="320" height="170" rx="10"/>
+  <text class="nombre-pc" x="610" y="194">PC-Coordinador</text>
+  <text class="alumno" x="610" y="216">profesor</text>
+  <text class="ip-pc" x="610" y="238">192.168.1.10</text>
+  <rect class="agente-coord" x="490" y="258" width="240" height="56" rx="6"/>
+  <text x="610" y="282" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">Coordinador del profesor</text>
+  <text x="610" y="302" text-anchor="middle" font-size="11" font-family="Courier New, monospace" fill="#555">:8100</text>
+
+  <!-- ===== Grupo 1 (izquierda) ===== -->
+  <rect class="area-grupo-1" x="80" y="370" width="520" height="492" rx="12"/>
+  <text class="titulo-zona" x="340" y="402" fill="#b86b00">Grupo 1 · alumnos A y B</text>
+
+  <!-- PC-01 alumno A: agentes públicos del Grupo 1 (h=216 para igualar márgenes con PC-02) -->
+  <rect class="pc" x="110" y="430" width="460" height="216" rx="10"/>
+  <text class="nombre-pc" x="340" y="460">PC-01</text>
+  <text class="alumno" x="340" y="482">alumno A · 192.168.1.11</text>
+
+  <rect class="agente-publico" x="134" y="498" width="412" height="38" rx="5"/>
+  <text class="nombre-agente" x="156" y="523">G1 · Centralita 112</text>
+  <text class="puerto" x="430" y="523" text-anchor="end">:8110</text>
+  <text class="visibilidad" x="528" y="523" text-anchor="end" fill="#1e7e34">PÚBLICA</text>
+
+  <rect class="agente-publico" x="134" y="544" width="412" height="38" rx="5"/>
+  <text class="nombre-agente" x="156" y="569">G1 · Bomberos</text>
+  <text class="puerto" x="430" y="569" text-anchor="end">:8111</text>
+  <text class="visibilidad" x="528" y="569" text-anchor="end" fill="#1e7e34">PÚBLICO</text>
+
+  <rect class="agente-publico" x="134" y="590" width="412" height="38" rx="5"/>
+  <text class="nombre-agente" x="156" y="615">G1 · Sanitario</text>
+  <text class="puerto" x="430" y="615" text-anchor="end">:8112</text>
+  <text class="visibilidad" x="528" y="615" text-anchor="end" fill="#1e7e34">PÚBLICO</text>
+
+  <!-- PC-02 alumno B: agentes privados del Grupo 1 (h=170, mismo margen interno que PC-01) -->
+  <rect class="pc" x="110" y="676" width="460" height="170" rx="10"/>
+  <text class="nombre-pc" x="340" y="706">PC-02</text>
+  <text class="alumno" x="340" y="728">alumno B · 192.168.1.12</text>
+
+  <rect class="agente-privado" x="134" y="744" width="412" height="38" rx="5"/>
+  <text class="nombre-agente" x="156" y="769">G1 · Policía</text>
+  <text class="puerto" x="430" y="769" text-anchor="end">:8113</text>
+  <text class="visibilidad" x="528" y="769" text-anchor="end" fill="#6b7280">PRIVADO</text>
+
+  <rect class="agente-privado" x="134" y="790" width="412" height="38" rx="5"/>
+  <text class="nombre-agente" x="156" y="815">G1 · Servicios Municipales</text>
+  <text class="puerto" x="430" y="815" text-anchor="end">:8114</text>
+  <text class="visibilidad" x="528" y="815" text-anchor="end" fill="#6b7280">PRIVADO</text>
+
+  <!-- ===== Grupo 2 (derecha) ===== -->
+  <rect class="area-grupo-2" x="640" y="370" width="520" height="492" rx="12"/>
+  <text class="titulo-zona" x="900" y="402" fill="#1e7e34">Grupo 2 · alumnos C y D</text>
+
+  <!-- PC-03 alumno C: agentes públicos del Grupo 2 (h=216 para igualar márgenes con PC-04) -->
+  <rect class="pc" x="670" y="430" width="460" height="216" rx="10"/>
+  <text class="nombre-pc" x="900" y="460">PC-03</text>
+  <text class="alumno" x="900" y="482">alumno C · 192.168.1.13</text>
+
+  <rect class="agente-publico" x="694" y="498" width="412" height="38" rx="5"/>
+  <text class="nombre-agente" x="716" y="523">G2 · Centralita 112</text>
+  <text class="puerto" x="990" y="523" text-anchor="end">:8120</text>
+  <text class="visibilidad" x="1088" y="523" text-anchor="end" fill="#1e7e34">PÚBLICA</text>
+
+  <rect class="agente-publico" x="694" y="544" width="412" height="38" rx="5"/>
+  <text class="nombre-agente" x="716" y="569">G2 · Bomberos</text>
+  <text class="puerto" x="990" y="569" text-anchor="end">:8121</text>
+  <text class="visibilidad" x="1088" y="569" text-anchor="end" fill="#1e7e34">PÚBLICO</text>
+
+  <rect class="agente-publico" x="694" y="590" width="412" height="38" rx="5"/>
+  <text class="nombre-agente" x="716" y="615">G2 · Sanitario</text>
+  <text class="puerto" x="990" y="615" text-anchor="end">:8122</text>
+  <text class="visibilidad" x="1088" y="615" text-anchor="end" fill="#1e7e34">PÚBLICO</text>
+
+  <!-- PC-04 alumno D: agentes privados del Grupo 2 (h=170, mismo margen interno que PC-03) -->
+  <rect class="pc" x="670" y="676" width="460" height="170" rx="10"/>
+  <text class="nombre-pc" x="900" y="706">PC-04</text>
+  <text class="alumno" x="900" y="728">alumno D · 192.168.1.14</text>
+
+  <rect class="agente-privado" x="694" y="744" width="412" height="38" rx="5"/>
+  <text class="nombre-agente" x="716" y="769">G2 · Policía</text>
+  <text class="puerto" x="990" y="769" text-anchor="end">:8123</text>
+  <text class="visibilidad" x="1088" y="769" text-anchor="end" fill="#6b7280">PRIVADO</text>
+
+  <rect class="agente-privado" x="694" y="790" width="412" height="38" rx="5"/>
+  <text class="nombre-agente" x="716" y="815">G2 · Servicios Municipales</text>
+  <text class="puerto" x="990" y="815" text-anchor="end">:8124</text>
+  <text class="visibilidad" x="1088" y="815" text-anchor="end" fill="#6b7280">PRIVADO</text>
+
+  <!-- ===== Leyenda ===== -->
+  <g transform="translate(40, 902)">
+    <rect x="0" y="0" width="1140" height="50" fill="#fbfcfe" stroke="#d0d7e2" stroke-width="1" rx="8"/>
+    <text x="24" y="30" font-size="13" font-weight="700" fill="#1a1a1a">Leyenda</text>
+    <rect class="agente-publico" x="120" y="16" width="22" height="18"/>
+    <text x="152" y="30" font-size="12" fill="#1a1a1a">Agente público (alcanzable desde otros grupos)</text>
+    <rect class="agente-privado" x="470" y="16" width="22" height="18"/>
+    <text x="502" y="30" font-size="12" fill="#1a1a1a">Agente privado (solo el propio grupo)</text>
+    <rect class="agente-coord" x="800" y="16" width="22" height="18"/>
+    <text x="832" y="30" font-size="12" fill="#1a1a1a">Coordinador del profesor (PC dedicado del aula)</text>
+  </g>
+</svg>

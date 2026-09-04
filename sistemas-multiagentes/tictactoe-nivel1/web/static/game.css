@@ -1,0 +1,70 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f3f5fb;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #2f315f;
+  color: white;
+  padding: 24px 32px;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 300px 1fr 340px;
+  gap: 24px;
+  padding: 24px;
+}
+
+.info-card, .side-card {
+  background: white;
+  border: 1px solid #d9ddea;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.player-x {
+  border-left: 6px solid #4a8df0;
+}
+
+.player-o {
+  border-left: 6px solid #d88ab4;
+}
+
+.current-turn {
+  border-left: 6px solid #77d9eb;
+}
+
+.board-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.cell {
+  aspect-ratio: 1 / 1;
+  background: white;
+  border: 2px solid #d9ddea;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 72px;
+  font-weight: bold;
+}
+
+.cell.x { color: #2f66c9; }
+.cell.o { color: #d87a73; }
+
+.status-badge {
+  background: white;
+  color: #333;
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-weight: 600;
+}

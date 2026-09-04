@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 580"
+     font-family="'Helvetica Neue', Arial, sans-serif">
+  <defs>
+    <marker id="arr-desc" viewBox="0 0 10 10" refX="10" refY="5"
+            markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#475569"/>
+    </marker>
+  </defs>
+  <style>
+    .title    { font-size: 17px; font-weight: 600; fill: #0f172a; }
+    .subtitle { font-size: 12px; fill: #475569; }
+    .lbl-box  { font-size: 13px; font-weight: 600; fill: #0f172a;
+                text-anchor: middle; }
+    .lbl-sub  { font-size: 10.5px; fill: #475569; text-anchor: middle; }
+    .arr-label { font-size: 11px; fill: #0f172a; text-anchor: middle; }
+    .arr-meta  { font-size: 10px; fill: #475569; text-anchor: middle;
+                 font-style: italic; }
+    .anot-iny  { font-size: 11.5px; fill: #0f172a;
+                 text-anchor: start; }
+    .anot-son  { font-size: 11.5px; fill: #1e40af;
+                 text-anchor: start; }
+    .box-sup     { fill: #dbeafe; stroke: #2563eb; stroke-width: 1.6; }
+    .box-reg     { fill: #f1f5f9; stroke: #64748b; stroke-width: 1.4; }
+    .box-cen     { fill: #fef3c7; stroke: #d97706; stroke-width: 1.6; }
+    .box-pub     { fill: #dcfce7; stroke: #16a34a; stroke-width: 1.3; }
+    .box-priv    { fill: #f1f5f9; stroke: #94a3b8; stroke-width: 1.2;
+                   stroke-dasharray: 4 3; }
+    .box-grupo   { fill: none; stroke: #334155; stroke-width: 1;
+                   stroke-dasharray: 6 4; }
+    .box-frontera{ fill: #fafafa; stroke: #94a3b8; stroke-width: 1;
+                   stroke-dasharray: 2 3; }
+  </style>
+
+  <rect width="100%" height="100%" fill="#ffffff"/>
+
+  <!-- Cabecera -->
+  <text x="460" y="28" text-anchor="middle" class="title">
+    Topología del supervisor con los agentes públicos del grupo (Nivel 3)
+  </text>
+  <text x="460" y="48" text-anchor="middle" class="subtitle">
+    Transporte HTTP/A2A · Descubrimiento por registro REST
+  </text>
+
+  <!-- Fila superior: Supervisor y Registro REST -->
+  <rect x="80"  y="74" width="240" height="64" rx="8" class="box-sup"/>
+  <text x="200" y="103" class="lbl-box">Supervisor del profesor</text>
+  <text x="200" y="124" class="lbl-sub">cliente A2A · panel web</text>
+
+  <rect x="600" y="74" width="240" height="64" rx="8" class="box-reg"/>
+  <text x="720" y="103" class="lbl-box">Registro REST</text>
+  <text x="720" y="124" class="lbl-sub">perfil local · docker · servidor</text>
+
+  <!-- Arrow Supervisor → Registro: descubrimiento (zona libre entre cajas) -->
+  <text x="460" y="98" class="arr-label">
+    GET /agentes (proyecto = villa-olivar-n3)
+  </text>
+  <line x1="325" y1="108" x2="595" y2="108" stroke="#475569"
+        stroke-width="1.4" marker-end="url(#arr-desc)"/>
+  <text x="460" y="128" class="arr-meta">cada 60 s</text>
+
+  <!-- Frontera del grupo -->
+  <rect x="60" y="170" width="800" height="380" rx="10" class="box-grupo"/>
+  <text x="90" y="193" class="subtitle" font-style="italic">
+    Grupo evaluado (estructura idéntica para cada grupo descubierto)
+  </text>
+
+  <!-- Tres agentes públicos en fila -->
+  <rect x="90"  y="218" width="240" height="84" rx="8" class="box-cen"/>
+  <text x="210" y="246" class="lbl-box">Centralita</text>
+  <text x="210" y="268" class="lbl-sub">público obligatorio</text>
+  <text x="210" y="287" class="lbl-sub">destino único de las alertas</text>
+
+  <rect x="350" y="218" width="240" height="84" rx="8" class="box-pub"/>
+  <text x="470" y="246" class="lbl-box">Especialista público #1</text>
+  <text x="470" y="268" class="lbl-sub">rol elegido por el grupo</text>
+  <text x="470" y="287" class="lbl-sub">recibe sondeo, no alertas</text>
+
+  <rect x="610" y="218" width="240" height="84" rx="8" class="box-pub"/>
+  <text x="730" y="246" class="lbl-box">Especialista público #2</text>
+  <text x="730" y="268" class="lbl-sub">rol elegido por el grupo</text>
+  <text x="730" y="287" class="lbl-sub">recibe sondeo, no alertas</text>
+
+  <!-- Banda de anotaciones entre públicos y privados -->
+  <text x="90"  y="332" class="anot-iny">
+    Inyección de alertas: tasks/send · AlertaEmergencia → solo a la Centralita (§3)
+  </text>
+  <text x="90"  y="352" class="anot-son">
+    Sondeo de estado: tasks/send · ConsultaEstado → a cualquiera de los tres públicos, cada 15 s (§5)
+  </text>
+
+  <!-- Frontera de privados, dentro del grupo -->
+  <rect x="90"  y="378" width="740" height="148" rx="8"
+        class="box-frontera"/>
+  <text x="460" y="400" class="lbl-sub" font-style="italic">
+    Frontera de privacidad · el supervisor NO emite tráfico a estos agentes
+  </text>
+
+  <rect x="160" y="418" width="240" height="84" rx="8" class="box-priv"/>
+  <text x="280" y="446" class="lbl-box">Especialista privado #1</text>
+  <text x="280" y="468" class="lbl-sub">rol deducido por contrato</text>
+  <text x="280" y="487" class="lbl-sub">accesible solo desde la Centralita</text>
+
+  <rect x="520" y="418" width="240" height="84" rx="8" class="box-priv"/>
+  <text x="640" y="446" class="lbl-box">Especialista privado #2</text>
+  <text x="640" y="468" class="lbl-sub">rol deducido por contrato</text>
+  <text x="640" y="487" class="lbl-sub">accesible solo desde la Centralita</text>
+
+  <!-- Pie -->
+  <text x="460" y="563" text-anchor="middle" class="lbl-sub">
+    El supervisor solo "ve" lo que el grupo registra en el registro REST.
+  </text>
+  <text x="460" y="577" text-anchor="middle" class="lbl-sub">
+    Los privados no se registran y no reciben tráfico externo.
+  </text>
+</svg>

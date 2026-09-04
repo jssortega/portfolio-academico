@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 660" font-family="Helvetica, Arial, sans-serif" font-size="13">
+  <title>Arquitectura interna de un agente del Nivel 2 — SPADE-LLM + ADK</title>
+  <desc>Cada agente del Nivel 2 se estructura en tres capas: SPADE (superior, con identidad XMPP, behaviours y mensajes FIPA-ACL), LLM (intermedia, con LLMProvider Ollama, system prompt y FunctionTool ADK) y Dominio (inferior, con las funciones puras de logica/). El paso de SPADE a LLM se hace mediante llm_chat() y el de LLM a Dominio mediante invocación directa.</desc>
+
+  <defs>
+    <marker id="flecha-down" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#5b3a8a"/>
+    </marker>
+    <style>
+      .titulo { font-size: 18px; font-weight: 700; fill: #1a1a1a; }
+      .subtitulo { font-size: 13px; fill: #444; text-anchor: middle; }
+      .agente-cont { fill: #fafbfc; stroke: #6b7280; stroke-width: 2; stroke-dasharray: 8 5; }
+      .capa-spade { fill: #fff5ec; stroke: #b86b00; stroke-width: 2; }
+      .capa-llm { fill: #f0eaf7; stroke: #5b3a8a; stroke-width: 2; }
+      .capa-dominio { fill: #eaf5ec; stroke: #1e7e34; stroke-width: 2; }
+      .capa-titulo { font-size: 15px; font-weight: 700; text-anchor: middle; }
+      .capa-detalle { font-size: 12px; fill: #1a1a1a; }
+      .flecha { stroke: #5b3a8a; stroke-width: 2; fill: none; }
+      .flecha-label { font-size: 11px; font-weight: 600; fill: #5b3a8a; text-anchor: middle; font-style: italic; }
+    </style>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="660" fill="#ffffff"/>
+
+  <text class="titulo" x="450" y="40" text-anchor="middle">Arquitectura interna de un agente — Nivel 2 (SPADE-LLM + ADK)</text>
+  <text class="subtitulo" x="450" y="62">«SPADE como esqueleto, LLM como cerebro»: tres capas conectadas verticalmente.</text>
+
+  <!-- Contenedor exterior del agente -->
+  <rect class="agente-cont" x="60" y="90" width="780" height="540" rx="14"/>
+  <text x="80" y="118" font-size="14" font-weight="700" fill="#1a1a1a">Agente SPADE-LLM</text>
+
+  <!-- Capa SPADE -->
+  <rect class="capa-spade" x="120" y="140" width="660" height="130" rx="10"/>
+  <text class="capa-titulo" x="450" y="170" fill="#b86b00">Capa SPADE (superior — Comunicación)</text>
+  <text class="capa-detalle" x="160" y="200">• Identidad XMPP (JID)</text>
+  <text class="capa-detalle" x="160" y="220">• Behaviours: CyclicBehaviour, FSMBehaviour, OneShotBehaviour</text>
+  <text class="capa-detalle" x="160" y="240">• Mensajes FIPA-ACL con templates de filtrado</text>
+  <text class="capa-detalle" x="160" y="260">• Presencia XMPP + salas MUC</text>
+
+  <!-- Flecha SPADE → LLM -->
+  <line class="flecha" x1="450" y1="270" x2="450" y2="310" marker-end="url(#flecha-down)"/>
+  <text class="flecha-label" x="510" y="295">llm_chat()</text>
+
+  <!-- Capa LLM -->
+  <rect class="capa-llm" x="120" y="320" width="660" height="130" rx="10"/>
+  <text class="capa-titulo" x="450" y="350" fill="#5b3a8a">Capa LLM (intermedia — Razonamiento)</text>
+  <text class="capa-detalle" x="160" y="380">• LLMProvider → Ollama</text>
+  <text class="capa-detalle" x="160" y="400">• System prompt (prompts/{rol}.txt)</text>
+  <text class="capa-detalle" x="160" y="420">• FunctionTool ADK</text>
+  <text class="capa-detalle" x="160" y="440">• Selección autónoma de herramientas por el LLM</text>
+
+  <!-- Flecha LLM → Dominio -->
+  <line class="flecha" x1="450" y1="450" x2="450" y2="490" marker-end="url(#flecha-down)"/>
+  <text class="flecha-label" x="510" y="475">invocación</text>
+
+  <!-- Capa Dominio -->
+  <rect class="capa-dominio" x="120" y="500" width="660" height="100" rx="10"/>
+  <text class="capa-titulo" x="450" y="530" fill="#1e7e34">Capa Dominio (inferior)</text>
+  <text class="capa-detalle" x="160" y="558">• logica/*.py — funciones Python puras</text>
+  <text class="capa-detalle" x="160" y="578">• Sin dependencias de SPADE ni de LLM</text>
+</svg>

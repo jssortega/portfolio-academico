@@ -1,0 +1,32 @@
+{
+  "name": "policia_villa_olivar",
+  "description": "Agente especialista en seguridad pública: establecimiento de perímetros, control de accesos, gestión de tráfico y protección de la zona de emergencia.",
+  "url": "http://192.168.1.11:8113",
+  "version": "1.0.0",
+  "capabilities": {
+    "streaming": true,
+    "pushNotifications": false
+  },
+  "skills": [
+    {
+      "id": "establecer_perimetro",
+      "name": "Establecimiento de perímetro",
+      "description": "Define y establece un perímetro de seguridad alrededor de la zona de emergencia, con puntos de control de acceso.",
+      "tags": ["seguridad", "perimetro", "control", "acceso"]
+    },
+    {
+      "id": "gestionar_trafico",
+      "name": "Gestión de tráfico",
+      "description": "Planifica desvíos de tráfico, rutas alternativas y carriles de emergencia para facilitar el acceso de vehículos de emergencia.",
+      "tags": ["trafico", "desvio", "ruta", "emergencia"]
+    },
+    {
+      "id": "coordinar_evacuacion_civil",
+      "name": "Evacuación civil",
+      "description": "Coordina la evacuación de civiles de la zona afectada: puntos de reunión, rutas de evacuación y recuento de personas.",
+      "tags": ["evacuacion", "civiles", "reunion", "seguridad"]
+    }
+  ],
+  "defaultInputModes": ["application/json", "text/plain"],
+  "defaultOutputModes": ["application/json"]
+}

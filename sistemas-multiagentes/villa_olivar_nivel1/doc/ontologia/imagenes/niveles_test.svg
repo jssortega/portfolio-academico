@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Niveles N1–N4 de la suite de la ontología.
+  Paleta Okabe-Ito segura para daltonismo (azul, cian, naranja, rojo).
+  Cada nivel además incluye una etiqueta textual ("obligatorio",
+  "recomendado", "imprescindible") para no depender solo del color.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 300"
+     font-family="Atkinson Hyperlegible, Helvetica, Arial, sans-serif"
+     font-size="13" role="img"
+     aria-label="Niveles de prueba de la ontología (N1 a N4)">
+  <title>Niveles de prueba de la ontología</title>
+  <desc>Cuatro niveles de prueba apilados, del más básico (N1, unitario)
+        al más completo (N4, integración con ADK / A2A / MCP), cada uno
+        con su categoría de exigencia.</desc>
+  <defs>
+    <style>
+      .fondo    { fill: #ffffff; stroke: #cccccc; stroke-width: 1; }
+      .nivel    { stroke: #111111; stroke-width: 1.5; rx: 6; ry: 6; }
+      .n1       { fill: #DEEBF7; }   /* azul claro */
+      .n2       { fill: #C6E5DD; }   /* cian/verde claro */
+      .n3       { fill: #FFEFD5; }   /* naranja claro */
+      .n4       { fill: #FBE3D6; }   /* rojo/naranja claro */
+      .label    { fill: #111111; font-weight: 500; }
+      .badge    { font-weight: 600; font-size: 12px; }
+      .obli     { fill: #006B47; }   /* verde oscuro - obligatorio */
+      .reco     { fill: #8C4A00; }   /* naranja oscuro - recomendado */
+      .impr     { fill: #8C2A00; }   /* rojo oscuro - imprescindible */
+    </style>
+  </defs>
+
+  <rect class="fondo" x="0" y="0" width="760" height="300"/>
+
+  <rect class="nivel n1" x="20"  y="20"  width="540" height="50"/>
+  <text class="label" x="40"  y="50">N1 — Tests unitarios por modelo (este documento)</text>
+  <text class="badge obli" x="580" y="50">[obligatorio]</text>
+
+  <rect class="nivel n2" x="20"  y="85"  width="540" height="50"/>
+  <text class="label" x="40"  y="115">N2 — Tests de coherencia Pydantic ↔ JSON Schema</text>
+  <text class="badge obli" x="580" y="115">[obligatorio]</text>
+
+  <rect class="nivel n3" x="20"  y="150" width="540" height="50"/>
+  <text class="label" x="40"  y="180">N3 — Tests de interoperabilidad con el supervisor</text>
+  <text class="badge reco" x="580" y="180">[recomendado]</text>
+
+  <rect class="nivel n4" x="20"  y="215" width="540" height="50"/>
+  <text class="label" x="40"  y="245">N4 — Tests con productores ADK / A2A / MCP</text>
+  <text class="badge impr" x="580" y="245">[imprescindible · Nivel 3]</text>
+</svg>

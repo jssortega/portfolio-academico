@@ -1,0 +1,99 @@
+# agents.yaml — Plantillas para la generación automática de agentes
+#
+# Este fichero NO contiene una lista de agentes concretos.  Define las
+# plantillas (clase, módulo, parámetros base) y la cantidad de agentes
+# por modalidad.  El lanzador (main.py) construye en tiempo de
+# ejecución la lista concreta a partir de los datos del alumno
+# definidos en config.yaml (sección "alumno"):
+#
+#   usuario_uja  →  parte local del JID
+#   modalidad    →  "laboratorio" | "torneo" | "examen"
+#   submodo      →  "grupo" | "individual"  (solo si modalidad=examen)
+#   pc           →  "PC-NN"  (solo si submodo=individual)
+#
+# Patrón de nombres generados:
+#   tablero_<usuario_uja>_NN     (NN = 01, 02, …)
+#   jugador_<usuario_uja>_n<L>_NN  (L = nivel de estrategia)
+#
+# El agente supervisor NO aparece en este fichero porque se ejecuta
+# por separado en la rama 'feature/agente-supervisor' del profesor:
+#   python supervisor_main.py --modo laboratorio | torneo | consulta
+#   python supervisor_main.py --modo examen --submodo grupo | individual
+
+
+# ══════════════════════════════════════════════════════════════════
+# CANTIDAD DE AGENTES POR MODALIDAD
+# ══════════════════════════════════════════════════════════════════
+# laboratorio:       pruebas de concurrencia en el puesto del alumno.
+# torneo:            competición conjunta (un único tablero/jugador
+#                    propio).
+# examen_grupo:      PRUEBA DE EXAMEN, submodo "grupo" — todos los
+#                    alumnos comparten la sala 'examen@examen.<dominio>'.
+#                    Cada alumno aporta un único tablero y un único
+#                    jugador (misma topología que torneo).
+# examen_individual: PRUEBA DE EXAMEN, submodo "individual" — cada
+#                    alumno se une a la sala asociada al puesto del
+#                    aula donde se ha sentado ('PC-NN@examen.<dominio>').
+#                    Cada alumno aporta 3 tableros y 12 jugadores
+#                    (más cercana a la topología de laboratorio).
+#
+# El servidor Prosody del profesor solo permite que el supervisor
+# cree salas en el componente 'examen.<dominio>': si el alumno
+# arranca antes que el profesor, sus agentes reciben un error con
+# la marca '[Examen]' y la sala no llega a existir.
+# Detalle: doc/INSTRUCCIONES_EXAMEN_ALUMNO.md.
+#
+# La selección de la submodalidad de examen no la hace este fichero:
+# la decide el alumno con el campo 'alumno.submodo' en config.yaml,
+# y el lanzador (main.py) traduce la pareja
+# (modalidad='examen', submodo=...) a la entrada apropiada de este
+# fichero ('examen_grupo' o 'examen_individual').
+
+modalidades:
+  laboratorio:
+    num_tableros: 4
+    num_jugadores: 12
+  torneo:
+    num_tableros: 1
+    num_jugadores: 1
+  examen_grupo:
+    num_tableros: 1
+    num_jugadores: 1
+  examen_individual:
+    num_tableros: 1
+    num_jugadores: 1
+
+
+# ══════════════════════════════════════════════════════════════════
+# PLANTILLA DE AGENTE TABLERO
+# ══════════════════════════════════════════════════════════════════
+# Cada tablero gestiona una única partida.  El puerto del dashboard
+# web se asigna automáticamente: puerto_web_base + índice (0, 1, …).
+
+plantilla_tablero:
+  clase: AgenteTablero
+  modulo: agentes.agente_tablero
+  nivel: 1
+  descripcion: "Tablero de Tic-Tac-Toe — gestiona una partida"
+  parametros:
+    # Puerto base para la visualización web.  Cada tablero generado
+    # recibe puerto_web = puerto_web_base + índice del tablero, de
+    # modo que no se solapan entre sí.
+    puerto_web_base: 8081
+
+
+# ══════════════════════════════════════════════════════════════════
+# PLANTILLA DE AGENTE JUGADOR
+# ══════════════════════════════════════════════════════════════════
+# Cada jugador busca tableros disponibles y juega partidas en
+# paralelo.  El nivel de estrategia se toma de config.yaml
+# (alumno.nivel_estrategia) para que sea idéntico en todos los
+# jugadores generados.
+
+plantilla_jugador:
+  clase: AgenteJugador
+  modulo: agentes.agente_jugador
+  nivel: 1
+  descripcion: "Jugador de Tic-Tac-Toe — busca tableros y juega partidas"
+  parametros:
+    max_partidas: 3

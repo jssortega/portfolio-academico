@@ -1,0 +1,24 @@
+{
+  "name": "municipal_villa_olivar",
+  "description": "Especialista en Servicios Municipales de Villa Olivar. Gestiona limpieza de calzadas, obras de urgencia, mantenimiento de infraestructuras y corte de suministros básicos.",
+  "url": "http://192.168.1.11:8114",
+  "version": "1.0.0",
+  "capabilities": {
+    "streaming": true,
+    "pushNotifications": false
+  },
+  "skills": [
+    {
+      "id": "cortar_suministros",
+      "name": "Corte de Suministros (Agua/Gas/Luz)",
+      "description": "Capacidad para aislar y cortar agua, luz o gas de forma segura ante fugas o incendios."
+    },
+    {
+      "id": "despliegue_brigadas",
+      "name": "Brigadas Municipales y Mantenimiento",
+      "description": "Despliegue de cuadrillas para limpieza de calzadas, retirada de escombros and reparaciones estructurales (Contract Net habilitado)."
+    }
+  ],
+  "defaultInputModes": ["application/json", "text/plain"],
+  "defaultOutputModes": ["application/json"]
+}

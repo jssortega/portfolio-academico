@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 540" font-family="Helvetica, Arial, sans-serif" font-size="13">
+  <title>Evolución de la arquitectura por capas a lo largo de los tres niveles</title>
+  <desc>Cada agente se estructura en tres capas: Comunicación (superior), Razonamiento (intermedia) y Dominio (inferior). El Nivel 1 implementa las tres capas con SPADE/XMPP, if/elif y funciones puras. El Nivel 2 sustituye la capa de Razonamiento por LLM con FunctionTool ADK. El Nivel 3 sustituye la capa de Comunicación por ADK + A2A. La capa de Dominio se preserva intacta en los tres niveles.</desc>
+
+  <defs>
+    <style>
+      .titulo { font-size: 18px; font-weight: 700; fill: #1a1a1a; }
+      .subtitulo { font-size: 12px; fill: #444; text-anchor: middle; }
+      .nivel-titulo { font-size: 15px; font-weight: 700; text-anchor: middle; }
+      .capa { stroke-width: 2; }
+      .capa-comunicacion-n1 { fill: #fff5ec; stroke: #b86b00; }
+      .capa-comunicacion-n2 { fill: #fff5ec; stroke: #b86b00; }
+      .capa-comunicacion-n3 { fill: #eaf3fb; stroke: #1c5a98; }
+      .capa-razonamiento-n1 { fill: #f1f3f6; stroke: #6b7280; }
+      .capa-razonamiento-n2 { fill: #f0eaf7; stroke: #5b3a8a; }
+      .capa-razonamiento-n3 { fill: #f0eaf7; stroke: #5b3a8a; }
+      .capa-dominio { fill: #eaf5ec; stroke: #1e7e34; }
+      .capa-titulo { font-size: 13px; font-weight: 700; text-anchor: middle; }
+      .capa-detalle { font-size: 11px; text-anchor: middle; }
+      .preservado-marca { font-size: 11px; font-style: italic; text-anchor: middle; fill: #1e7e34; font-weight: 700; }
+      .nuevo-marca { font-size: 11px; font-style: italic; text-anchor: middle; font-weight: 700; }
+      .leyenda-texto { font-size: 12px; fill: #1a1a1a; }
+    </style>
+  </defs>
+
+  <rect x="0" y="0" width="1100" height="540" fill="#ffffff"/>
+
+  <text class="titulo" x="550" y="40" text-anchor="middle">Evolución de la arquitectura por capas — Nivel 1 → Nivel 2 → Nivel 3</text>
+  <text class="subtitulo" x="550" y="62">Cada agente se estructura en tres capas; lo que cambia entre niveles está coloreado, lo que se preserva está en verde.</text>
+
+  <!-- Nivel 1 -->
+  <text class="nivel-titulo" x="195" y="100" fill="#b86b00">Nivel 1 (FIPA/SPADE)</text>
+  <rect class="capa capa-comunicacion-n1" x="60" y="120" width="270" height="100" rx="10"/>
+  <text class="capa-titulo" x="195" y="148" fill="#b86b00">Comunicación</text>
+  <text class="capa-detalle" x="195" y="172" fill="#1a1a1a">SPADE / XMPP</text>
+  <text class="capa-detalle" x="195" y="190" fill="#1a1a1a">FIPA-ACL</text>
+  <text class="capa-detalle" x="195" y="208" fill="#555">behaviours + templates</text>
+
+  <rect class="capa capa-razonamiento-n1" x="60" y="240" width="270" height="100" rx="10"/>
+  <text class="capa-titulo" x="195" y="268" fill="#444">Razonamiento</text>
+  <text class="capa-detalle" x="195" y="292" fill="#1a1a1a">if/elif determinista</text>
+  <text class="capa-detalle" x="195" y="310" fill="#555">selección por reglas</text>
+
+  <rect class="capa capa-dominio" x="60" y="360" width="270" height="100" rx="10"/>
+  <text class="capa-titulo" x="195" y="388" fill="#1e7e34">Dominio</text>
+  <text class="capa-detalle" x="195" y="412" fill="#1a1a1a">logica/*.py</text>
+  <text class="capa-detalle" x="195" y="430" fill="#555">funciones Python puras</text>
+  <text class="preservado-marca" x="195" y="478">capa de origen</text>
+
+  <!-- Nivel 2 -->
+  <text class="nivel-titulo" x="550" y="100" fill="#5b3a8a">Nivel 2 (SPADE-LLM + ADK)</text>
+  <rect class="capa capa-comunicacion-n2" x="415" y="120" width="270" height="100" rx="10"/>
+  <text class="capa-titulo" x="550" y="148" fill="#b86b00">Comunicación</text>
+  <text class="capa-detalle" x="550" y="172" fill="#1a1a1a">SPADE / XMPP</text>
+  <text class="capa-detalle" x="550" y="190" fill="#1a1a1a">FIPA-ACL</text>
+  <text class="preservado-marca" x="550" y="210">preservada del Nivel 1</text>
+
+  <rect class="capa capa-razonamiento-n2" x="415" y="240" width="270" height="100" rx="10"/>
+  <text class="capa-titulo" x="550" y="268" fill="#5b3a8a">Razonamiento</text>
+  <text class="capa-detalle" x="550" y="292" fill="#1a1a1a">llm_chat() con LLM</text>
+  <text class="capa-detalle" x="550" y="310" fill="#1a1a1a">+ FunctionTool ADK</text>
+  <text class="nuevo-marca" x="550" y="330" fill="#5b3a8a">SUSTITUIDA</text>
+
+  <rect class="capa capa-dominio" x="415" y="360" width="270" height="100" rx="10"/>
+  <text class="capa-titulo" x="550" y="388" fill="#1e7e34">Dominio</text>
+  <text class="capa-detalle" x="550" y="412" fill="#1a1a1a">logica/*.py</text>
+  <text class="capa-detalle" x="550" y="430" fill="#555">sin tocar</text>
+  <text class="preservado-marca" x="550" y="478">preservada intacta</text>
+
+  <!-- Nivel 3 -->
+  <text class="nivel-titulo" x="905" y="100" fill="#1c5a98">Nivel 3 (ADK + A2A)</text>
+  <rect class="capa capa-comunicacion-n3" x="770" y="120" width="270" height="100" rx="10"/>
+  <text class="capa-titulo" x="905" y="148" fill="#1c5a98">Comunicación</text>
+  <text class="capa-detalle" x="905" y="172" fill="#1a1a1a">ADK + A2A</text>
+  <text class="capa-detalle" x="905" y="190" fill="#1a1a1a">HTTP + JSON-RPC + SSE</text>
+  <text class="nuevo-marca" x="905" y="210" fill="#1c5a98">SUSTITUIDA</text>
+
+  <rect class="capa capa-razonamiento-n3" x="770" y="240" width="270" height="100" rx="10"/>
+  <text class="capa-titulo" x="905" y="268" fill="#5b3a8a">Razonamiento</text>
+  <text class="capa-detalle" x="905" y="292" fill="#1a1a1a">LlmAgent ADK</text>
+  <text class="capa-detalle" x="905" y="310" fill="#1a1a1a">+ FunctionTool</text>
+  <text class="preservado-marca" x="905" y="330">preservada del Nivel 2</text>
+
+  <rect class="capa capa-dominio" x="770" y="360" width="270" height="100" rx="10"/>
+  <text class="capa-titulo" x="905" y="388" fill="#1e7e34">Dominio</text>
+  <text class="capa-detalle" x="905" y="412" fill="#1a1a1a">logica/*.py</text>
+  <text class="capa-detalle" x="905" y="430" fill="#555">sin tocar</text>
+  <text class="preservado-marca" x="905" y="478">preservada intacta</text>
+
+  <!-- Leyenda -->
+  <g transform="translate(60, 500)">
+    <rect class="capa-dominio" x="0" y="0" width="20" height="14"/>
+    <text class="leyenda-texto" x="28" y="12">Capa preservada del nivel anterior</text>
+    <rect fill="#fff5ec" stroke="#b86b00" stroke-width="2" x="280" y="0" width="20" height="14"/>
+    <text class="leyenda-texto" x="308" y="12">Capa que aún usa la tecnología original</text>
+    <rect class="capa-razonamiento-n2" x="640" y="0" width="20" height="14"/>
+    <text class="leyenda-texto" x="668" y="12">Capa nueva o sustituida en este nivel</text>
+  </g>
+</svg>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Tablero Tic-Tac-Toe</title>
+  <link rel="stylesheet" href="/static/game.css">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="topbar-left">
+        <h1 id="board-title">Tablero mesa1</h1>
+        <p>Agente Tablero · Tic-Tac-Toe</p>
+      </div>
+      <div id="status-badge" class="status-badge">Estado: waiting</div>
+    </header>
+
+    <main class="layout">
+      <aside class="left-panel">
+        <section id="player-x-card" class="info-card player-x"></section>
+        <section id="player-o-card" class="info-card player-o"></section>
+        <section id="turn-card" class="info-card current-turn"></section>
+      </aside>
+
+      <section class="board-panel">
+        <div id="board-grid" class="board-grid"></div>
+      </section>
+
+      <aside class="right-panel">
+        <section id="history-panel" class="side-card"></section>
+        <section id="result-panel" class="side-card"></section>
+      </aside>
+    </main>
+  </div>
+
+  <script src="/static/game.js"></script>
+</body>
+</html>

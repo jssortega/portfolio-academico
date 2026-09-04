@@ -1,0 +1,16 @@
+# Dependencias del material del alumno — Villa Olivar (Nivel 3).
+#
+# Estas dependencias cubren la factoría de agentes A2A, el
+# lanzador `main.py` y la batería de pruebas (unitarios del
+# contrato, unitarios del cliente y pruebas de integración).
+
+# Núcleo
+pydantic>=2.0       # Modelos del contrato externo
+httpx>=0.24         # Cliente A2A asíncrono y respuestas SSE
+pyyaml>=6.0         # Lectura de config/config.yaml y config_evaluacion.yaml
+aiohttp>=3.9        # Dobles A2A en proceso para los tests de H5
+
+# Pruebas
+pytest>=7.0
+pytest-asyncio>=0.21
+pytest-aiohttp>=1.0

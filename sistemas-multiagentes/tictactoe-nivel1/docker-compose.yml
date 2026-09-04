@@ -1,0 +1,70 @@
+# =============================================================================
+# Docker Compose — Servidor XMPP local para Tic-Tac-Toe Multiagente
+# =============================================================================
+# Este fichero levanta un contenedor Prosody (servidor XMPP) para desarrollo
+# local. Permite trabajar sin conexión al servidor de la asignatura
+# (sinbad2.ujaen.es), que siempre es accesible desde Internet.
+#
+# Uso:
+#   docker compose up -d          # Arrancar el servidor XMPP
+#   docker compose logs -f        # Ver registros en tiempo real
+#   docker compose down           # Detener el servidor
+#   docker compose down -v        # Detener y eliminar datos persistentes
+#
+# Verificación:
+#   nc -zv localhost 5222         # Comprobar que el puerto XMPP está abierto
+#
+# Volúmenes compartidos:
+#   Los volúmenes usan nombres fijos (ssmmaa-*) para que todos los proyectos
+#   de la asignatura compartan los mismos datos XMPP en disco.
+
+services:
+  # ── Servidor XMPP (Prosody) ────────────────────────────────────────────────
+  # Proporciona la infraestructura XMPP para desarrollo y pruebas:
+  #   - Registro automático de cuentas (registro dentro de banda): los agentes
+  #     crean su cuenta al conectarse por primera vez.
+  #   - Salas MUC en conference.localhost: permiten el descubrimiento entre
+  #     agentes mediante salas compartidas.
+  #   - Sin cifrado TLS obligatorio (desarrollo local).
+  #
+  # La configuración completa está en xmpp/prosody.cfg.lua.
+  prosody:
+    image: prosody/prosody:latest
+    container_name: prosody-ssmmaa
+    ports:
+      - "5222:5222"     # Cliente-a-servidor (c2s) — conexión de los agentes
+      - "5269:5269"     # Servidor-a-servidor (s2s) — federación (no usado)
+      - "5347:5347"     # Componentes externos (no usado)
+    volumes:
+      - ./xmpp/prosody.cfg.lua:/etc/prosody/prosody.cfg.lua:ro
+      - prosody_data:/var/lib/prosody
+    # ── Certificado TLS self-signed para STARTTLS ────────────────────────────
+    # slixmpp 1.12 (cliente que usa SPADE) rechaza los mecanismos SASL PLAIN y
+    # SCRAM-SHA-1 sobre TCP plano. Para que el cliente pueda autenticarse,
+    # Prosody debe ofrecer STARTTLS aunque el cifrado no sea obligatorio.
+    # Generamos el certificado autofirmado en el primer arranque (si aún no
+    # existe) y lo dejamos en /etc/prosody/certs, donde Prosody lo detecta
+    # automáticamente al iniciar.
+    entrypoint:
+      - sh
+      - -c
+      - |
+        if [ ! -f /etc/prosody/certs/localhost.crt ]; then
+          echo "[entrypoint] Generando certificado self-signed para localhost...";
+          mkdir -p /etc/prosody/certs;
+          openssl req -x509 -newkey rsa:2048 -nodes -days 3650 \
+            -subj "/CN=localhost" \
+            -keyout /etc/prosody/certs/localhost.key \
+            -out /etc/prosody/certs/localhost.crt;
+        fi;
+        # Ajustar propietario y permisos para que el usuario "prosody"
+        # del contenedor pueda leer la clave privada en cada arranque.
+        chown -R prosody:prosody /etc/prosody/certs;
+        chmod 644 /etc/prosody/certs/localhost.crt;
+        chmod 640 /etc/prosody/certs/localhost.key;
+        exec /entrypoint.sh prosody
+    restart: unless-stopped
+
+volumes:
+  prosody_data:
+    name: ssmmaa-prosody-data

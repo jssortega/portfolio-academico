@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 740" font-family="Helvetica, Arial, sans-serif" font-size="13">
+  <title>Flujo de procesamiento de la Centralita 112 — diagrama de secuencia</title>
+  <desc>Diagrama de secuencia entre el coordinador del profesor y la Centralita 112 del grupo. El coordinador envía un Task A2A con los DatosEmergencia. La Centralita ejecuta siete pasos internos: análisis con LlmAgent, clasificación con FunctionTool, decisión de especialistas, invocación de privados (URL local), invocación de públicos propios, eventual descubrimiento de agentes públicos de otros grupos en sinbad2.ujaen.es para cooperación cruzada, envío de tareas A2A a los especialistas elegidos, recepción de los informes de actuación y agregación con FunctionTool generar_informe. Finalmente devuelve al coordinador un Task completed con el InformeResolucion.</desc>
+
+  <defs>
+    <marker id="flecha-req" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1c5a98"/>
+    </marker>
+    <marker id="flecha-resp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1e7e34"/>
+    </marker>
+    <style>
+      .titulo { font-size: 18px; font-weight: 700; fill: #1a1a1a; }
+      .subtitulo { font-size: 13px; fill: #444; text-anchor: middle; }
+      .actor { fill: #ffffff; stroke-width: 2.5; }
+      .actor-coord { stroke: #1c5a98; }
+      .actor-centralita { stroke: #1c5a98; stroke-width: 3; }
+      .actor-nombre { font-size: 14px; font-weight: 700; fill: #1a1a1a; text-anchor: middle; }
+      .actor-rol { font-size: 11px; fill: #555; text-anchor: middle; font-style: italic; }
+      .vida { stroke: #888; stroke-width: 1.4; stroke-dasharray: 4 3; }
+      .activacion { fill: #f4f6fb; stroke: #2c4a7c; stroke-width: 1.6; }
+      .activacion-titulo { font-size: 13px; font-weight: 700; fill: #1c5a98; }
+      .paso { font-size: 12px; fill: #1a1a1a; }
+      .paso-numero { font-size: 12px; font-weight: 700; fill: #1c5a98; }
+      .msg-req { stroke: #1c5a98; stroke-width: 2; fill: none; }
+      .msg-resp { stroke: #1e7e34; stroke-width: 2; fill: none; }
+      .msg-label { font-size: 12px; fill: #1a1a1a; }
+      .msg-payload { font-size: 11px; font-family: 'Courier New', monospace; fill: #555; }
+    </style>
+  </defs>
+
+  <rect x="0" y="0" width="1200" height="740" fill="#ffffff"/>
+
+  <text class="titulo" x="600" y="40" text-anchor="middle">Flujo de procesamiento de la Centralita 112</text>
+  <text class="subtitulo" x="600" y="62">Recepción de la incidencia, orquestación interna y devolución del InformeResolucion al coordinador.</text>
+
+  <!-- ===== Cabeceras de actores ===== -->
+  <rect class="actor actor-coord" x="100" y="90" width="260" height="64" rx="8"/>
+  <text class="actor-nombre" x="230" y="118">Coordinador del profesor</text>
+  <text class="actor-rol" x="230" y="138">cliente A2A externo</text>
+
+  <rect class="actor actor-centralita" x="800" y="90" width="260" height="64" rx="8"/>
+  <text class="actor-nombre" x="930" y="118">Centralita 112</text>
+  <text class="actor-rol" x="930" y="138">coordinador del grupo</text>
+
+  <!-- ===== Líneas de vida ===== -->
+  <line class="vida" x1="230" y1="154" x2="230" y2="700"/>
+  <line class="vida" x1="930" y1="154" x2="930" y2="700"/>
+
+  <!-- ===== Mensaje 1: Coord → Centralita ===== -->
+  <line class="msg-req" x1="230" y1="200" x2="930" y2="200" marker-end="url(#flecha-req)"/>
+  <text class="msg-label" x="580" y="190" text-anchor="middle" font-weight="700" fill="#1c5a98">tasks/send</text>
+  <text class="msg-payload" x="580" y="216" text-anchor="middle">{DatosEmergencia}</text>
+
+  <!-- ===== Activación: procesamiento interno (sobre la línea de vida de la Centralita) ===== -->
+  <rect class="activacion" x="540" y="240" width="620" height="370" rx="10"/>
+  <text class="activacion-titulo" x="850" y="266" text-anchor="middle">Procesamiento interno de la Centralita</text>
+
+  <text class="paso-numero" x="560" y="298">1.</text>
+  <text class="paso" x="582" y="298">El <tspan font-weight="700">LlmAgent</tspan> analiza la emergencia.</text>
+
+  <text class="paso-numero" x="560" y="326">2.</text>
+  <text class="paso" x="582" y="326"><tspan font-weight="700">FunctionTool</tspan> <tspan font-family="Courier New, monospace">clasificar_emergencia()</tspan> determina tipo y prioridad.</text>
+
+  <text class="paso-numero" x="560" y="354">3.</text>
+  <text class="paso" x="582" y="354">Decide qué <tspan font-weight="700">especialistas</tspan> son necesarios para el escenario.</text>
+
+  <text class="paso-numero" x="560" y="382">4a.</text>
+  <text class="paso" x="582" y="382"><tspan font-weight="700">Privados:</tspan> invoca con la URL configurada en local (<tspan font-family="Courier New, monospace">localhost</tspan>).</text>
+
+  <text class="paso-numero" x="560" y="410">4b.</text>
+  <text class="paso" x="582" y="410"><tspan font-weight="700">Públicos propios:</tspan> invoca con la URL pública del agente.</text>
+
+  <text class="paso-numero" x="560" y="438">4c.</text>
+  <text class="paso" x="582" y="438"><tspan font-weight="700">Cooperación cruzada:</tspan> consulta el registro REST en <tspan font-family="Courier New, monospace">sinbad2.ujaen.es</tspan></text>
+  <text class="paso" x="582" y="456">y descubre las URL de los agentes públicos de otros grupos.</text>
+
+  <text class="paso-numero" x="560" y="486">5.</text>
+  <text class="paso" x="582" y="486">Envía <tspan font-family="Courier New, monospace">tasks/send</tspan> A2A a cada especialista elegido.</text>
+
+  <text class="paso-numero" x="560" y="514">6.</text>
+  <text class="paso" x="582" y="514">Recibe los <tspan font-weight="700">informes de actuación</tspan> de los especialistas.</text>
+
+  <text class="paso-numero" x="560" y="542">7.</text>
+  <text class="paso" x="582" y="542"><tspan font-weight="700">FunctionTool</tspan> <tspan font-family="Courier New, monospace">generar_informe()</tspan> agrega los resultados.</text>
+
+  <text class="paso" x="560" y="586" font-style="italic" fill="#555">Una vez agregado el InformeResolucion, la Centralita responde al coordinador.</text>
+
+  <!-- ===== Mensaje 2: Centralita → Coord ===== -->
+  <line class="msg-resp" x1="930" y1="650" x2="230" y2="650" marker-end="url(#flecha-resp)"/>
+  <text class="msg-label" x="580" y="640" text-anchor="middle" font-weight="700" fill="#1e7e34">Task: completed</text>
+  <text class="msg-payload" x="580" y="666" text-anchor="middle">{InformeResolucion}</text>
+</svg>

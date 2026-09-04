@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 720" font-family="Helvetica, Arial, sans-serif" font-size="13">
+  <title>Opciones de aprovisionamiento del modelo de lenguaje (LLM)</title>
+  <desc>Tres alternativas para servir el modelo de lenguaje a los agentes durante la prueba: Ollama local en un PC del aula, Ollama en el servidor sinbad2ia.ujaen.es de la asignatura, o API de Gemini en la nube. Las dos primeras emplean Ollama, la tercera garantiza equidad porque todos los grupos consumen exactamente el mismo modelo.</desc>
+
+  <defs>
+    <marker id="flecha" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#5b3a8a"/>
+    </marker>
+    <style>
+      .titulo { font-size: 19px; font-weight: 700; fill: #1a1a1a; }
+      .subtitulo { font-size: 13px; fill: #444; text-anchor: middle; }
+      .opcion { fill: #ffffff; stroke-width: 2; }
+      .opcion-a { stroke: #b86b00; }
+      .opcion-b { stroke: #1c5a98; }
+      .opcion-c { stroke: #6b21a8; }
+      .agente { fill: #f4f6fb; stroke: #2c4a7c; stroke-width: 2; }
+      .nombre { font-size: 14px; font-weight: 700; fill: #1a1a1a; text-anchor: middle; }
+      .endpoint { font-size: 11px; font-family: 'Courier New', monospace; text-anchor: middle; fill: #555; }
+      .descripcion { font-size: 11px; fill: #444; text-anchor: middle; font-style: italic; }
+      .ventaja { font-size: 11px; fill: #1e7e34; text-anchor: middle; }
+      .contra { font-size: 11px; fill: #a8242a; text-anchor: middle; }
+      .arco { stroke: #5b3a8a; stroke-width: 1.6; fill: none; stroke-dasharray: 5 4; }
+      .titulo-arco { font-size: 11px; font-weight: 600; fill: #5b3a8a; text-anchor: middle; }
+      .badge { font-size: 12px; font-weight: 700; fill: #ffffff; text-anchor: middle; }
+    </style>
+  </defs>
+
+  <!-- Fondo claro -->
+  <rect x="0" y="0" width="1240" height="720" fill="#ffffff"/>
+
+  <!-- Título -->
+  <text class="titulo" x="620" y="42" text-anchor="middle">Opciones de aprovisionamiento del modelo de lenguaje (LLM)</text>
+  <text class="subtitulo" x="620" y="66">El grupo elige una sola opción durante la prueba. La elección se documenta en el config.yaml y en la memoria.</text>
+
+  <!-- ===== Opción A: Ollama local en un PC del aula ===== -->
+  <rect class="opcion opcion-a" x="60" y="120" width="360" height="380" rx="12"/>
+  <rect x="60" y="120" width="360" height="44" fill="#b86b00" rx="12"/>
+  <rect x="60" y="148" width="360" height="16" fill="#b86b00"/>
+  <text class="badge" x="240" y="148">Opción A · LLM local en el aula</text>
+
+  <text class="nombre" x="240" y="200">Ollama en Docker</text>
+  <text class="descripcion" x="240" y="224">en un PC del laboratorio</text>
+
+  <text class="endpoint" x="240" y="266">http://192.168.1.X:11434</text>
+
+  <text class="descripcion" x="240" y="300">contenedor docker-compose</text>
+  <text class="descripcion" x="240" y="322">modelo: llama3.2:3b · gemma3:4b</text>
+
+  <text class="ventaja" x="240" y="368">+ baja latencia (red local)</text>
+  <text class="ventaja" x="240" y="390">+ no depende de Internet</text>
+
+  <text class="contra" x="240" y="434">− cada grupo puede usar modelo distinto</text>
+  <text class="contra" x="240" y="456">− carga sobre el PC anfitrión</text>
+
+  <!-- ===== Opción B: Ollama en sinbad2ia.ujaen.es ===== -->
+  <rect class="opcion opcion-b" x="440" y="120" width="360" height="380" rx="12"/>
+  <rect x="440" y="120" width="360" height="44" fill="#1c5a98" rx="12"/>
+  <rect x="440" y="148" width="360" height="16" fill="#1c5a98"/>
+  <text class="badge" x="620" y="148">Opción B · LLM en el servidor de la asignatura</text>
+
+  <text class="nombre" x="620" y="200">Ollama en sinbad2ia.ujaen.es</text>
+  <text class="descripcion" x="620" y="224">servidor de la asignatura</text>
+
+  <text class="endpoint" x="620" y="266">http://sinbad2ia.ujaen.es:8050</text>
+
+  <text class="descripcion" x="620" y="300">servicio compartido para toda la clase</text>
+  <text class="descripcion" x="620" y="322">modelo: llama3:8b · qwen3:32b</text>
+
+  <text class="ventaja" x="620" y="368">+ todos los grupos comparten host</text>
+  <text class="ventaja" x="620" y="390">+ modelos grandes disponibles</text>
+
+  <text class="contra" x="620" y="434">− saturación si todos prueban a la vez</text>
+  <text class="contra" x="620" y="456">− cuello de botella en latencia</text>
+
+  <!-- ===== Opción C: Gemini API ===== -->
+  <rect class="opcion opcion-c" x="820" y="120" width="360" height="380" rx="12"/>
+  <rect x="820" y="120" width="360" height="44" fill="#6b21a8" rx="12"/>
+  <rect x="820" y="148" width="360" height="16" fill="#6b21a8"/>
+  <text class="badge" x="1000" y="148">Opción C · API de Gemini en la nube</text>
+
+  <text class="nombre" x="1000" y="200">Gemini API</text>
+  <text class="descripcion" x="1000" y="224">cada grupo configura su clave</text>
+
+  <text class="endpoint" x="1000" y="266">generativelanguage.googleapis.com</text>
+
+  <text class="descripcion" x="1000" y="300">misma cuenta y mismo modelo para todos</text>
+  <text class="descripcion" x="1000" y="322">modelo: gemini-2.5-flash</text>
+
+  <text class="ventaja" x="1000" y="368">+ EQUIDAD: mismo modelo todos</text>
+  <text class="ventaja" x="1000" y="390">+ sin infraestructura propia</text>
+
+  <text class="contra" x="1000" y="434">− requiere Internet y clave API</text>
+  <text class="contra" x="1000" y="456">− cuotas y posible coste</text>
+
+  <!-- ===== Agente que consume el LLM ===== -->
+  <rect class="agente" x="450" y="570" width="340" height="100" rx="10"/>
+  <text class="nombre" x="620" y="606">Agente del grupo</text>
+  <text class="descripcion" x="620" y="630">cualquier LlmAgent A2A del laboratorio</text>
+  <text class="endpoint" x="620" y="654">elige una opción mediante config.yaml</text>
+
+  <!-- Conexiones del agente a las tres opciones -->
+  <path class="arco" d="M 490 570 C 380 540, 280 520, 240 500" marker-end="url(#flecha)"/>
+  <path class="arco" d="M 620 570 L 620 500" marker-end="url(#flecha)"/>
+  <path class="arco" d="M 750 570 C 860 540, 960 520, 1000 500" marker-end="url(#flecha)"/>
+
+  <text class="titulo-arco" x="340" y="552">elige una</text>
+  <text class="titulo-arco" x="635" y="552">opción</text>
+  <text class="titulo-arco" x="900" y="552">durante la prueba</text>
+
+  <!-- ===== Recomendación al pie ===== -->
+  <g transform="translate(60, 690)">
+    <rect x="0" y="0" width="1120" height="20" fill="#fff8d6" stroke="#b59a00" stroke-width="1" rx="6"/>
+    <text x="20" y="14" font-size="11" font-weight="600" fill="#7a5b00">Recomendación inicial: usar la opción C (Gemini) en la prueba evaluativa para garantizar que todos los grupos usan exactamente el mismo modelo.</text>
+  </g>
+</svg>

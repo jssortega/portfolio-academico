@@ -1,0 +1,3 @@
+capital_espana:Madrid
+lenguaje_spade:Python
+deporte_mas_popular:Futbol

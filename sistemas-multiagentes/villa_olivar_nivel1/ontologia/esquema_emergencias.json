@@ -1,0 +1,167 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Ontología de Emergencias — Villa Olivar",
+  "description": "Esquema JSON que define los tipos de mensaje entre agentes del sistema de emergencias.",
+  "definitions": {
+    "alerta_emergencia": {
+      "description": "Mensaje inicial que genera la Centralita al recibir un aviso ciudadano.",
+      "type": "object",
+      "properties": {
+        "tipo_mensaje": { "const": "alerta_emergencia" },
+        "id_emergencia": {
+          "type": "string",
+          "description": "Identificador único de la emergencia (ej: 'INC-2026-042')."
+        },
+        "tipo_emergencia": {
+          "type": "string",
+          "enum": ["incendio", "derrame_quimico", "accidente_trafico", "inundacion", "derrumbe", "otro"],
+          "description": "Clasificación del tipo de emergencia."
+        },
+        "ubicacion": {
+          "type": "object",
+          "properties": {
+            "direccion": { "type": "string" },
+            "coordenadas": {
+              "type": ["object", "null"],
+              "properties": {
+                "latitud": { "type": "number" },
+                "longitud": { "type": "number" }
+              }
+            }
+          },
+          "required": ["direccion"]
+        },
+        "prioridad": {
+          "type": "string",
+          "enum": ["baja", "media", "alta", "critica"],
+          "description": "Nivel de urgencia estimado por la Centralita."
+        },
+        "descripcion": {
+          "type": "string",
+          "description": "Descripción en texto libre del incidente."
+        },
+        "marca_temporal": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Momento en que se registra la emergencia (ISO 8601)."
+        },
+        "bombero":{
+          "type": "string",
+          "description": "Bombero que maneja la alerta"
+        }
+
+      },
+      "required": ["tipo_mensaje", "id_emergencia", "tipo_emergencia", "ubicacion", "prioridad", "descripcion", "marca_temporal"]
+    },
+
+    "informe_actuacion": {
+      "description": "Respuesta de un especialista informando sobre las acciones realizadas o el estado actual.",
+      "type": "object",
+      "properties": {
+        "tipo_mensaje": { "const": "informe_actuacion" },
+        "id_emergencia": { "type": "string" },
+        "agente_origen": {
+          "type": "string",
+          "description": "Identificador del cuerpo que emite el informe (ej: 'bomberos', 'sanitario')."
+        },
+        "estado": {
+          "type": "string",
+          "enum": ["recibido", "en_camino", "en_escena", "actuando", "finalizado", "requiere_apoyo"],
+          "description": "Estado actual de la actuación de este cuerpo."
+        },
+        "detalle": {
+          "type": "string",
+          "description": "Descripción de las acciones realizadas o en curso."
+        },
+        "recursos_desplegados": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Número de unidades asignadas al incidente."
+        },
+        "marca_temporal": { "type": "string", "format": "date-time" }
+      },
+      "required": ["tipo_mensaje", "id_emergencia", "agente_origen", "estado", "detalle", "marca_temporal"]
+    },
+    "estado_zona": {
+      "description": "Estado de la zona reportado por Bomberos durante una emergencia.",
+      "type": "object",
+      "properties": {
+        "tipo_mensaje": { "const": "estado_zona" },
+        "id_emergencia": { "type": "string" },
+        "agente_origen": { "type": "string" },
+        "segura": { "type": "boolean" },
+        "detalle": { "type": "string" },
+        "marca_temporal": { "type": "string", "format": "date-time" }
+      },
+      "required": ["tipo_mensaje", "id_emergencia", "agente_origen", "segura", "detalle", "marca_temporal"]
+    },
+    "cierre_emergencia": {
+      "description": "Notifica el cierre formal de una emergencia tras su resolución.",
+      "type": "object",
+      "properties": {
+        "tipo_mensaje": { "const": "cierre_emergencia" },
+        "id_emergencia": { "type": "string" },
+        "agente_origen": { "type": "string" },
+        "estado": {
+          "type": "string",
+          "enum": ["cerrado", "finalizado"]
+        },
+        "detalle": { "type": "string" },
+        "marca_temporal": { "type": "string", "format": "date-time" }
+      },
+      "required": ["tipo_mensaje", "id_emergencia", "agente_origen", "estado", "detalle", "marca_temporal"]
+    },
+
+    "solicitud_recurso": {
+      "description": "Petición de un especialista a otro para que ejecute una acción concreta.",
+      "type": "object",
+      "properties": {
+        "tipo_mensaje": { "const": "solicitud_recurso" },
+        "id_emergencia": { "type": "string" },
+        "solicitante": { "type": "string" },
+        "destinatario": { "type": "string" },
+        "accion_solicitada": {
+          "type": "string",
+          "description": "Acción concreta que se solicita (ej: 'establecer_perimetro', 'cortar_gas')."
+        },
+        "parametros": {
+          "type": "object",
+          "description": "Parámetros adicionales de la solicitud (dependen de la acción).",
+          "additionalProperties": true
+        },
+        "urgencia": {
+          "type": "string",
+          "enum": ["normal", "urgente", "inmediata"]
+        },
+        "marca_temporal": { "type": "string", "format": "date-time" }
+      },
+      "required": ["tipo_mensaje", "id_emergencia", "solicitante", "destinatario", "accion_solicitada", "marca_temporal"]
+    },
+
+    "respuesta_recurso": {
+      "description": "Respuesta a una solicitud de recurso: aceptación o rechazo.",
+      "type": "object",
+      "properties": {
+        "tipo_mensaje": { "const": "respuesta_recurso" },
+        "id_emergencia": { "type": "string" },
+        "solicitante_original": { "type": "string" },
+        "accion_solicitada": { "type": "string" },
+        "aceptada": {
+          "type": "boolean",
+          "description": "Indica si el recurso o acción se acepta o se rechaza."
+        },
+        "motivo": {
+          "type": "string",
+          "description": "Justificación, obligatoria si se rechaza."
+        },
+        "tiempo_estimado_minutos": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Tiempo estimado para completar la acción (si se acepta)."
+        },
+        "marca_temporal": { "type": "string", "format": "date-time" }
+      },
+      "required": ["tipo_mensaje", "id_emergencia", "solicitante_original", "accion_solicitada", "aceptada", "marca_temporal"]
+    }
+  }
+}

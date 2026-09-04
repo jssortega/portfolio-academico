@@ -1,0 +1,287 @@
+# config.yaml — Configuración centralizada del sistema Tic-Tac-Toe Multiagente
+#
+# Este fichero define los perfiles de conexión para los dos servicios
+# que el sistema puede necesitar: el servidor XMPP (obligatorio para todos
+# los niveles de estrategia) y el servicio LLM (solo para estrategia
+# nivel 4).
+#
+# USO:
+#   Cambiar los campos "perfil_activo" para alternar entre entornos
+#   sin modificar ningún fichero de código fuente.
+#
+# PERFILES XMPP:
+#   - local:    Prosody local del repositorio de infraestructura de
+#               la asignatura. Permite **simular** el examen en el
+#               propio equipo del alumno antes de la prueba (mismo
+#               componente MUC dedicado, misma directiva
+#               'restrict_room_creation = "admin"'). Es el perfil
+#               que se utiliza cuando el supervisor del profesor
+#               también se arranca en modo simulación local.
+#   - servidor: Servidor Prosody oficial de la asignatura
+#               (sinbad2.ujaen.es), donde se realiza la evaluación
+#               definitiva del examen. Se accede desde la red de la
+#               UJA o por VPN.
+#
+# PERFILES LLM (solo necesario para la estrategia nivel 4):
+#   - ninguno:  No se usa ningún servicio LLM (VALOR POR DEFECTO).
+#               La estrategia nivel 4 NO es obligatoria: si tus
+#               jugadores solo emplean los niveles 1 a 3, deja este
+#               valor y el sistema arrancará sin pedir ninguna clave.
+#   - gemini:   API de Google AI Studio. El alumno obtiene una clave
+#               gratuita en https://aistudio.google.com/apikey y la
+#               exporta como variable de entorno antes de arrancar:
+#                   export GOOGLE_API_KEY="..."
+#   - servidor: Ollama del laboratorio en sinbad2ia.ujaen.es
+#               (modelos potentes, requiere red UJA o VPN).
+#
+# IMPORTANTE: el perfil LLM se elige con 'llm.perfil_activo', un
+# selector INDEPENDIENTE de 'xmpp.perfil_activo'. Cambiar el perfil
+# XMPP a "servidor" NO cambia el perfil LLM: son dos campos
+# distintos y cada uno debe ajustarse por separado.
+
+
+# ══════════════════════════════════════════════════════════════════
+# PERFIL XMPP — Servidor de comunicación entre agentes
+# ══════════════════════════════════════════════════════════════════
+
+xmpp:
+  perfil_activo: servidor    # "local" (simulación) | "servidor" (evaluación oficial)
+
+  perfiles:
+    local:
+      host: localhost
+      puerto: 5222
+      dominio: localhost
+      servicio_muc: conference.localhost
+      # Componente MUC dedicado al modo examen del Prosody local.
+      # Cuando alumno.modalidad = "examen", el lanzador (main.py)
+      # sustituye automáticamente 'servicio_muc' por este valor para
+      # que los agentes apunten al componente con la restricción
+      # 'restrict_room_creation = "admin"'. En laboratorio y torneo
+      # este campo se ignora.
+      servicio_muc_examen: examen.localhost
+      sala_tictactoe: tictactoe
+      password_defecto: secret
+      auto_register: true
+      verify_security: false
+
+    servidor:
+      host: sinbad2.ujaen.es
+      puerto: 8022
+      dominio: sinbad2.ujaen.es
+      servicio_muc: conference.sinbad2.ujaen.es
+      # Componente MUC dedicado al modo examen del Prosody de la
+      # asignatura. Cuando alumno.modalidad = "examen", el lanzador
+      # (main.py) sustituye automáticamente 'servicio_muc' por este
+      # valor para que los agentes apunten al componente con la
+      # restricción 'restrict_room_creation = "admin"'. En laboratorio
+      # y torneo este campo se ignora.
+      servicio_muc_examen: examen.sinbad2.ujaen.es
+      sala_tictactoe: tictactoe
+      password_defecto: secret
+      auto_register: true
+      verify_security: false
+
+
+# ══════════════════════════════════════════════════════════════════
+# PERFIL LLM — Servicio ("backend") para la estrategia nivel 4
+# ══════════════════════════════════════════════════════════════════
+# La estrategia de nivel 4 (LLM) es OPCIONAL. El campo
+# 'perfil_activo' admite tres valores:
+#
+#   - ninguno:  no se usa ningún LLM (VALOR POR DEFECTO). El sistema
+#               arranca sin pedir ninguna API key. Es la opción
+#               correcta para los alumnos que solo prueban los
+#               niveles de estrategia 1, 2 y 3.
+#   - gemini:   API de Google AI Studio en la nube (nivel gratuito
+#               con API key personal).
+#   - servidor: Ollama del laboratorio en sinbad2ia.ujaen.es.
+#
+# Este selector es INDEPENDIENTE del de XMPP: elegir "servidor" en
+# 'xmpp.perfil_activo' no modifica 'llm.perfil_activo'. Si necesitas
+# LLM, debes cambiar ESTE campo explícitamente.
+#
+# Campo "proveedor": indica el tipo de servicio del perfil.
+#   - "gemini"  → API de Google AI Studio. Usa "api_key_env" para
+#                 indicar el nombre de la variable de entorno con la
+#                 clave (la clave NO se guarda en el YAML por
+#                 seguridad). No requiere "url_base".
+#   - "ollama"  → servidor Ollama remoto. Usa "url_base" y
+#                 modelos con prefijo "ollama_chat/".
+#
+# NOTA sobre el prefijo del modelo:
+#   - Para Gemini, ADK admite el modelo de forma nativa (sin
+#     LiteLlm); el nombre va sin prefijo: "gemini-2.5-flash", etc.
+#     Si se usa LiteLLM para verificación, el prefijo es "gemini/".
+#   - "ollama_chat/" es obligatorio para ADK + LiteLlm con Ollama
+#     (usa el "endpoint" de chat completion necesario para el
+#     "tool calling").
+#     NO usar "ollama/" sin _chat: puede provocar bucles infinitos.
+
+llm:
+  # "ninguno" (por defecto) | "gemini" | "servidor".
+  # Déjalo en "ninguno" salvo que implementes la estrategia nivel 4.
+  perfil_activo: ninguno
+
+  perfiles:
+    gemini:
+      proveedor: "gemini"
+      modelo: "gemini-2.5-flash"
+      # Nombre de la variable de entorno donde el código lee la clave.
+      # Obtener clave gratuita en https://aistudio.google.com/apikey
+      # y exportar antes de arrancar:  export GOOGLE_API_KEY="..."
+      api_key_env: "GOOGLE_API_KEY"
+
+    servidor:
+      proveedor: "ollama"
+      url_base: "http://sinbad2ia.ujaen.es:8050"
+      modelo: "ollama_chat/llama3:8b"
+
+
+# ══════════════════════════════════════════════════════════════════
+# VERIFICACIÓN DE CONEXIÓN LLM
+# ══════════════════════════════════════════════════════════════════
+# Parámetros usados por scripts de comprobación para validar la pila
+# configuración → LiteLLM → proveedor activo. Centralizados aquí
+# para que ningún script los fije directamente en el código.
+
+verificacion:
+  mensaje_prueba: >-
+    Responde en español con dos o tres frases. Define brevemente qué
+    es un sistema multiagente y menciona una característica que lo
+    distinga de un programa secuencial tradicional.
+  temperatura: 0.2
+  # Gemini 2.5/3 son modelos "thinking" — consumen parte del
+  # presupuesto de tokens en cadena de pensamiento interna. Por eso
+  # el límite es generoso, para que quede margen para la respuesta.
+  max_tokens: 1024
+
+
+# ══════════════════════════════════════════════════════════════════
+# DATOS DEL ALUMNO Y MODALIDAD DE EJECUCIÓN
+# ══════════════════════════════════════════════════════════════════
+# Estos datos son los que usa el lanzador (main.py) para construir
+# automáticamente el conjunto de agentes propios del alumno.  El
+# nombre de los agentes se forma con el patrón:
+#     tablero_<usuario_uja>_NN   (NN = 01, 02, …)
+#     jugador_<usuario_uja>_NN
+#
+# MODALIDADES:
+#   laboratorio — 4 tableros + 12 jugadores (pruebas de concurrencia
+#                 desde el puesto del alumno contra el servidor de la
+#                 asignatura).
+#   torneo      — 1 tablero  + 1 jugador   (competición conjunta).
+#   examen      — PRUEBA DE EXAMEN. Admite dos submodalidades
+#                 (campo 'submodo'), mutuamente excluyentes:
+#
+#                   grupo:      Sala MUC ÚNICA 'examen@examen.<dominio>'
+#                               compartida por todos los alumnos.
+#                               1 tablero + 1 jugador por alumno.
+#
+#                   individual: Cada alumno se une a la sala asociada
+#                               al puesto físico del aula donde se ha
+#                               sentado (PC-01 ... PC-30, en
+#                               'examen.<dominio>'). 3 tableros +
+#                               12 jugadores por alumno. Pensado
+#                               para evaluación aislada.
+#
+#                 En las dos submodalidades el componente MUC del
+#                 examen ('examen.<dominio>') tiene la directiva
+#                 'restrict_room_creation = "admin"', de modo que
+#                 SOLO el supervisor del profesor puede crear las
+#                 salas. Si el alumno arranca su main.py antes que
+#                 el supervisor, sus agentes son rechazados por el
+#                 servidor con un error de presencia que incluye
+#                 la marca '[Examen]' y una explicación
+#                 en español. Detalle:
+#                 doc/INSTRUCCIONES_EXAMEN_ALUMNO.md.
+#
+# La cantidad concreta de agentes por modalidad y los parámetros
+# base (clase, módulo, puerto web base, etc.) se definen en
+# config/agents.yaml como plantillas.
+
+alumno:
+  # Nombre de usuario UJA del alumno (parte local del JID).  Debe
+  # coincidir con un usuario válido del servidor XMPP de la asignatura.
+  usuario_uja: joc00023
+
+  # Nick que el alumno prefiere ver en la sala MUC para sus propios
+  # agentes. Se separan tablero y jugador para que el profesor
+  # distinga visualmente cada rol en el panel del supervisor. Si el
+  # campo queda vacío (o se elimina), el lanzador toma 'usuario_uja'
+  # como base. En cualquier caso, la utilidad de creación de agentes
+  # añade un sufijo único por instancia ('-01', '-n2-03', ...) para
+  # que dentro de la sala no aparezcan dos ocupantes con el mismo
+  # nick: las 12 jugadoras del modo individual deben diferenciarse
+  # entre sí y, sobre todo, los nicks de un alumno no deben colisionar
+  # con los de otro.
+  nick_tablero: ""
+  nick_jugador: ""
+
+  # Modalidad activa: "laboratorio" | "torneo" | "examen".
+  # El día del examen, dejar en "examen".
+  modalidad: examen
+
+  # Submodalidad del examen: "grupo" | "individual".
+  # Solo se aplica cuando modalidad = "examen". En "laboratorio" y
+  # "torneo" el campo se ignora. El profesor anuncia antes del examen
+  # cuál de las dos submodalidades se utiliza; este campo debe
+  # coincidir con la del supervisor (`supervisor_main.py --modo
+  # examen --submodo <valor>`).
+  submodo: individual
+
+  # Identificador del puesto del laboratorio. Solo se usa cuando
+  # modalidad = "examen" Y submodo = "individual". El alumno escribe
+  # AQUI la etiqueta del ordenador donde se ha sentado (PC-01,
+  # PC-02, ..., PC-30); el lanzador construira automaticamente el
+  # JID de la sala como '<pc>@examen.<dominio>' y los agentes
+  # se uniran a esa sala. Si la modalidad es 'grupo' o si la
+  # modalidad no es 'examen', este valor se ignora.
+  #
+  # IMPORTANTE: el valor se CANONIZA automaticamente con la funcion
+  # comun 'normalizar_nombre_sala' (la misma que usa el supervisor
+  # del profesor). Por eso no importa como lo escribas: 'PC-5',
+  # 'pc-05', 'PC_5' o 'pc 5' resuelven todos al mismo puesto
+  # 'pc-05'. Aun asi, se recomienda el formato estandar 'PC-NN'.
+  pc: "PC-01"
+
+  # Lista de niveles de estrategia que se desean probar.
+  #   1 = Posicional   2 = Reglas   3 = Minimax   4 = LLM
+  #
+  # En modalidades con muchos jugadores (LABORATORIO y EXAMEN
+  # INDIVIDUAL) los jugadores se reparten de forma uniforme entre
+  # los niveles indicados (con 12 jugadores y la lista [1, 2, 3] se
+  # generan 4 jugadores de cada estrategia). En modalidades con un
+  # único jugador propio (TORNEO y EXAMEN GRUPO) se usa solo el
+  # primer nivel de la lista (la estrategia con la que el alumno
+  # compite).
+  #
+  # El nivel asignado se incorpora al nombre del agente como sufijo
+  # 'n<nivel>' para identificarlo a simple vista, p. ej.:
+  #     jugador_<usuario>_n2_03
+  niveles_estrategia: [1, 3]
+
+
+# ══════════════════════════════════════════════════════════════════
+# PARÁMETROS GENERALES DEL SISTEMA
+# ══════════════════════════════════════════════════════════════════
+
+sistema:
+  # Intervalo en segundos entre consultas del jugador a la sala MUC
+  intervalo_busqueda_muc: 5
+
+  # Máximo de partidas simultáneas por jugador
+  max_partidas_simultaneas: 3
+
+  # Timeout de inscripción: segundos que un tablero espera al segundo jugador
+  timeout_inscripcion: 60
+
+  # Timeout de turno: segundos que un tablero espera la propuesta de un jugador
+  timeout_turno: 30
+
+  # Puerto base para la interfaz web de los tableros
+  # Cada tablero usará puerto_web_base + índice (0, 1, 2, ...)
+  puerto_web_base: 10080
+
+  # Nivel de logging (DEBUG, INFO, WARNING, ERROR)
+  nivel_log: INFO

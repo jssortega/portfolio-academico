@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 360" font-family="Helvetica, Arial, sans-serif" font-size="13">
+  <rect x="0" y="0" width="900" height="360" fill="#ffffff"/>
+  <title>Modelo multi-proyecto del registro REST</title>
+  <desc>El servidor hospeda varios proyectos de la asignatura simultáneamente. Cada proyecto declara su catálogo cerrado de categorías. Los URL llevan el namespace /proyectos/{id}.</desc>
+
+  <defs>
+    <marker id="flecha3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#333"/>
+    </marker>
+    <style>
+      .servidor { fill: #f5e8e8; stroke: #a14848; stroke-width: 1.5; rx: 8; ry: 8; }
+      .proyecto { fill: #f3e8f5; stroke: #6a4881; stroke-width: 1.5; rx: 6; ry: 6; }
+      .cliente { fill: #eef3f9; stroke: #5b8db8; stroke-width: 1.5; rx: 6; ry: 6; }
+      .titulo { font-weight: bold; }
+      .etiqueta { font-size: 11px; fill: #555; }
+      .codigo { font-family: "Menlo", monospace; font-size: 11px; }
+      .flecha { stroke: #333; stroke-width: 1.5; fill: none; marker-end: url(#flecha3); }
+    </style>
+  </defs>
+
+  <!-- Servidor -->
+  <rect x="220" y="20" width="480" height="320" class="servidor"/>
+  <text x="460" y="45" text-anchor="middle" class="titulo">sinbad2.ujaen.es:8020 — registro REST</text>
+  <text x="460" y="62" text-anchor="middle" class="etiqueta">ssmmaa/xmpp-registro:0.1 (multi-proyecto)</text>
+
+  <!-- Proyecto 1: villa-olivar -->
+  <rect x="245" y="85" width="210" height="130" class="proyecto"/>
+  <text x="350" y="108" text-anchor="middle" class="titulo">proyecto: villa-olivar</text>
+  <text x="350" y="126" text-anchor="middle" class="etiqueta">Sistema multi-agente de</text>
+  <text x="350" y="140" text-anchor="middle" class="etiqueta">respuesta a emergencias</text>
+  <text x="260" y="160" class="codigo">categorias:</text>
+  <text x="270" y="174" class="codigo">- centralita  (obligatoria)</text>
+  <text x="270" y="186" class="codigo">- bomberos</text>
+  <text x="270" y="198" class="codigo">- sanitario, policia,</text>
+  <text x="270" y="210" class="codigo">  municipal</text>
+
+  <!-- Proyecto 2: tic-tac-toe (ejemplo, en gris claro) -->
+  <rect x="465" y="85" width="210" height="130" class="proyecto" fill="#f7f0fa" opacity="0.85"/>
+  <text x="570" y="108" text-anchor="middle" class="titulo">proyecto: tic-tac-toe</text>
+  <text x="570" y="126" text-anchor="middle" class="etiqueta">(ejemplo de un futuro proyecto)</text>
+  <text x="570" y="142" text-anchor="middle" class="etiqueta">3 en raya como SMA</text>
+  <text x="480" y="162" class="codigo">categorias:</text>
+  <text x="490" y="176" class="codigo">- arbitro  (obligatoria)</text>
+  <text x="490" y="188" class="codigo">- jugador_x</text>
+  <text x="490" y="200" class="codigo">- jugador_o</text>
+
+  <!-- proyectos.yaml fuente -->
+  <rect x="245" y="235" width="430" height="40" fill="#fff3e0" stroke="#9c5a1d" stroke-width="1.5" rx="4" ry="4"/>
+  <text x="460" y="257" text-anchor="middle" class="titulo">proyectos.yaml</text>
+  <text x="460" y="271" text-anchor="middle" class="etiqueta">declaración del catálogo cargada al arrancar el contenedor</text>
+
+  <!-- Endpoints con namespace -->
+  <rect x="245" y="285" width="430" height="50" fill="#e8f3e8" stroke="#4a7a4a" stroke-width="1.5" rx="4" ry="4"/>
+  <text x="460" y="305" text-anchor="middle" class="titulo">URL del contrato REST</text>
+  <text x="460" y="323" text-anchor="middle" class="codigo">GET /proyectos/{proyecto}/agentes/{rol}</text>
+
+  <!-- Cliente: agentes de Villa Olivar (a la izquierda del servidor) -->
+  <rect x="20" y="100" width="170" height="60" class="cliente"/>
+  <text x="105" y="124" text-anchor="middle" class="titulo">Agentes de Villa Olivar</text>
+  <text x="105" y="143" text-anchor="middle" class="etiqueta">proyecto: villa-olivar</text>
+
+  <!-- Cliente: agentes de TicTacToe (a la derecha del servidor) -->
+  <rect x="710" y="100" width="170" height="60" class="cliente" fill="#f5f0eb"/>
+  <text x="795" y="124" text-anchor="middle" class="titulo">Agentes de TicTacToe</text>
+  <text x="795" y="143" text-anchor="middle" class="etiqueta">proyecto: tic-tac-toe</text>
+
+  <!-- Flechas clientes → proyectos (horizontales, sin cruzar otros elementos) -->
+  <line x1="190" y1="130" x2="245" y2="130" class="flecha"/>
+  <line x1="710" y1="130" x2="675" y2="130" class="flecha"/>
+
+  <!-- Nota config.yaml en el cliente -->
+  <text x="105" y="290" text-anchor="middle" class="etiqueta" font-style="italic">config.yaml del cliente</text>
+  <text x="105" y="306" text-anchor="middle" class="codigo">registro:</text>
+  <text x="105" y="320" text-anchor="middle" class="codigo">  proyecto: villa-olivar</text>
+</svg>

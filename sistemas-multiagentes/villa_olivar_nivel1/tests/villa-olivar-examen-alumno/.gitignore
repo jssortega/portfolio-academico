@@ -1,0 +1,28 @@
+# Cachés de Python y pytest
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Editores e IDE
+.idea/
+.vscode/
+*.swp
+
+# Sistemas operativos
+.DS_Store
+
+# Entorno local del agente
+.ai/
+.claude/
+
+# Entornos virtuales
+venv/
+.venv/
+env/
+
+# Persistencia SQLite del supervisor (sesiones locales, no se versionan)
+data/*.db
+data/*.db-journal
+data/*.db-wal
+data/*.db-shm

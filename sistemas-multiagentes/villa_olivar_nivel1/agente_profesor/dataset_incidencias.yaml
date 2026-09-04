@@ -1,0 +1,172 @@
+# =============================================================================
+# Catálogo de incidencias del supervisor — Villa Olivar (Nivel 2)
+# =============================================================================
+# Catálogo cerrado y reproducible de incidencias que el supervisor del
+# profesor inyecta a las Centralitas de los grupos durante la corrección.
+#
+# Reglas del catálogo:
+# - Cada entrada DEBE llevar una `clave` única (snake_case). Esa clave es
+#   la semilla del UUID v5 que genera el `id_emergencia`, de modo que el
+#   identificador es determinista: dos arranques producen el mismo id.
+# - `tipo_emergencia` debe coincidir con los valores del enumerado
+#   TipoEmergencia (ontologia/modelos_compartidos.py):
+#     incendio | derrame_quimico | accidente_trafico | inundacion |
+#     derrumbe | otro
+# - `prioridad` debe coincidir con los valores del enumerado Prioridad:
+#     baja | media | alta | critica
+# - El orden de las entradas y sus claves forman parte del contrato
+#   público del supervisor (ver caracteristicas_para_tests_grupo.md §6):
+#   añadir entradas al final NO rompe a los grupos; reordenar o renombrar
+#   sí. No tocar las 8 primeras claves: las usa el modo demo.
+# - `ubicacion` y `descripcion` son texto libre en español. Se inyectan
+#   tal cual al cuerpo del mensaje `request` (FIPA-ACL) que recibe la
+#   Centralita del grupo.
+
+incidencias:
+
+  # ─── Claves originales del modo demo (NO renombrar) ───────────────────────
+  - clave: "incendio_alta"
+    tipo_emergencia: "incendio"
+    prioridad: "alta"
+    ubicacion: "Calle Mayor 14, Villa Olivar"
+    descripcion: "Humo denso en planta segunda, vecinos evacuados."
+
+  - clave: "incendio_critica"
+    tipo_emergencia: "incendio"
+    prioridad: "critica"
+    ubicacion: "Polígono Industrial El Olivar, nave 7"
+    descripcion: "Incendio en almacén con materiales inflamables."
+
+  - clave: "derrame_quimico_media"
+    tipo_emergencia: "derrame_quimico"
+    prioridad: "media"
+    ubicacion: "Carretera A-316, km 32"
+    descripcion: "Derrame de combustible tras accidente de cisterna."
+
+  - clave: "accidente_trafico_media"
+    tipo_emergencia: "accidente_trafico"
+    prioridad: "media"
+    ubicacion: "Glorieta de la Constitución"
+    descripcion: "Colisión entre dos turismos sin heridos graves."
+
+  - clave: "accidente_trafico_alta"
+    tipo_emergencia: "accidente_trafico"
+    prioridad: "alta"
+    ubicacion: "Avenida de Andalucía, 45"
+    descripcion: "Atropello con peatón herido grave."
+
+  - clave: "inundacion_alta"
+    tipo_emergencia: "inundacion"
+    prioridad: "alta"
+    ubicacion: "Calle del Río, números pares"
+    descripcion: "Crecida del arroyo tras tormenta intensa."
+
+  - clave: "derrumbe_critica"
+    tipo_emergencia: "derrumbe"
+    prioridad: "critica"
+    ubicacion: "Calle del Convento, 3"
+    descripcion: "Colapso parcial de fachada en edificio antiguo."
+
+  - clave: "otro_baja"
+    tipo_emergencia: "otro"
+    prioridad: "baja"
+    ubicacion: "Plaza de la Iglesia"
+    descripcion: "Aviso de gato atrapado en árbol."
+
+  # ─── Ampliación: variedad para inyecciones largas ─────────────────────────
+
+  - clave: "incendio_baja"
+    tipo_emergencia: "incendio"
+    prioridad: "baja"
+    ubicacion: "Camino de los Almendros, finca 12"
+    descripcion: "Quema descontrolada de rastrojos en linde rural."
+
+  - clave: "incendio_media"
+    tipo_emergencia: "incendio"
+    prioridad: "media"
+    ubicacion: "Calle Cervantes 7, bajo"
+    descripcion: "Conato en cocina de bar tras fallo de freidora."
+
+  - clave: "derrame_quimico_alta"
+    tipo_emergencia: "derrame_quimico"
+    prioridad: "alta"
+    ubicacion: "Estación de servicio Olivar Sur"
+    descripcion: "Fuga de gasolina en surtidor con vehículo accidentado."
+
+  - clave: "derrame_quimico_critica"
+    tipo_emergencia: "derrame_quimico"
+    prioridad: "critica"
+    ubicacion: "Cooperativa Olivarera del Valle"
+    descripcion: "Vertido de ácido en sala de máquinas con operario afectado."
+
+  - clave: "accidente_trafico_baja"
+    tipo_emergencia: "accidente_trafico"
+    prioridad: "baja"
+    ubicacion: "Aparcamiento del Mercado de Abastos"
+    descripcion: "Colisión por alcance a baja velocidad, sin heridos."
+
+  - clave: "accidente_trafico_critica"
+    tipo_emergencia: "accidente_trafico"
+    prioridad: "critica"
+    ubicacion: "Autovía A-44, salida 31"
+    descripcion: "Vuelco de autobús escolar con múltiples heridos."
+
+  - clave: "inundacion_media"
+    tipo_emergencia: "inundacion"
+    prioridad: "media"
+    ubicacion: "Bajos del Edificio Olivos, calle Real 22"
+    descripcion: "Inundación de garajes tras rotura de tubería principal."
+
+  - clave: "inundacion_critica"
+    tipo_emergencia: "inundacion"
+    prioridad: "critica"
+    ubicacion: "Barrio de la Vega"
+    descripcion: "Desbordamiento del río afecta a planta baja de viviendas."
+
+  - clave: "derrumbe_alta"
+    tipo_emergencia: "derrumbe"
+    prioridad: "alta"
+    ubicacion: "Obra en Calle Nueva, 18"
+    descripcion: "Caída de andamio sobre acera tras viento fuerte."
+
+  - clave: "derrumbe_media"
+    tipo_emergencia: "derrumbe"
+    prioridad: "media"
+    ubicacion: "Camino del Olivar Viejo"
+    descripcion: "Desprendimiento de muro de contención sin víctimas."
+
+  - clave: "otro_media"
+    tipo_emergencia: "otro"
+    prioridad: "media"
+    ubicacion: "Parque Municipal de Villa Olivar"
+    descripcion: "Persona desorientada solicita asistencia social."
+
+  - clave: "otro_alta"
+    tipo_emergencia: "otro"
+    prioridad: "alta"
+    ubicacion: "Colegio CEIP San Isidoro"
+    descripcion: "Enjambre de abejas próximo al patio durante el recreo."
+
+  - clave: "incendio_industrial_critica"
+    tipo_emergencia: "incendio"
+    prioridad: "critica"
+    ubicacion: "Almazara cooperativa, ctra. de Jaén s/n"
+    descripcion: "Incendio en sala de orujo con riesgo de propagación."
+
+  - clave: "accidente_trafico_centro"
+    tipo_emergencia: "accidente_trafico"
+    prioridad: "alta"
+    ubicacion: "Cruce de Calle Mayor con Avenida de la Estación"
+    descripcion: "Colisión motocicleta-turismo, motorista inconsciente."
+
+  - clave: "derrame_residencial_baja"
+    tipo_emergencia: "derrame_quimico"
+    prioridad: "baja"
+    ubicacion: "Urbanización Los Olivos, bloque 4"
+    descripcion: "Vertido de aceite en garaje comunitario, sin afectados."
+
+  - clave: "inundacion_baja"
+    tipo_emergencia: "inundacion"
+    prioridad: "baja"
+    ubicacion: "Calle Rosales 8"
+    descripcion: "Filtración de agua por lluvia desde tejado a vivienda."

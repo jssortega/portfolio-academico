@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 760" font-family="Helvetica, Arial, sans-serif" font-size="13">
+  <title>Contract Net sobre A2A — diagrama de secuencia</title>
+  <desc>La Centralita lanza dos tareas A2A (tasks/send) en paralelo a los especialistas Bomberos y Sanitario solicitando una propuesta de actuación. Cada especialista responde con un Task en estado completed que incluye su propuesta (tiempo estimado, recursos, disponibilidad). La Centralita compara las propuestas y selecciona la mejor (Sanitario con 8 minutos frente a Bomberos con 15 minutos). Finalmente la Centralita envía un nuevo tasks/send al especialista seleccionado con la asignación definitiva.</desc>
+
+  <defs>
+    <marker id="flecha-req" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1c5a98"/>
+    </marker>
+    <marker id="flecha-resp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1e7e34"/>
+    </marker>
+    <marker id="flecha-asign" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#a8242a"/>
+    </marker>
+    <style>
+      .titulo { font-size: 18px; font-weight: 700; fill: #1a1a1a; }
+      .subtitulo { font-size: 13px; fill: #444; text-anchor: middle; }
+      .actor { fill: #ffffff; stroke-width: 2; }
+      .actor-centralita { stroke: #1c5a98; }
+      .actor-bomberos { stroke: #b86b00; }
+      .actor-sanitario { stroke: #1e7e34; }
+      .actor-nombre { font-size: 14px; font-weight: 700; fill: #1a1a1a; text-anchor: middle; }
+      .actor-rol { font-size: 11px; fill: #555; text-anchor: middle; font-style: italic; }
+      .vida { stroke: #888; stroke-width: 1.4; stroke-dasharray: 4 3; }
+      .msg-req { stroke: #1c5a98; stroke-width: 2; fill: none; }
+      .msg-resp { stroke: #1e7e34; stroke-width: 2; fill: none; }
+      .msg-asign { stroke: #a8242a; stroke-width: 2.5; fill: none; }
+      .msg-label { font-size: 12px; fill: #1a1a1a; }
+      .msg-payload { font-size: 11px; font-family: 'Courier New', monospace; fill: #555; }
+      .nota-caja { fill: #fffaef; stroke: #b59a00; stroke-width: 1.4; }
+      .nota-texto { font-size: 12px; fill: #1a1a1a; text-anchor: middle; }
+      .leyenda-texto { font-size: 11px; fill: #1a1a1a; }
+    </style>
+  </defs>
+
+  <rect x="0" y="0" width="1140" height="760" fill="#ffffff"/>
+
+  <text class="titulo" x="570" y="40" text-anchor="middle">Contract Net sobre A2A — diagrama de secuencia</text>
+  <text class="subtitulo" x="570" y="62">A2A no tiene multicast nativo: la Centralita lanza una tarea individual a cada especialista, compara las propuestas y asigna a la mejor.</text>
+
+  <!-- ===== Cabeceras de actores ===== -->
+  <rect class="actor actor-centralita" x="100" y="90" width="200" height="60" rx="8"/>
+  <text class="actor-nombre" x="200" y="118">Centralita 112</text>
+  <text class="actor-rol" x="200" y="138">coordinador del grupo</text>
+
+  <rect class="actor actor-bomberos" x="470" y="90" width="200" height="60" rx="8"/>
+  <text class="actor-nombre" x="570" y="118">Bomberos</text>
+  <text class="actor-rol" x="570" y="138">especialista candidato</text>
+
+  <rect class="actor actor-sanitario" x="840" y="90" width="200" height="60" rx="8"/>
+  <text class="actor-nombre" x="940" y="118">Sanitario</text>
+  <text class="actor-rol" x="940" y="138">especialista candidato</text>
+
+  <!-- ===== Líneas de vida ===== -->
+  <line class="vida" x1="200" y1="150" x2="200" y2="700"/>
+  <line class="vida" x1="570" y1="150" x2="570" y2="700"/>
+  <line class="vida" x1="940" y1="150" x2="940" y2="700"/>
+
+  <!-- ===== Mensaje 1: Centralita → Bomberos: tasks/send propuesta? ===== -->
+  <line class="msg-req" x1="200" y1="190" x2="570" y2="190" marker-end="url(#flecha-req)"/>
+  <text class="msg-label" x="385" y="180" text-anchor="middle" font-weight="700" fill="#1c5a98">tasks/send  ·  ¿propuesta?</text>
+
+  <!-- ===== Mensaje 2: Centralita → Sanitario: tasks/send propuesta? ===== -->
+  <line class="msg-req" x1="200" y1="240" x2="940" y2="240" marker-end="url(#flecha-req)"/>
+  <text class="msg-label" x="570" y="230" text-anchor="middle" font-weight="700" fill="#1c5a98">tasks/send  ·  ¿propuesta?</text>
+
+  <!-- ===== Mensaje 3: Bomberos → Centralita: Task completed propuesta 15min ===== -->
+  <line class="msg-resp" x1="570" y1="320" x2="200" y2="320" marker-end="url(#flecha-resp)"/>
+  <text class="msg-label" x="385" y="310" text-anchor="middle" font-weight="700" fill="#1e7e34">Task: completed</text>
+  <text class="msg-payload" x="385" y="338" text-anchor="middle">{recursos: 2 unidades, tiempo: 15 min, disponibilidad: true}</text>
+
+  <!-- ===== Mensaje 4: Sanitario → Centralita: Task completed propuesta 8min ===== -->
+  <line class="msg-resp" x1="940" y1="400" x2="200" y2="400" marker-end="url(#flecha-resp)"/>
+  <text class="msg-label" x="570" y="390" text-anchor="middle" font-weight="700" fill="#1e7e34">Task: completed</text>
+  <text class="msg-payload" x="570" y="418" text-anchor="middle">{recursos: 1 ambulancia, tiempo: 8 min, disponibilidad: true}</text>
+
+  <!-- ===== Nota: Centralita compara propuestas ===== -->
+  <rect class="nota-caja" x="60" y="460" width="280" height="80" rx="8"/>
+  <text class="nota-texto" x="200" y="488" font-weight="700" fill="#7a5b00">Comparación de propuestas</text>
+  <text class="nota-texto" x="200" y="510">Sanitario gana</text>
+  <text class="nota-texto" x="200" y="528" font-style="italic">(8 min &lt; 15 min)</text>
+
+  <!-- ===== Mensaje 5: Centralita → Sanitario: tasks/send asignación ===== -->
+  <line class="msg-asign" x1="200" y1="600" x2="940" y2="600" marker-end="url(#flecha-asign)"/>
+  <text class="msg-label" x="570" y="590" text-anchor="middle" font-weight="700" fill="#a8242a">tasks/send  ·  asignación definitiva</text>
+
+  <!-- ===== Leyenda ===== -->
+  <g transform="translate(60, 700)">
+    <rect x="0" y="0" width="1020" height="40" fill="#fbfcfe" stroke="#d0d7e2" stroke-width="1" rx="6"/>
+    <line class="msg-req" x1="20" y1="20" x2="60" y2="20"/>
+    <text class="leyenda-texto" x="68" y="24" font-weight="700" fill="#1c5a98">solicitud de propuesta</text>
+    <line class="msg-resp" x1="280" y1="20" x2="320" y2="20"/>
+    <text class="leyenda-texto" x="328" y="24" font-weight="700" fill="#1e7e34">propuesta del candidato (Task completed)</text>
+    <line class="msg-asign" x1="650" y1="20" x2="690" y2="20"/>
+    <text class="leyenda-texto" x="698" y="24" font-weight="700" fill="#a8242a">asignación al ganador</text>
+  </g>
+</svg>

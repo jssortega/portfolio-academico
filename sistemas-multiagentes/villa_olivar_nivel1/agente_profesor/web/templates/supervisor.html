@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supervisor · Villa Olivar — Banco de pruebas Nivel 2</title>
+
+    <!-- Tipografías accesibles:
+         Atkinson Hyperlegible — diseñada por el Braille Institute para baja visión
+         JetBrains Mono — legibilidad superior en tamaños pequeños -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet" href="/supervisor/static/supervisor.css?v=1">
+</head>
+<body>
+
+    <!-- ─── HEADER STICKY ──────────────────────────────────────────── -->
+    <header class="sv-header">
+        <div class="sv-header-left">
+            <div class="sv-header-icon" aria-hidden="true">
+                <svg viewBox="0 0 30 30" width="24" height="24"
+                     fill="none" stroke="currentColor"
+                     stroke-width="2" stroke-linecap="round">
+                    <!-- Triángulo de aviso -->
+                    <path d="M15 4 L27 26 L3 26 Z"/>
+                    <line x1="15" y1="12" x2="15" y2="18"
+                          stroke="var(--alert-color)" stroke-width="3"/>
+                    <circle cx="15" cy="22" r="1.4"
+                            fill="var(--alert-color)" stroke="none"/>
+                </svg>
+            </div>
+            <div>
+                <h1>Supervisor · Villa Olivar — Banco de pruebas</h1>
+                <div class="sv-header-status">
+                    <div class="sv-online-dot" id="sv-online-dot"></div>
+                    <span class="sv-header-jid" id="sv-supervisor-jid">
+                        profesor_emergencias@—
+                    </span>
+                    <span class="sv-modo-pill" id="sv-modo">demo</span>
+                </div>
+            </div>
+        </div>
+        <div class="sv-header-right">
+            <div class="sv-ejecucion-selector">
+                <label for="sv-ejecucion-select"
+                       class="sv-ejecucion-label">Ejecución:</label>
+                <select id="sv-ejecucion-select"
+                        class="sv-ejecucion-select">
+                    <option value="live" selected>En vivo</option>
+                </select>
+            </div>
+            <span class="sv-clock" id="sv-clock">--:--:--</span>
+            <div class="sv-global-stats" id="sv-global-stats">
+                0 grupos · 0 seguimientos
+            </div>
+            <button class="sv-inyectar-btn" id="sv-inyectar"
+                    title="Abrir formulario de inyección de incidentes">
+                ⚡ Inyectar incidente
+            </button>
+            <button class="sv-finalizar-btn" id="sv-finalizar"
+                    title="Finalizar el supervisor de forma ordenada">
+                ⏹ Finalizar
+            </button>
+            <button class="sv-theme-toggle" id="theme-toggle"
+                    aria-label="Cambiar tema diurno/nocturno"
+                    title="Cambiar tema">
+                <div class="sv-theme-toggle-knob" id="theme-toggle-knob">
+                    🌙
+                </div>
+            </button>
+        </div>
+    </header>
+
+    <!-- ─── DISPOSICIÓN: BARRA LATERAL + ZONA PRINCIPAL ─────────────── -->
+    <div class="sv-layout">
+
+        <!-- ─── BARRA LATERAL: GRUPOS BAJO PRUEBA ───────────────── -->
+        <aside class="sv-sidebar">
+            <div class="sv-sidebar-title">Grupos bajo prueba</div>
+            <div id="sv-grupos-list"></div>
+
+            <div class="sv-sidebar-info">
+                <div class="sv-sidebar-info-title">
+                    Información del supervisor
+                </div>
+                <div class="sv-sidebar-info-text">
+                    Inyecta incidentes a la Centralita de cada grupo
+                    siguiendo el protocolo FIPA-Request. Recoge los
+                    informes de resolución y los expone aquí.
+                </div>
+            </div>
+        </aside>
+
+        <!-- ─── ÁREA PRINCIPAL ─────────────────────────────────────── -->
+        <main class="sv-main" id="sv-main-content">
+
+            <div class="sv-grupo-header">
+                <h2 id="sv-grupo-nombre">Vista general</h2>
+                <div class="sv-grupo-header-desc" id="sv-grupo-desc">
+                    Resumen de la sesión actual
+                </div>
+            </div>
+
+            <!-- Tarjetas de métricas agregadas -->
+            <div class="sv-stats-grid" id="sv-stats"></div>
+
+            <!-- Pestañas: Seguimientos | Estados | Resumen | Registro -->
+            <div class="sv-tabs" id="sv-tabs" role="tablist"
+                 aria-label="Secciones del panel"></div>
+
+            <div id="sv-panel-content" role="tabpanel"></div>
+
+            <footer class="sv-footer">
+                <span>
+                    Sistemas Multiagente · Universidad de Jaén
+                    · Departamento de Informática
+                </span>
+                <span>
+                    SPADE · FIPA-ACL · Ontología Villa Olivar
+                </span>
+            </footer>
+        </main>
+    </div>
+
+    <!-- ─── OVERLAY DE FINALIZACIÓN ─────────────────────────────────── -->
+    <div class="sv-fin-overlay hidden" id="sv-fin-overlay" role="alertdialog"
+         aria-label="Supervisor finalizado">
+        <div class="sv-fin-card">
+            <div class="sv-fin-icon">⏹</div>
+            <h3 id="sv-fin-titulo">Supervisor finalizado</h3>
+            <p id="sv-fin-mensaje">
+                El servidor ha cerrado la ejecución actual. Puedes
+                cerrar esta pestaña o volver a arrancarlo desde la
+                terminal.
+            </p>
+            <div class="sv-fin-csv hidden" id="sv-fin-csv">
+                <p class="sv-fin-csv-titulo">
+                    Copia automática de los CSV de la sesión:
+                </p>
+                <code class="sv-fin-csv-ruta"></code>
+                <p class="sv-fin-csv-detalle">
+                    Contiene <code>seguimientos.csv</code>,
+                    <code>resumen.csv</code> y <code>log.csv</code>.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ─── DIÁLOGO DE INYECCIÓN MANUAL ─────────────────────────────── -->
+    <div class="sv-modal-overlay hidden" id="inyectar-overlay"
+         role="dialog" aria-label="Formulario de inyección manual">
+        <div class="sv-modal sv-modal-form" onclick="event.stopPropagation()">
+            <div class="sv-modal-close-row">
+                <h3 class="sv-modal-title">⚡ Inyectar incidente</h3>
+                <button class="sv-modal-close" id="inyectar-cerrar"
+                        aria-label="Cerrar formulario">✕</button>
+            </div>
+            <p class="sv-modal-desc">
+                Elige un grupo y un escenario del catálogo. Si dejas
+                "Aleatorio", el supervisor selecciona uno al azar.
+            </p>
+            <form class="sv-form" id="inyectar-form">
+                <label for="inyectar-grupo">Grupo destino</label>
+                <select id="inyectar-grupo" required></select>
+
+                <label for="inyectar-escenario">Escenario</label>
+                <select id="inyectar-escenario">
+                    <option value="">Aleatorio del catálogo</option>
+                </select>
+
+                <div class="sv-form-actions">
+                    <button type="button" class="sv-btn-secundario"
+                            id="inyectar-cancelar">Cancelar</button>
+                    <button type="submit" class="sv-inyectar-btn"
+                            id="inyectar-confirmar">Inyectar</button>
+                </div>
+                <div class="sv-form-mensaje" id="inyectar-mensaje"
+                     aria-live="polite"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ─── VENTANA DE DETALLE DEL SEGUIMIENTO ──────────────────────── -->
+    <div class="sv-modal-overlay hidden" id="modal-overlay"
+         role="dialog" aria-label="Detalle del seguimiento">
+        <div class="sv-modal" onclick="event.stopPropagation()">
+            <div class="sv-modal-close-row">
+                <button class="sv-modal-close" id="modal-close"
+                        aria-label="Cerrar detalle">✕</button>
+            </div>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <script src="/supervisor/static/supervisor.js?v=1"></script>
+</body>
+</html>

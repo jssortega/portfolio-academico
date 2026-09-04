@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Recorrido de la ontología en Nivel 3.
+  Tres ecosistemas codificados con FORMAS distintas además del color
+  (rectángulo azul = SPADE, rectángulo redondeado naranja = ADK,
+  rectángulo con doble borde rojo = MCP/A2A) para legibilidad sin color.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480"
+     font-family="Atkinson Hyperlegible, Helvetica, Arial, sans-serif"
+     font-size="13" role="img"
+     aria-label="Flujo de la ontología entre los tres ecosistemas del Nivel 3">
+  <title>Recorrido de la ontología en Nivel 3 (SPADE → ADK → A2A/MCP)</title>
+  <desc>El agente SPADE envía DatosEmergencia y RespuestaAgente a la
+        Centralita por FIPA-ACL; la Centralita invoca un agente ADK
+        mediante tool calls; ese agente accede a servidores MCP o
+        agentes remotos por A2A. Los modelos Pydantic deben sobrevivir
+        a las tres conversiones.</desc>
+  <defs>
+    <marker id="f3" viewBox="0 0 10 10" refX="9" refY="5"
+            markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#111111"/>
+    </marker>
+    <style>
+      .fondo       { fill: #ffffff; stroke: #cccccc; stroke-width: 1; }
+      .caja-spade  { fill: #DEEBF7; stroke: #0072B2; stroke-width: 2; rx: 4; ry: 4; }
+      .caja-adk    { fill: #FFEFD5; stroke: #E69F00; stroke-width: 2; rx: 14; ry: 14; }
+      .caja-mcp    { fill: #FBE3D6; stroke: #D55E00; stroke-width: 2; rx: 4; ry: 4; }
+      .caja-mcp-2  { fill: none;    stroke: #D55E00; stroke-width: 1; rx: 2; ry: 2; }
+      .arista      { fill: none; stroke: #111111; stroke-width: 1.5; }
+      .label       { fill: #111111; font-weight: 500; }
+      .label-sm    { fill: #333333; font-size: 11px; font-style: italic; }
+      .titulo      { font-size: 14px; font-weight: 600; fill: #111111; }
+      .grupo-borde { fill: none; stroke: #555555; stroke-width: 1.2; stroke-dasharray: 6 4; }
+      .grupo-titulo{ font-size: 13px; font-weight: 600; fill: #111111; }
+    </style>
+  </defs>
+
+  <rect class="fondo" x="0" y="0" width="800" height="480"/>
+
+  <!-- 1. Agente SPADE -->
+  <rect class="caja-spade" x="60" y="40" width="220" height="60"/>
+  <text class="titulo" x="170" y="65" text-anchor="middle">Agente SPADE</text>
+  <text class="label-sm" x="170" y="85" text-anchor="middle">especialista del grupo · [SPADE]</text>
+
+  <!-- 2. Centralita (también SPADE) -->
+  <rect class="caja-spade" x="510" y="40" width="220" height="60"/>
+  <text class="titulo" x="620" y="65" text-anchor="middle">Centralita</text>
+  <text class="label-sm" x="620" y="85" text-anchor="middle">orquestador · [SPADE]</text>
+
+  <!-- Arista 1: JSON FIPA-ACL -->
+  <line class="arista" x1="280" y1="70" x2="510" y2="70" marker-end="url(#f3)"/>
+  <text class="label-sm" x="395" y="60" text-anchor="middle">JSON FIPA-ACL</text>
+  <text class="label-sm" x="395" y="86" text-anchor="middle">DatosEmergencia · RespuestaAgente</text>
+
+  <!-- 3. LLM + agente ADK (forma redondeada distintiva) -->
+  <rect class="caja-adk" x="510" y="190" width="220" height="80"/>
+  <text class="titulo" x="620" y="218" text-anchor="middle">LLM + agente ADK</text>
+  <text class="label-sm" x="620" y="236" text-anchor="middle">tool calls · [Google ADK]</text>
+  <text class="label-sm" x="620" y="252" text-anchor="middle">consume y produce modelos</text>
+
+  <!-- Arista 2: tool call -->
+  <line class="arista" x1="620" y1="100" x2="620" y2="190" marker-end="url(#f3)"/>
+  <text class="label-sm" x="630" y="135">tool call</text>
+  <text class="label-sm" x="630" y="150">(Google ADK)</text>
+
+  <!-- 4. Servidor MCP / agente remoto (doble borde) -->
+  <rect class="caja-mcp"   x="510" y="350" width="220" height="80"/>
+  <rect class="caja-mcp-2" x="514" y="354" width="212" height="72"/>
+  <text class="titulo" x="620" y="378" text-anchor="middle">Servidor MCP / agente remoto</text>
+  <text class="label-sm" x="620" y="396" text-anchor="middle">comunicación A2A (Agent2Agent)</text>
+  <text class="label-sm" x="620" y="412" text-anchor="middle">tools / resources MCP</text>
+
+  <!-- Arista 3: A2A / MCP -->
+  <line class="arista" x1="620" y1="270" x2="620" y2="350" marker-end="url(#f3)"/>
+  <text class="label-sm" x="630" y="305">A2A / MCP</text>
+
+  <!-- Cápsula de modelos (zona Nivel 3) -->
+  <rect class="grupo-borde" x="40" y="170" width="340" height="280" rx="10" ry="10"/>
+  <text class="grupo-titulo" x="210" y="194" text-anchor="middle">Modelos compartidos (Pydantic)</text>
+  <text class="label-sm" x="210" y="216" text-anchor="middle">deben sobrevivir a las tres conversiones</text>
+
+  <text class="label" x="60" y="250">• DatosEmergencia</text>
+  <text class="label" x="60" y="272">• RespuestaAgente</text>
+  <text class="label" x="60" y="294">• InformeResolucion</text>
+  <text class="label" x="60" y="316">• ConsultaEstado</text>
+  <text class="label" x="60" y="338">• EstadoAgente</text>
+  <text class="label-sm" x="60" y="370">Tests N4: los modelos siguen siendo válidos</text>
+  <text class="label-sm" x="60" y="386">tras serializarse a JSON FIPA-ACL,</text>
+  <text class="label-sm" x="60" y="402">a tool calls de ADK y a wire format A2A/MCP.</text>
+
+  <!-- Leyenda de formas -->
+  <g transform="translate(40,452)">
+    <rect class="caja-spade" x="0"   y="0" width="14" height="14"/>
+    <text class="label-sm" x="20"  y="11">SPADE</text>
+    <rect class="caja-adk"   x="80"  y="0" width="14" height="14"/>
+    <text class="label-sm" x="100" y="11">ADK (esquina redondeada)</text>
+    <rect class="caja-mcp"   x="240" y="0" width="14" height="14"/>
+    <rect class="caja-mcp-2" x="242" y="2" width="10" height="10"/>
+    <text class="label-sm" x="260" y="11">MCP / A2A (doble borde)</text>
+  </g>
+</svg>

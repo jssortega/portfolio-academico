@@ -1,0 +1,107 @@
+# =============================================================================
+# Configuración del agente supervisor del profesor — Villa Olivar (Nivel 2)
+# =============================================================================
+# Este fichero contiene la configuración específica del banco de pruebas que
+# el profesor usa para corregir las entregas de los grupos. Los datos de
+# conexión XMPP se reaprovechan del config.yaml del proyecto; aquí solo
+# vive lo propio del supervisor.
+
+# ─── Identidad del supervisor ────────────────────────────────────────────────
+identidad:
+  usuario: "profesor_emergencias"
+  contrasena: "profesor_emergencias_pass"
+
+# ─── Servidor web del panel del supervisor ──────────────────────────────────
+web:
+  puerto: 10100
+  host: "0.0.0.0"
+  abrir_navegador: true
+  # Autenticación HTTP Basic opcional. Si usuario y contraseña están
+  # vacíos, el panel queda abierto. Útil para sesiones compartidas
+  # del laboratorio.
+  auth_usuario: ""
+  auth_contrasena: ""
+
+# ─── Persistencia SQLite ─────────────────────────────────────────────────────
+# El supervisor guarda cada ejecución en una BD SQLite para que el modo
+# consulta pueda revisarla a posteriori. La BD se crea automáticamente en
+# la ruta indicada si no existe. Cuando la BD está vacía, el modo
+# consulta siembra una "ejecución de muestra" con el catálogo predefinido
+# para que el panel tenga algo que mostrar desde el primer arranque.
+persistencia:
+  ruta_db: "data/supervisor.db"
+  descripcion_sesion: ""        # Texto libre para localizar la sesión
+
+# ─── Tiempos del autómata de seguimiento ────────────────────────────────────
+# Los grupos pueden leer estos mismos valores en sus tests para evitar
+# acoplarse a literales. Ver caracteristicas_para_tests_grupo.md §3.2.
+timeouts:
+  agree_segundos: 5
+  informe_segundos: 180   # Generoso a propósito: los agentes con LLM pueden ser lentos
+  consulta_estado_segundos: 2
+
+# ─── Sondeo de estados de los agentes (telemetría) ──────────────────────────
+# El supervisor envía periódicamente un query-ref a cada rol del
+# grupo (Centralita, Bomberos, Sanitario, Policía, Municipal) para
+# alimentar la pestaña "Estados de agentes" del panel. Es un canal
+# auxiliar: no transiciona seguimientos.
+sondeo:
+  intervalo_segundos: 15
+  # Roles a sondear; el supervisor construye los JID con la convención
+  # "<rol>_<id_grupo>@<dominio_de_la_centralita>". Si el grupo usa
+  # otra convención, puede recortarse esta lista o dejar solo "centralita".
+  roles:
+    - centralita
+    - bomberos
+    - sanitario
+    - policia
+    - municipal
+
+# ─── Inyección de incidentes ─────────────────────────────────────────────────
+inyeccion:
+  # Intervalo entre inyecciones consecutivas a un grupo (segundos).
+  intervalo_segundos: 30
+  # Si está activado, el supervisor inyecta automáticamente al arrancar.
+  # En la primera etapa se deja desactivado: la inyección se gobierna
+  # desde el panel o por órdenes manuales en iteraciones posteriores.
+  automatica: false
+
+# ─── Grupos a corregir ───────────────────────────────────────────────────────
+# Lista de grupos sobre los que el supervisor inyecta incidentes. Hay
+# dos escenarios de uso previstos (ver README §4.1):
+#
+#   ▸ Escenario A — Alumno autoevaluándose
+#     El grupo arranca el supervisor dentro de su propio proyecto para
+#     comprobar que su Centralita responde correctamente. Solo declara
+#     SU grupo. Plantilla mínima:
+#
+#       grupos:
+#         - id: "miGrupo"
+#           nombre: "Equipo de pruebas"
+#           jid_centralita: "centralita_miGrupo@localhost"
+#
+#   ▸ Escenario B — Profesor corrigiendo en el laboratorio
+#     El profesor declara TODOS los grupos que va a evaluar en la
+#     sesión. Plantilla con varios grupos:
+#
+#       grupos:
+#         - id: "fenix"
+#           nombre: "Equipo Fénix"
+#           jid_centralita: "centralita_fenix@localhost"
+#         - id: "olivar42"
+#           nombre: "Equipo Olivar 42"
+#           jid_centralita: "centralita_olivar42@localhost"
+#
+# Si la lista queda vacía, el panel se alimenta del catálogo de
+# escenarios de muestra (útil solo en modo "consulta").
+grupos: []
+
+# ─── Modo de arranque por defecto ────────────────────────────────────────────
+# Se puede sobreescribir desde la línea de órdenes de profesor_main.py.
+# Modos disponibles:
+# - "consulta": no se conecta a XMPP, abre el panel sobre la BD
+#   SQLite y siembra una ejecución de muestra si está vacía.
+# - "activo":   se conecta a XMPP, crea una ejecución nueva en la BD
+#   y queda a la espera de inyectar incidentes a los grupos definidos
+#   arriba.
+modo_arranque: "consulta"

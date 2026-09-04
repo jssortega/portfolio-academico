@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 700" font-family="Helvetica, Arial, sans-serif" font-size="13">
+  <title>Flujo de comunicación A2A — Coordinador, Centralita y un especialista</title>
+  <desc>Diagrama de secuencia que muestra la comunicación A2A entre el coordinador del profesor, la Centralita 112 y el agente Bomberos durante la resolución de una incidencia. El coordinador envía un Task con DatosEmergencia. La Centralita lo acepta (working), descubre la tarjeta de agente del especialista y le envía un Task A2A. Tras recibir el informe de actuación, la Centralita devuelve al coordinador un Task completed con el InformeResolucion.</desc>
+
+  <defs>
+    <marker id="flecha-msg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1c5a98"/>
+    </marker>
+    <marker id="flecha-msg-resp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1e7e34"/>
+    </marker>
+    <style>
+      .titulo { font-size: 18px; font-weight: 700; fill: #1a1a1a; }
+      .subtitulo { font-size: 13px; fill: #444; text-anchor: middle; }
+      .actor { fill: #ffffff; stroke-width: 2; }
+      .actor-coord { stroke: #1c5a98; }
+      .actor-centralita { stroke: #b86b00; }
+      .actor-bomberos { stroke: #1e7e34; }
+      .actor-nombre { font-size: 14px; font-weight: 700; fill: #1a1a1a; text-anchor: middle; }
+      .actor-rol { font-size: 11px; fill: #555; text-anchor: middle; font-style: italic; }
+      .vida { stroke: #888; stroke-width: 1.4; stroke-dasharray: 4 3; }
+      .msg-req { stroke: #1c5a98; stroke-width: 2; fill: none; }
+      .msg-resp { stroke: #1e7e34; stroke-width: 2; fill: none; }
+      .msg-label { font-size: 12px; fill: #1a1a1a; }
+      .msg-payload { font-size: 11px; font-family: 'Courier New', monospace; fill: #555; }
+      .nota { font-size: 11px; fill: #555; font-style: italic; }
+    </style>
+  </defs>
+
+  <rect x="0" y="0" width="1100" height="700" fill="#ffffff"/>
+
+  <text class="titulo" x="550" y="40" text-anchor="middle">Flujo de comunicación A2A — diagrama de secuencia</text>
+  <text class="subtitulo" x="550" y="62">Resolución de una incidencia que requiere apoyo del especialista Bomberos.</text>
+
+  <!-- Cabeceras de actores -->
+  <rect class="actor actor-coord" x="80" y="90" width="200" height="56" rx="8"/>
+  <text class="actor-nombre" x="180" y="115">Coordinador</text>
+  <text class="actor-rol" x="180" y="135">profesor</text>
+
+  <rect class="actor actor-centralita" x="450" y="90" width="200" height="56" rx="8"/>
+  <text class="actor-nombre" x="550" y="115">Centralita 112</text>
+  <text class="actor-rol" x="550" y="135">grupo del alumno</text>
+
+  <rect class="actor actor-bomberos" x="820" y="90" width="200" height="56" rx="8"/>
+  <text class="actor-nombre" x="920" y="115">Bomberos</text>
+  <text class="actor-rol" x="920" y="135">especialista público</text>
+
+  <!-- Líneas de vida -->
+  <line class="vida" x1="180" y1="146" x2="180" y2="650"/>
+  <line class="vida" x1="550" y1="146" x2="550" y2="650"/>
+  <line class="vida" x1="920" y1="146" x2="920" y2="650"/>
+
+  <!-- Mensaje 1: Coord → Centralita: tasks/send {DatosEmergencia} -->
+  <line class="msg-req" x1="180" y1="180" x2="550" y2="180" marker-end="url(#flecha-msg)"/>
+  <text class="msg-label" x="365" y="170" text-anchor="middle" font-weight="700" fill="#1c5a98">tasks/send</text>
+  <text class="msg-payload" x="365" y="196" text-anchor="middle">{DatosEmergencia}</text>
+
+  <!-- Mensaje 2: Centralita → Coord: Task working -->
+  <line class="msg-resp" x1="550" y1="240" x2="180" y2="240" marker-end="url(#flecha-msg-resp)"/>
+  <text class="msg-label" x="365" y="232" text-anchor="middle" font-weight="700" fill="#1e7e34">Task: working</text>
+
+  <!-- Mensaje 3: Centralita → Bomberos: GET /.well-known/agent.json -->
+  <line class="msg-req" x1="550" y1="290" x2="920" y2="290" marker-end="url(#flecha-msg)"/>
+  <text class="msg-label" x="735" y="282" text-anchor="middle" font-weight="700" fill="#1c5a98">GET /.well-known/agent.json</text>
+
+  <!-- Mensaje 4: Bomberos → Centralita: Agent Card -->
+  <line class="msg-resp" x1="920" y1="340" x2="550" y2="340" marker-end="url(#flecha-msg-resp)"/>
+  <text class="msg-label" x="735" y="332" text-anchor="middle" font-weight="700" fill="#1e7e34">tarjeta de agente (JSON)</text>
+
+  <!-- Mensaje 5: Centralita → Bomberos: tasks/send {alerta_emergencia} -->
+  <line class="msg-req" x1="550" y1="400" x2="920" y2="400" marker-end="url(#flecha-msg)"/>
+  <text class="msg-label" x="735" y="392" text-anchor="middle" font-weight="700" fill="#1c5a98">tasks/send</text>
+  <text class="msg-payload" x="735" y="416" text-anchor="middle">{alerta_emergencia}</text>
+
+  <!-- Mensaje 6: Bomberos → Centralita: Task completed {informe_actuacion} -->
+  <line class="msg-resp" x1="920" y1="470" x2="550" y2="470" marker-end="url(#flecha-msg-resp)"/>
+  <text class="msg-label" x="735" y="462" text-anchor="middle" font-weight="700" fill="#1e7e34">Task: completed</text>
+  <text class="msg-payload" x="735" y="486" text-anchor="middle">{informe_actuacion}</text>
+
+  <!-- Mensaje 7: Centralita → Coord: Task completed {InformeResolucion} -->
+  <line class="msg-resp" x1="550" y1="540" x2="180" y2="540" marker-end="url(#flecha-msg-resp)"/>
+  <text class="msg-label" x="365" y="532" text-anchor="middle" font-weight="700" fill="#1e7e34">Task: completed</text>
+  <text class="msg-payload" x="365" y="556" text-anchor="middle">{InformeResolucion}</text>
+
+  <!-- Notas -->
+  <text class="nota" x="550" y="620" text-anchor="middle">Las flechas azules son peticiones (cliente→servidor); las verdes son respuestas o actualizaciones de estado.</text>
+  <text class="nota" x="550" y="640" text-anchor="middle">El descubrimiento de la tarjeta de agente puede omitirse si la Centralita ya conoce la URL por el registro central.</text>
+</svg>

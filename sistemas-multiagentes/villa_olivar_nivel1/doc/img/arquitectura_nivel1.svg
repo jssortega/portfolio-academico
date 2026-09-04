@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 540" font-family="Helvetica, Arial, sans-serif" font-size="13">
+  <title>Arquitectura de comunicación del Nivel 1 — FIPA/SPADE</title>
+  <desc>La Centralita coordina el sistema enviando mensajes FIPA-ACL sobre XMPP a los cuatro especialistas (Bomberos, Sanitario, Policía, Servicios Municipales). Todos los agentes se ejecutan sobre el servidor XMPP compartido sinbad2.ujaen.es y se descubren mediante el Directory Facilitator más la presencia XMPP y las salas MUC.</desc>
+
+  <defs>
+    <marker id="flecha-bidi" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b86b00"/>
+    </marker>
+    <style>
+      .titulo { font-size: 18px; font-weight: 700; fill: #1a1a1a; }
+      .subtitulo { font-size: 13px; fill: #444; text-anchor: middle; }
+      .agente { fill: #fff5ec; stroke: #b86b00; stroke-width: 2; }
+      .centralita { fill: #ffffff; stroke: #b86b00; stroke-width: 3; }
+      .nombre { font-size: 14px; font-weight: 700; fill: #1a1a1a; text-anchor: middle; }
+      .jid { font-size: 11px; font-family: 'Courier New', monospace; fill: #555; text-anchor: middle; }
+      .arista { stroke: #b86b00; stroke-width: 2; fill: none; }
+      .arista-label { font-size: 11px; font-weight: 600; fill: #b86b00; }
+      .servidor-caja { fill: #fffaef; stroke: #b59a00; stroke-width: 1.5; stroke-dasharray: 5 4; }
+      .servidor-text { font-size: 12px; fill: #1a1a1a; }
+    </style>
+  </defs>
+
+  <rect x="0" y="0" width="1100" height="540" fill="#ffffff"/>
+
+  <text class="titulo" x="550" y="40" text-anchor="middle">Arquitectura de comunicación — Nivel 1 (FIPA/SPADE)</text>
+  <text class="subtitulo" x="550" y="62">Comunicación FIPA-ACL sobre XMPP. Descubrimiento mediante DF, presencia XMPP y salas MUC.</text>
+
+  <!-- Centralita (centro-izquierda) -->
+  <rect class="centralita" x="80" y="200" width="240" height="120" rx="12"/>
+  <text class="nombre" x="200" y="240">Centralita 112</text>
+  <text class="jid" x="200" y="266">centralita@sinbad2</text>
+  <text class="jid" x="200" y="292">coordinador del sistema</text>
+
+  <!-- Especialistas (4 a la derecha) -->
+  <rect class="agente" x="720" y="100" width="240" height="80" rx="10"/>
+  <text class="nombre" x="840" y="132">Bomberos</text>
+  <text class="jid" x="840" y="156">bomberos@sinbad2</text>
+
+  <rect class="agente" x="720" y="200" width="240" height="80" rx="10"/>
+  <text class="nombre" x="840" y="232">Sanitario</text>
+  <text class="jid" x="840" y="256">sanitario@sinbad2</text>
+
+  <rect class="agente" x="720" y="300" width="240" height="80" rx="10"/>
+  <text class="nombre" x="840" y="332">Policía</text>
+  <text class="jid" x="840" y="356">policia@sinbad2</text>
+
+  <rect class="agente" x="720" y="400" width="240" height="80" rx="10"/>
+  <text class="nombre" x="840" y="432">Servicios Municipales</text>
+  <text class="jid" x="840" y="456">municipal@sinbad2</text>
+
+  <!-- Aristas FIPA-ACL desde Centralita a cada especialista -->
+  <path class="arista" d="M 320 240 C 480 200, 600 160, 720 140" marker-end="url(#flecha-bidi)" marker-start="url(#flecha-bidi)"/>
+  <path class="arista" d="M 320 260 C 480 250, 600 245, 720 240" marker-end="url(#flecha-bidi)" marker-start="url(#flecha-bidi)"/>
+  <path class="arista" d="M 320 280 C 480 300, 600 320, 720 340" marker-end="url(#flecha-bidi)" marker-start="url(#flecha-bidi)"/>
+  <path class="arista" d="M 320 300 C 480 360, 600 410, 720 440" marker-end="url(#flecha-bidi)" marker-start="url(#flecha-bidi)"/>
+
+  <text class="arista-label" x="520" y="170">FIPA-ACL (XMPP)</text>
+  <text class="arista-label" x="520" y="232">FIPA-ACL (XMPP)</text>
+  <text class="arista-label" x="520" y="334">FIPA-ACL (XMPP)</text>
+  <text class="arista-label" x="520" y="408">FIPA-ACL (XMPP)</text>
+
+  <!-- Caja de servidor XMPP -->
+  <rect class="servidor-caja" x="80" y="380" width="540" height="120" rx="10"/>
+  <text class="servidor-text" x="100" y="408" font-weight="700">Servidor XMPP compartido</text>
+  <text class="servidor-text" x="100" y="430">Host: sinbad2.ujaen.es (todos los grupos)</text>
+  <text class="servidor-text" x="100" y="452">Protocolo: FIPA-ACL sobre XMPP</text>
+  <text class="servidor-text" x="100" y="474">Descubrimiento: DF + Presencia XMPP + Salas MUC</text>
+  <text class="servidor-text" x="100" y="496" font-style="italic" fill="#7a5b00">Todos los agentes (Centralita y especialistas) se conectan a este servidor.</text>
+</svg>

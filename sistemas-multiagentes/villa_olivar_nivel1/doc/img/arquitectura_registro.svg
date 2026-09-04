@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 930" font-family="Helvetica, Arial, sans-serif" font-size="13">
+  <title>Registro central de agentes públicos en sinbad2.ujaen.es</title>
+  <desc>Mecanismo de descubrimiento entre grupos. El servidor sinbad2.ujaen.es (con IP pública) hospeda un registro REST. Cada agente público del aula se da de alta al arrancar y consulta el registro para descubrir agentes públicos de otros grupos. Sólo se publican los agentes marcados como públicos.</desc>
+
+  <defs>
+    <marker id="flecha-azul" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1c5a98"/>
+    </marker>
+    <marker id="flecha-verde" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1e7e34"/>
+    </marker>
+    <marker id="flecha-violeta" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#5b3a8a"/>
+    </marker>
+    <style>
+      .titulo { font-size: 19px; font-weight: 700; fill: #1a1a1a; }
+      .subtitulo { font-size: 13px; fill: #444; text-anchor: middle; }
+      .servidor { fill: #eaf3fb; stroke: #1c5a98; stroke-width: 2.5; }
+      .registro { fill: #ffffff; stroke: #1c5a98; stroke-width: 2; }
+      .endpoint { fill: #fffaef; stroke: #b59a00; stroke-width: 1.4; }
+      .lab { fill: #fafbfc; stroke: #6b7280; stroke-width: 2; stroke-dasharray: 8 5; }
+      .pc { fill: #ffffff; stroke: #444; stroke-width: 1.6; }
+      .agente-publico { fill: #eaf5ec; stroke: #1e7e34; stroke-width: 1.6; }
+      .frontera { stroke: #a8242a; stroke-width: 2; stroke-dasharray: 6 4; }
+      .nombre { font-size: 14px; font-weight: 700; fill: #1a1a1a; text-anchor: middle; }
+      .nombre-pc { font-size: 13px; font-weight: 700; fill: #1a1a1a; text-anchor: middle; }
+      .endpoint-text { font-size: 12px; font-family: 'Courier New', monospace; fill: #1a1a1a; text-anchor: middle; }
+      .agente-text { font-size: 12px; font-family: 'Courier New', monospace; fill: #1a1a1a; text-anchor: middle; }
+      .nota { font-size: 11px; fill: #555; font-style: italic; }
+      .arco-registro { stroke: #1c5a98; stroke-width: 2; fill: none; }
+      .arco-consulta { stroke: #1e7e34; stroke-width: 2; fill: none; stroke-dasharray: 5 4; }
+      .arco-a2a { stroke: #5b3a8a; stroke-width: 2; fill: none; stroke-dasharray: 5 4; }
+      .badge-paso { fill: #1c5a98; }
+      .badge-paso-2 { fill: #1e7e34; }
+      .badge-paso-3 { fill: #5b3a8a; }
+      .badge-text { font-size: 12px; font-weight: 700; fill: #ffffff; text-anchor: middle; }
+    </style>
+  </defs>
+
+  <!-- Fondo claro -->
+  <rect x="0" y="0" width="1240" height="930" fill="#ffffff"/>
+
+  <!-- Título -->
+  <text class="titulo" x="620" y="42" text-anchor="middle">Registro central de agentes públicos en sinbad2.ujaen.es</text>
+  <text class="subtitulo" x="620" y="66">Sólo los agentes públicos de cada grupo se registran. El registro permite a otros grupos descubrirlos para escenarios de cooperación.</text>
+
+  <!-- ===== Servidor sinbad2.ujaen.es ===== -->
+  <rect class="servidor" x="200" y="110" width="840" height="220" rx="14"/>
+  <text class="nombre" x="620" y="146">sinbad2.ujaen.es · servidor con IP pública</text>
+  <text class="nota" x="620" y="170" text-anchor="middle">distinto de sinbad2ia.ujaen.es (servidor del LLM)</text>
+
+  <!-- Registro REST -->
+  <rect class="registro" x="240" y="194" width="760" height="118" rx="10"/>
+  <text class="nombre" x="620" y="226">Registro de agentes (servicio REST)</text>
+
+  <!-- 3 endpoints -->
+  <rect class="endpoint" x="266" y="248" width="220" height="48" rx="6"/>
+  <text class="endpoint-text" x="376" y="278">POST /agentes</text>
+
+  <rect class="endpoint" x="510" y="248" width="220" height="48" rx="6"/>
+  <text class="endpoint-text" x="620" y="278">GET /agentes</text>
+
+  <rect class="endpoint" x="754" y="248" width="220" height="48" rx="6"/>
+  <text class="endpoint-text" x="864" y="278">DELETE /agentes/{id}</text>
+
+  <!-- ===== Frontera Internet / NAT ===== -->
+  <line class="frontera" x1="60" y1="370" x2="1180" y2="370"/>
+  <text x="80" y="362" font-size="12" font-weight="700" fill="#a8242a">Internet / NAT del aula</text>
+  <text x="1160" y="362" font-size="11" fill="#a8242a" text-anchor="end" font-style="italic">tráfico saliente permitido (cliente HTTP)</text>
+
+  <!-- ===== Laboratorio ===== -->
+  <rect class="lab" x="40" y="400" width="1160" height="320" rx="14"/>
+  <text x="68" y="432" font-size="14" font-weight="700" fill="#1a1a1a">Laboratorio · agentes públicos de cada grupo (privados no se muestran)</text>
+
+  <!-- Agentes públicos del Grupo 1 -->
+  <rect class="pc" x="80" y="460" width="360" height="240" rx="10"/>
+  <text class="nombre-pc" x="260" y="494">PC-01 (Grupo 1)</text>
+
+  <rect class="agente-publico" x="106" y="514" width="308" height="48" rx="6"/>
+  <text class="agente-text" x="260" y="544">G1 · Centralita 112  ·  :8110</text>
+
+  <rect class="agente-publico" x="106" y="572" width="308" height="48" rx="6"/>
+  <text class="agente-text" x="260" y="602">G1 · Bomberos  ·  :8111</text>
+
+  <rect class="agente-publico" x="106" y="630" width="308" height="48" rx="6"/>
+  <text class="agente-text" x="260" y="660">G1 · Sanitario  ·  :8112</text>
+
+  <!-- Agentes públicos del Grupo 2 -->
+  <rect class="pc" x="800" y="460" width="360" height="240" rx="10"/>
+  <text class="nombre-pc" x="980" y="494">PC-03 (Grupo 2)</text>
+
+  <rect class="agente-publico" x="826" y="514" width="308" height="48" rx="6"/>
+  <text class="agente-text" x="980" y="544">G2 · Centralita 112  ·  :8120</text>
+
+  <rect class="agente-publico" x="826" y="572" width="308" height="48" rx="6"/>
+  <text class="agente-text" x="980" y="602">G2 · Bomberos  ·  :8121</text>
+
+  <rect class="agente-publico" x="826" y="630" width="308" height="48" rx="6"/>
+  <text class="agente-text" x="980" y="660">G2 · Sanitario  ·  :8122</text>
+
+  <!-- ===== Flujos numerados ===== -->
+  <!-- Carriles cuidadosamente separados para que ninguna línea cruce textos legibles. -->
+
+  <!-- (1) Alta del Grupo 1 → POST /agentes
+       Carril x=50 (a 10 px del borde izquierdo del laboratorio, claramente
+       a la izquierda del texto "Laboratorio · red privada del aula..."). -->
+  <polyline class="arco-registro" points="106,538 50,538 50,320 310,320 310,296" fill="none" marker-end="url(#flecha-azul)"/>
+  <circle class="badge-paso" cx="50" cy="430" r="14"/>
+  <text class="badge-text" x="50" y="434">1</text>
+
+  <!-- (1') Alta del Grupo 2 → POST /agentes
+       Carril x=1190, mirror del anterior por la derecha. -->
+  <polyline class="arco-registro" points="1134,538 1190,538 1190,320 440,320 440,296" fill="none" marker-end="url(#flecha-azul)"/>
+  <circle class="badge-paso" cx="1190" cy="430" r="14"/>
+  <text class="badge-text" x="1190" y="434">1</text>
+
+  <!-- (2) Consulta del Grupo 1 → GET /agentes
+       Carril x=560, después del final del texto "Laboratorio..." que termina
+       aproximadamente en x=460. -->
+  <polyline class="arco-consulta" points="414,538 560,538 560,340 620,340 620,296" fill="none" marker-end="url(#flecha-verde)"/>
+  <circle class="badge-paso-2" cx="560" cy="440" r="14"/>
+  <text class="badge-text" x="560" y="444">2</text>
+
+  <!-- (3) Cooperación A2A directa entre grupos
+       Línea horizontal del lateral derecho de PC-01 al lateral izquierdo de PC-03. -->
+  <line class="arco-a2a" x1="440" y1="580" x2="800" y2="580" marker-end="url(#flecha-violeta)"/>
+  <circle class="badge-paso-3" cx="620" cy="580" r="14"/>
+  <text class="badge-text" x="620" y="584">3</text>
+
+  <!-- ===== Leyenda de pasos ===== -->
+  <!-- Reorganizada en cuatro filas independientes para evitar superposición
+       y desbordamiento del texto. -->
+  <g transform="translate(40, 750)">
+    <rect x="0" y="0" width="1160" height="160" fill="#fbfcfe" stroke="#d0d7e2" stroke-width="1" rx="8"/>
+    <text x="24" y="28" font-size="13" font-weight="700" fill="#1a1a1a">Flujo de descubrimiento — pasos numerados</text>
+
+    <circle class="badge-paso" cx="40" cy="58" r="12"/>
+    <text class="badge-text" x="40" y="62">1</text>
+    <text x="64" y="62" font-size="12" fill="#1a1a1a"><tspan font-weight="700">Alta:</tspan> al arrancar, cada agente público envía POST /agentes con su nombre, grupo, rol y URL.</text>
+
+    <circle class="badge-paso-2" cx="40" cy="86" r="12"/>
+    <text class="badge-text" x="40" y="90">2</text>
+    <text x="64" y="90" font-size="12" fill="#1a1a1a"><tspan font-weight="700">Descubrimiento:</tspan> los agentes consultan GET /agentes para obtener la lista de agentes públicos de todos los grupos.</text>
+
+    <circle class="badge-paso-3" cx="40" cy="114" r="12"/>
+    <text class="badge-text" x="40" y="118">3</text>
+    <text x="64" y="118" font-size="12" fill="#1a1a1a"><tspan font-weight="700">Cooperación A2A:</tspan> con la URL obtenida del registro, los agentes hablan directamente entre sí dentro del aula.</text>
+
+    <text x="64" y="146" font-size="11" fill="#555" font-style="italic">Los agentes privados nunca se registran; sólo los públicos quedan visibles en sinbad2.ujaen.es.</text>
+  </g>
+</svg>

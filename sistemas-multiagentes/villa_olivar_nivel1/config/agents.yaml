@@ -1,0 +1,105 @@
+# =============================================================================
+# agents.yaml — Definición de los agentes del Sistema de Emergencias
+# Villa Olivar (Nivel 3)
+# =============================================================================
+# Mientras `config.yaml` describe CÓMO se conecta el sistema, este fichero
+# describe QUÉ agentes lo componen. El lanzador `main.py` lee este fichero,
+# importa dinámicamente cada clase y la arranca con su `EspecificacionAgente`.
+
+agentes:
+
+  # ───────────────────────────────────────────────────────────────────────────
+  # Especialistas PÚBLICOS (Elegidos: Bomberos y Municipal)
+  # ───────────────────────────────────────────────────────────────────────────
+  - identificador: "bomberos-multi007s"
+    rol: "bomberos"
+    visibilidad: "publico"
+    puerto: 8120
+    modulo: "agentes.agente_bomberos"
+    clase: "AgenteBomberos"
+    activo: true
+    parametros:
+      grupo: "multi007s"
+      registro:
+        base_url: "http://localhost:8020"
+        proyecto: "villa-olivar"
+        heartbeat_segundos: 30
+        timeout_segundos: 30
+      llm:
+        proveedor: "ollama"
+        modelo: "ollama/llama3.2:3b"
+
+  - identificador: "municipal-multi007s"
+    rol: "municipal"
+    visibilidad: "publico"
+    puerto: 8150
+    modulo: "agentes.agente_municipal"
+    clase: "AgenteMunicipal"
+    activo: true
+    parametros:
+      grupo: "multi007s"
+      registro:
+        base_url: "http://localhost:8020"
+        proyecto: "villa-olivar"
+        heartbeat_segundos: 30
+        timeout_segundos: 30
+      llm:
+        proveedor: "ollama"
+        modelo: "ollama/llama3.2:3b"
+
+  # ───────────────────────────────────────────────────────────────────────────
+  # Especialistas PRIVADOS (Elegidos: Policía y Sanitario)
+  # ───────────────────────────────────────────────────────────────────────────
+  - identificador: "policia-multi007s"
+    rol: "policia"
+    visibilidad: "privado"
+    puerto: 8140
+    modulo: "agentes.agente_policia"
+    clase: "AgentePolicia"
+    activo: true
+    parametros:
+      grupo: "multi007s"
+      llm:
+        proveedor: "ollama"
+        modelo: "ollama/llama3.2:3b"
+
+  - identificador: "sanitario_multi007s"
+    rol: "sanitario"
+    visibilidad: "privado"
+    puerto: 8130
+    modulo: "agentes.agente_sanitario"
+    clase: "AgenteSanitario"
+    activo: true
+    parametros:
+      grupo: "multi007s"
+      llm:
+        proveedor: "ollama"
+        modelo: "ollama/llama3.2:3b"
+
+  # ───────────────────────────────────────────────────────────────────────────
+  # Centralita 112 — SIEMPRE pública (y al final para encontrar a los demás).
+  # ───────────────────────────────────────────────────────────────────────────
+  - identificador: "centralita-multi007s"
+    rol: "centralita"
+    visibilidad: "publico"
+    puerto: 8110
+    modulo: "agentes.agente_centralita"
+    clase: "AgenteCentralita"
+    activo: true
+    parametros:
+      grupo: "multi007s"
+      registro:
+        base_url: "http://localhost:8020"
+        proyecto: "villa-olivar"
+        heartbeat_segundos: 30
+        timeout_segundos: 30
+      registro_central: "http://localhost:8020"
+      publicos:
+        bomberos: "http://127.0.0.1:8120"
+        municipal: "http://127.0.0.1:8150"
+      privados:
+        policia: "http://127.0.0.1:8140"
+        sanitario: "http://127.0.0.1:8130"
+      llm:
+        proveedor: "ollama"
+        modelo: "ollama/llama3.2:3b"

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 760" font-family="Helvetica, Arial, sans-serif" font-size="13">
+  <title>Visibilidad pública/privada de los agentes — decisión por grupo</title>
+  <desc>Cada grupo decide qué dos agentes especialistas (de cuatro: Bomberos, Sanitario, Policía y Servicios Municipales) hace públicos. La Centralita 112 es siempre pública. Resultado: 3 agentes públicos y 2 privados por grupo. Distintos grupos pueden elegir combinaciones diferentes.</desc>
+
+  <defs>
+    <style>
+      .titulo { font-size: 19px; font-weight: 700; fill: #1a1a1a; }
+      .subtitulo { font-size: 13px; fill: #444; text-anchor: middle; }
+      .regla-caja { fill: #fffaef; stroke: #b59a00; stroke-width: 1.6; }
+      .regla-titulo { font-size: 14px; font-weight: 700; fill: #7a5b00; }
+      .regla-texto { font-size: 13px; fill: #1a1a1a; }
+      .tabla-borde { fill: none; stroke: #6b7280; stroke-width: 1.4; }
+      .cabecera { fill: #eaf3fb; stroke: #1c5a98; stroke-width: 1.5; }
+      .cabecera-texto { font-size: 14px; font-weight: 700; fill: #1c5a98; text-anchor: middle; }
+      .fila-centralita { fill: #f0f6ff; stroke: #cdd6e0; stroke-width: 1; }
+      .fila-especialista { fill: #ffffff; stroke: #cdd6e0; stroke-width: 1; }
+      .agente-nombre { font-size: 13px; font-weight: 700; fill: #1a1a1a; }
+      .agente-rol { font-size: 11px; fill: #555; font-style: italic; }
+      .badge-publica { fill: #d8efe2; stroke: #1e7e34; stroke-width: 1.4; }
+      .badge-privada { fill: #f1f3f6; stroke: #6b7280; stroke-width: 1.4; }
+      .badge-obligatoria { fill: #cce4d4; stroke: #1c5a98; stroke-width: 2; }
+      .badge-texto-publica { font-size: 12px; font-weight: 700; fill: #1e7e34; text-anchor: middle; }
+      .badge-texto-privada { font-size: 12px; font-weight: 700; fill: #555; text-anchor: middle; }
+      .badge-texto-obligatoria { font-size: 11px; font-weight: 700; fill: #1c5a98; text-anchor: middle; }
+      .nota { font-size: 12px; fill: #555; font-style: italic; text-anchor: middle; }
+    </style>
+  </defs>
+
+  <!-- Fondo claro -->
+  <rect x="0" y="0" width="1240" height="760" fill="#ffffff"/>
+
+  <!-- Título -->
+  <text class="titulo" x="620" y="42" text-anchor="middle">Visibilidad pública/privada de los agentes — decisión por grupo</text>
+  <text class="subtitulo" x="620" y="66">Cada grupo elige qué especialistas publica. Distintos grupos pueden adoptar configuraciones distintas.</text>
+
+  <!-- ===== Caja de reglas ===== -->
+  <rect class="regla-caja" x="40" y="100" width="1160" height="130" rx="10"/>
+  <text class="regla-titulo" x="60" y="128">Reglas de visibilidad</text>
+  <text class="regla-texto" x="60" y="156"><tspan font-weight="700" fill="#1c5a98">▸ Centralita 112:</tspan> siempre PÚBLICA (obligatoria, no es decisión del grupo).</text>
+  <text class="regla-texto" x="60" y="180"><tspan font-weight="700" fill="#1c5a98">▸ Especialistas</tspan> (Bomberos, Sanitario, Policía, Servicios Municipales): el grupo elige <tspan font-weight="700">2 públicos</tspan> y los otros <tspan font-weight="700">2 quedan privados</tspan>.</text>
+  <text class="regla-texto" x="60" y="204"><tspan font-weight="700" fill="#1c5a98">▸ Resultado:</tspan> cada grupo tiene exactamente <tspan font-weight="700">3 agentes públicos</tspan> (registrados en sinbad2.ujaen.es) y <tspan font-weight="700">2 agentes privados</tspan> (configurados en la Centralita).</text>
+
+  <!-- ===== Tabla de ejemplos ===== -->
+  <text class="cabecera-texto" x="620" y="270" fill="#1a1a1a" font-size="14">Tres ejemplos de configuraciones válidas (de las 6 posibles)</text>
+
+  <!-- Fila de cabecera -->
+  <rect class="cabecera" x="40" y="285" width="320" height="46" rx="6"/>
+  <text class="cabecera-texto" x="200" y="313">Agente del sistema</text>
+
+  <rect class="cabecera" x="370" y="285" width="270" height="46" rx="6"/>
+  <text class="cabecera-texto" x="505" y="313">Grupo A</text>
+
+  <rect class="cabecera" x="650" y="285" width="270" height="46" rx="6"/>
+  <text class="cabecera-texto" x="785" y="313">Grupo B</text>
+
+  <rect class="cabecera" x="930" y="285" width="270" height="46" rx="6"/>
+  <text class="cabecera-texto" x="1065" y="313">Grupo C</text>
+
+  <!-- Fila Centralita 112 (siempre pública) -->
+  <rect class="fila-centralita" x="40" y="341" width="320" height="60" rx="6"/>
+  <text class="agente-nombre" x="60" y="368">Centralita 112</text>
+  <text class="agente-rol" x="60" y="388">coordinación · entrada principal</text>
+
+  <rect class="badge-obligatoria" x="395" y="356" width="220" height="30" rx="14"/>
+  <text class="badge-texto-obligatoria" x="505" y="376">PÚBLICA · obligatoria</text>
+
+  <rect class="badge-obligatoria" x="675" y="356" width="220" height="30" rx="14"/>
+  <text class="badge-texto-obligatoria" x="785" y="376">PÚBLICA · obligatoria</text>
+
+  <rect class="badge-obligatoria" x="955" y="356" width="220" height="30" rx="14"/>
+  <text class="badge-texto-obligatoria" x="1065" y="376">PÚBLICA · obligatoria</text>
+
+  <!-- Fila Bomberos -->
+  <rect class="fila-especialista" x="40" y="411" width="320" height="60" rx="6"/>
+  <text class="agente-nombre" x="60" y="438">Bomberos</text>
+  <text class="agente-rol" x="60" y="458">extinción · derrames · rescate</text>
+
+  <rect class="badge-publica" x="395" y="426" width="220" height="30" rx="14"/>
+  <text class="badge-texto-publica" x="505" y="446">PÚBLICO</text>
+
+  <rect class="badge-publica" x="675" y="426" width="220" height="30" rx="14"/>
+  <text class="badge-texto-publica" x="785" y="446">PÚBLICO</text>
+
+  <rect class="badge-privada" x="955" y="426" width="220" height="30" rx="14"/>
+  <text class="badge-texto-privada" x="1065" y="446">PRIVADO</text>
+
+  <!-- Fila Sanitario -->
+  <rect class="fila-especialista" x="40" y="481" width="320" height="60" rx="6"/>
+  <text class="agente-nombre" x="60" y="508">Sanitario</text>
+  <text class="agente-rol" x="60" y="528">triaje · evacuación sanitaria</text>
+
+  <rect class="badge-publica" x="395" y="496" width="220" height="30" rx="14"/>
+  <text class="badge-texto-publica" x="505" y="516">PÚBLICO</text>
+
+  <rect class="badge-privada" x="675" y="496" width="220" height="30" rx="14"/>
+  <text class="badge-texto-privada" x="785" y="516">PRIVADO</text>
+
+  <rect class="badge-publica" x="955" y="496" width="220" height="30" rx="14"/>
+  <text class="badge-texto-publica" x="1065" y="516">PÚBLICO</text>
+
+  <!-- Fila Policía -->
+  <rect class="fila-especialista" x="40" y="551" width="320" height="60" rx="6"/>
+  <text class="agente-nombre" x="60" y="578">Policía</text>
+  <text class="agente-rol" x="60" y="598">perímetro · tráfico · seguridad</text>
+
+  <rect class="badge-privada" x="395" y="566" width="220" height="30" rx="14"/>
+  <text class="badge-texto-privada" x="505" y="586">PRIVADO</text>
+
+  <rect class="badge-publica" x="675" y="566" width="220" height="30" rx="14"/>
+  <text class="badge-texto-publica" x="785" y="586">PÚBLICO</text>
+
+  <rect class="badge-privada" x="955" y="566" width="220" height="30" rx="14"/>
+  <text class="badge-texto-privada" x="1065" y="586">PRIVADO</text>
+
+  <!-- Fila Servicios Municipales -->
+  <rect class="fila-especialista" x="40" y="621" width="320" height="60" rx="6"/>
+  <text class="agente-nombre" x="60" y="648">Servicios Municipales</text>
+  <text class="agente-rol" x="60" y="668">suministros · limpieza · logística</text>
+
+  <rect class="badge-privada" x="395" y="636" width="220" height="30" rx="14"/>
+  <text class="badge-texto-privada" x="505" y="656">PRIVADO</text>
+
+  <rect class="badge-privada" x="675" y="636" width="220" height="30" rx="14"/>
+  <text class="badge-texto-privada" x="785" y="656">PRIVADO</text>
+
+  <rect class="badge-publica" x="955" y="636" width="220" height="30" rx="14"/>
+  <text class="badge-texto-publica" x="1065" y="656">PÚBLICO</text>
+
+  <!-- Nota inferior -->
+  <text class="nota" x="620" y="710">La elección se documenta en el config.yaml del proyecto y se justifica en la memoria. Total por grupo: 3 públicos + 2 privados.</text>
+  <text class="nota" x="620" y="730">Las 6 combinaciones posibles: {Bomb, Sani} · {Bomb, Pol} · {Bomb, Mun} · {Sani, Pol} · {Sani, Mun} · {Pol, Mun}.</text>
+</svg>

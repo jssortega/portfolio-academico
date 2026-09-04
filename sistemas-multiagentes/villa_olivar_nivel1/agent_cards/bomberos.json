@@ -1,0 +1,38 @@
+{
+  "name": "bomberos_villa_olivar",
+  "description": "Agente Bomberos del sistema Villa Olivar. Especialista en incendios, derrames químicos, explosiones, humo, rescates y control de zonas peligrosas.",
+  "url": "http://192.168.1.11:8111",
+  "version": "1.0.0",
+  "capabilities": {
+    "streaming": true,
+    "pushNotifications": false
+  },
+  "skills": [
+    {
+      "id": "evaluar_riesgo_incendio",
+      "name": "Evaluar riesgo de incendio",
+      "description": "Evalúa incendios en viviendas, edificios, zonas forestales o instalaciones industriales, determinando riesgo, radio de seguridad y recursos necesarios.",
+      "tags": ["bomberos", "incendio", "riesgo"]
+    },
+    {
+      "id": "evaluar_riesgo_quimico",
+      "name": "Evaluar riesgo químico",
+      "description": "Evalúa derrames o fugas de sustancias peligrosas como amoniaco, cloro o gasolina, proponiendo radio de seguridad y medidas de contención.",
+      "tags": ["bomberos", "derrame_quimico", "nbqr"]
+    },
+    {
+      "id": "planificar_intervencion",
+      "name": "Planificar intervención de Bomberos",
+      "description": "Planifica la actuación de Bomberos, recursos desplegados, acciones de extinción, contención o rescate.",
+      "tags": ["bomberos", "intervencion", "rescate"]
+    },
+    {
+      "id": "negociacion_contract_net",
+      "name": "Negociación Contract Net",
+      "description": "Responde a convocatorias CFP de la Centralita con propuestas estructuradas de unidades de Bomberos y acepta adjudicaciones.",
+      "tags": ["bomberos", "contract_net", "cfp", "award"]
+    }
+  ],
+  "defaultInputModes": ["application/json", "text/plain"],
+  "defaultOutputModes": ["application/json"]
+}

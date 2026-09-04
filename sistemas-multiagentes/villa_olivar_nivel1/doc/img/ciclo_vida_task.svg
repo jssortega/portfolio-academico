@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 720" font-family="Helvetica, Arial, sans-serif" font-size="14">
+  <title>Ciclo de vida de una tarea A2A</title>
+  <desc>Diagrama de estados del ciclo de vida de una tarea (Task) en el protocolo A2A. Estados intermedios: submitted, working, input-required. Estados terminales independientes: completed, failed, canceled, rejected.</desc>
+
+  <defs>
+    <marker id="flecha" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#333"/>
+    </marker>
+    <style>
+      .estado { fill: #f4f6fb; stroke: #2c4a7c; stroke-width: 2; }
+      .pausa { fill: #f0eaf7; stroke: #5b3a8a; stroke-width: 2; }
+      .terminal-ok { fill: #e6f4ea; stroke: #1e7e34; stroke-width: 2; }
+      .terminal-ko { fill: #fbeaea; stroke: #a8242a; stroke-width: 2; }
+      .terminal-cancel { fill: #fff4e0; stroke: #b86b00; stroke-width: 2; }
+      .terminal-rechazo { fill: #f3e8ff; stroke: #6b21a8; stroke-width: 2; }
+      .etiqueta { fill: #1a1a1a; text-anchor: middle; font-weight: 600; }
+      .traduccion { fill: #555; text-anchor: middle; font-size: 12px; font-style: italic; }
+      .arista { stroke: #333; stroke-width: 1.6; fill: none; }
+      .titulo { font-size: 18px; font-weight: 700; fill: #1a1a1a; }
+      .arista-label { fill: #444; text-anchor: middle; font-size: 12px; }
+    </style>
+  </defs>
+
+  <!-- Fondo claro explícito para visualización correcta sobre temas oscuros -->
+  <rect x="0" y="0" width="940" height="720" fill="#ffffff"/>
+
+  <text class="titulo" x="470" y="40" text-anchor="middle">Ciclo de vida de una tarea A2A</text>
+
+  <!-- ===== Estados intermedios (columna izquierda y centro) ===== -->
+
+  <!-- submitted -->
+  <rect class="estado" x="40" y="100" width="200" height="100" rx="12"/>
+  <text class="etiqueta" x="140" y="142">submitted</text>
+  <text class="traduccion" x="140" y="170">enviada</text>
+
+  <!-- working -->
+  <rect class="estado" x="320" y="100" width="200" height="100" rx="12"/>
+  <text class="etiqueta" x="420" y="142">working</text>
+  <text class="traduccion" x="420" y="170">en curso</text>
+
+  <!-- input-required -->
+  <rect class="pausa" x="320" y="290" width="200" height="100" rx="12"/>
+  <text class="etiqueta" x="420" y="332">input-required</text>
+  <text class="traduccion" x="420" y="360">requiere información</text>
+
+  <!-- ===== Estados terminales (columna derecha) ===== -->
+
+  <!-- completed -->
+  <rect class="terminal-ok" x="660" y="60" width="220" height="90" rx="12"/>
+  <text class="etiqueta" x="770" y="98">completed</text>
+  <text class="traduccion" x="770" y="124">terminada con éxito</text>
+
+  <!-- failed -->
+  <rect class="terminal-ko" x="660" y="180" width="220" height="90" rx="12"/>
+  <text class="etiqueta" x="770" y="218">failed</text>
+  <text class="traduccion" x="770" y="244">fallida por error</text>
+
+  <!-- canceled -->
+  <rect class="terminal-cancel" x="660" y="300" width="220" height="90" rx="12"/>
+  <text class="etiqueta" x="770" y="338">canceled</text>
+  <text class="traduccion" x="770" y="364">cancelada por el cliente</text>
+
+  <!-- rejected -->
+  <rect class="terminal-rechazo" x="660" y="420" width="220" height="90" rx="12"/>
+  <text class="etiqueta" x="770" y="458">rejected</text>
+  <text class="traduccion" x="770" y="484">rechazada por el agente</text>
+
+  <!-- ===== Aristas ===== -->
+
+  <!-- submitted -> working -->
+  <path class="arista" d="M 240 150 L 320 150" marker-end="url(#flecha)"/>
+  <text class="arista-label" x="280" y="142">aceptar</text>
+
+  <!-- submitted -> rejected (agente declina sin trabajar) -->
+  <path class="arista" d="M 140 200 C 140 480, 540 530, 660 480" marker-end="url(#flecha)"/>
+  <text class="arista-label" x="270" y="500">declinada al recibirse</text>
+
+  <!-- working -> completed -->
+  <path class="arista" d="M 520 130 C 590 110, 620 100, 660 100" marker-end="url(#flecha)"/>
+  <text class="arista-label" x="595" y="100">éxito</text>
+
+  <!-- working -> failed -->
+  <path class="arista" d="M 520 175 C 590 195, 620 220, 660 220" marker-end="url(#flecha)"/>
+  <text class="arista-label" x="595" y="190">error</text>
+
+  <!-- working -> canceled -->
+  <path class="arista" d="M 520 200 C 590 240, 620 320, 660 340" marker-end="url(#flecha)"/>
+  <text class="arista-label" x="600" y="270">cliente cancela</text>
+
+  <!-- working <-> input-required (pausa y reanudación) -->
+  <path class="arista" d="M 400 200 L 400 290" marker-end="url(#flecha)"/>
+  <text class="arista-label" x="365" y="248" text-anchor="end">pausa</text>
+  <path class="arista" d="M 440 290 L 440 200" marker-end="url(#flecha)"/>
+  <text class="arista-label" x="475" y="248" text-anchor="start">reanuda</text>
+
+  <!-- input-required -> canceled -->
+  <path class="arista" d="M 520 340 L 660 340" marker-end="url(#flecha)"/>
+  <text class="arista-label" x="590" y="332">cliente cancela</text>
+
+  <!-- ===== Leyenda ===== -->
+  <g transform="translate(40, 540)">
+    <rect x="0" y="0" width="860" height="170" fill="#fbfcfe" stroke="#d0d7e2" stroke-width="1" rx="10"/>
+    <text x="20" y="28" font-size="14" font-weight="700" fill="#1a1a1a">Leyenda</text>
+
+    <!-- Columna 1: estados intermedios -->
+    <text x="20" y="56" font-size="12" font-weight="600" fill="#1a1a1a">Estados intermedios</text>
+    <rect class="estado" x="20" y="68" width="22" height="22"/>
+    <text x="56" y="84" font-size="12" fill="#1a1a1a">Activo (submitted, working)</text>
+    <rect class="pausa" x="20" y="100" width="22" height="22"/>
+    <text x="56" y="116" font-size="12" fill="#1a1a1a">Pausado (input-required)</text>
+
+    <!-- Columna 2: estados terminales (todos alineados arriba) -->
+    <text x="320" y="56" font-size="12" font-weight="600" fill="#1a1a1a">Estados terminales (independientes)</text>
+    <rect class="terminal-ok" x="320" y="68" width="22" height="22"/>
+    <text x="356" y="84" font-size="12" fill="#1a1a1a">completed — terminada con éxito</text>
+    <rect class="terminal-ko" x="320" y="100" width="22" height="22"/>
+    <text x="356" y="116" font-size="12" fill="#1a1a1a">failed — fallida por error</text>
+    <rect class="terminal-cancel" x="600" y="68" width="22" height="22"/>
+    <text x="636" y="84" font-size="12" fill="#1a1a1a">canceled — cancelada por el cliente</text>
+    <rect class="terminal-rechazo" x="600" y="100" width="22" height="22"/>
+    <text x="636" y="116" font-size="12" fill="#1a1a1a">rejected — rechazada por el agente</text>
+
+    <!-- Nota explicativa: separada de los estados y con margen inferior amplio -->
+    <text x="320" y="148" font-size="11" font-style="italic" fill="#555">Los cuatro estados terminales son mutuamente excluyentes y finales.</text>
+  </g>
+</svg>

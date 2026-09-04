@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+        <meta http-equiv="refresh" content="1";>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div class = "navbar">
+            <h1 class = "centralita">Centralita</h1>
+        </div>
+        <main class="contenidoMain">
+            <div class = "informacionGeneral">
+                <div class = "estado" {% if estadoEmergencia == "sin_emergencia"%} style = "--color-fondo: rgb(154, 2, 2);" {% elif estadoEmergencia == "alerta_completada" %} style = "--color-fondo: green;" {% else %} style = "--color-fondo: rgb(161, 161, 0);" {% endif %}>
+                    <div class = "barraEstado">
+                        <p>Estado de la Emergencia</p>
+                    </div>
+                    <div class = textoEstado>
+                        <p>
+                            {% if estadoEmergencia == "sin_emergencia" %}
+                                Sin emergencias
+                            {% elif estadoEmergencia == "alerta_completada"%}
+                                Alerta completada
+                            {% else %}
+                                Alerta en proceso
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+
+                <div class = "idEmergencia">
+                    <div class = "barraTitulo">
+                        <p>Identificador de la Emergencia</p>
+                    </div>
+                    <div class = textoId>
+                        <p>
+                            {% if idEmergencia == "" %}
+                                - - -
+                            {% else %}
+                                {{idEmergencia}}
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+
+                <div class = "agentesAct">
+                    <div class = "barraTitulo">
+                        <p>Agentes Activos</p>
+                    </div>
+                    <div class = textoAgentes>
+                        <ul>
+                            {% for a in agentes %}
+                                <li class = agente>{{a}}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mensajes">
+                <div class = "cuadroMensajes">
+                    <div class = "barraMensajes">
+                        <p>Historial de Mensajes</p>
+                    </div>
+                    <div class = listMensajes>
+                        <ul>
+                            {% for m in mensajes | reverse %}
+                                <li class = "mensaje">
+                                    [<strong>{{m.emisor}}</strong>]  ━  {{m.performative}}  🠮  [<strong>{{m.receptor}}</strong>] ::: {{m.tipo}} ::: {{m.descripcion}}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>

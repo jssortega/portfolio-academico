@@ -1,0 +1,22 @@
+[project]
+name = "examen-alumno-villa-olivar"
+version = "0.1.0"
+description = "Material del alumno (factoría A2A, modelos compartidos y batería de pruebas) para la entrega del Nivel 3 del proyecto Villa Olivar."
+requires-python = ">=3.11"
+license = { text = "MIT" }
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+testpaths = ["tests/profesor"]
+asyncio_mode = "auto"
+pythonpath = ["."]
+markers = [
+    "despliegue: pruebas que requieren el entorno real del aula (red privada, registro central, perfil Gemini activo).",
+    "modalidad_b: pruebas que requieren cooperación entre grupos a través del registro central.",
+    "hito_1: pruebas asociadas al Hito 1 (infraestructura A2A y primer agente).",
+    "hito_2: pruebas asociadas al Hito 2 (tres agentes con comunicación).",
+    "hito_3: pruebas asociadas al Hito 3 (cinco agentes con coordinación intra-grupo).",
+    "hito_4: pruebas asociadas al Hito 4 (Contract Net y respuesta al coordinador).",
+    "hito_5: pruebas asociadas al Hito 5 (interoperabilidad y cascada).",
+    "hito_6: pruebas asociadas al Hito 6 (excelencia).",
+]

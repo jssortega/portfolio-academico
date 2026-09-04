@@ -1,0 +1,69 @@
+# agents.yaml — Declaración homogénea de los agentes del grupo.
+#
+# El lanzador `main.py` carga este fichero, instancia cada agente
+# con la clase indicada y lo arranca en el puerto declarado. La
+# factoría `factoria.AgenteA2A` aporta la infraestructura común
+# (servidor aiohttp, Agent Card, extremo JSON-RPC); cada clase
+# concreta del grupo solo necesita implementar `manejar_alerta`.
+#
+# El grupo decide qué dos especialistas son **públicos** y cuáles
+# **privados** (Hito 3). La Centralita es siempre pública. Una vez
+# tomada la decisión, este fichero debe reflejarla y el grupo no
+# debe modificar el reparto durante la entrega.
+#
+# Copiar este fichero como `config/agents.yaml` antes de arrancar.
+
+agentes:
+
+  # ──────────────────────────────────────────────────────────────
+  # Centralita 112 — Siempre pública. Coordina al resto.
+  # ──────────────────────────────────────────────────────────────
+  - identificador: "centralita-grupo"
+    rol: "centralita"
+    visibilidad: "publico"
+    puerto: 8110
+    modulo: "agentes.centralita"
+    clase: "Centralita"
+    activo: true
+
+  # ──────────────────────────────────────────────────────────────
+  # Especialistas públicos — exactamente DOS.
+  # En el ejemplo: Bomberos y Sanitario son públicos.
+  # ──────────────────────────────────────────────────────────────
+  - identificador: "bomberos-grupo"
+    rol: "bomberos"
+    visibilidad: "publico"
+    puerto: 8120
+    modulo: "agentes.bomberos"
+    clase: "Bomberos"
+    activo: true
+
+  - identificador: "sanitario-grupo"
+    rol: "sanitario"
+    visibilidad: "publico"
+    puerto: 8130
+    modulo: "agentes.sanitario"
+    clase: "Sanitario"
+    activo: true
+
+  # ──────────────────────────────────────────────────────────────
+  # Especialistas privados — exactamente DOS.
+  # En el ejemplo: Policía y Servicios Municipales son privados.
+  # Los privados NO se registran en el directorio REST y solo son
+  # alcanzables a través de la Centralita propia.
+  # ──────────────────────────────────────────────────────────────
+  - identificador: "policia-grupo"
+    rol: "policia"
+    visibilidad: "privado"
+    puerto: 8140
+    modulo: "agentes.policia"
+    clase: "Policia"
+    activo: true
+
+  - identificador: "municipal-grupo"
+    rol: "municipal"
+    visibilidad: "privado"
+    puerto: 8150
+    modulo: "agentes.municipal"
+    clase: "Municipal"
+    activo: true

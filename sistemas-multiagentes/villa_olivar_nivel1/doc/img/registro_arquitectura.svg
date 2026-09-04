@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 360" font-family="Helvetica, Arial, sans-serif" font-size="13">
+  <rect x="0" y="0" width="720" height="360" fill="#ffffff"/>
+  <title>Arquitectura del registro REST visto desde un cliente</title>
+  <desc>Un agente del proyecto Villa Olivar usa ClienteRegistro para hablar con el servicio REST hospedado en sinbad2.ujaen.es:8020.</desc>
+
+  <!-- Estilos comunes -->
+  <defs>
+    <marker id="flecha" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#333"/>
+    </marker>
+    <style>
+      .caja { fill: #f5f7fa; stroke: #333; stroke-width: 1.5; rx: 6; ry: 6; }
+      .titulo { font-weight: bold; }
+      .nube { fill: #eef3f9; stroke: #5b8db8; stroke-width: 1.5; stroke-dasharray: 4,3; rx: 12; ry: 12; }
+      .servidor { fill: #fbf3e8; stroke: #b88a3d; stroke-width: 1.5; rx: 6; ry: 6; }
+      .flecha { stroke: #333; stroke-width: 1.5; fill: none; marker-end: url(#flecha); }
+      .etiqueta { font-size: 11px; fill: #555; }
+    </style>
+  </defs>
+
+  <!-- Nube: máquina del alumno -->
+  <rect x="20" y="40" width="280" height="280" class="nube"/>
+  <text x="160" y="65" text-anchor="middle" class="titulo">Máquina del alumno</text>
+
+  <!-- Agente (Centralita) -->
+  <rect x="50" y="90" width="220" height="70" class="caja"/>
+  <text x="160" y="115" text-anchor="middle" class="titulo">Agente Centralita</text>
+  <text x="160" y="135" text-anchor="middle">(ADK + A2A con aiohttp)</text>
+  <text x="160" y="151" text-anchor="middle" class="etiqueta">main.py inyecta la config del registro</text>
+
+  <!-- ClienteRegistro -->
+  <rect x="50" y="180" width="220" height="70" class="caja"/>
+  <text x="160" y="205" text-anchor="middle" class="titulo">ClienteRegistro</text>
+  <text x="160" y="223" text-anchor="middle">descubrimiento/cliente_registro.py</text>
+  <text x="160" y="240" text-anchor="middle" class="etiqueta">httpx async + token persistido</text>
+
+  <!-- Token persistido -->
+  <rect x="50" y="270" width="220" height="35" class="caja" fill="#fff8e1" stroke="#9c7a1d"/>
+  <text x="160" y="293" text-anchor="middle" class="etiqueta">.runtime/tokens/centralita.token (0o600)</text>
+
+  <!-- Flecha vertical agente → cliente -->
+  <line x1="160" y1="160" x2="160" y2="178" class="flecha"/>
+
+  <!-- Flecha vertical cliente → token -->
+  <line x1="160" y1="250" x2="160" y2="268" class="flecha"/>
+
+  <!-- Internet / red local -->
+  <text x="370" y="190" text-anchor="middle" class="etiqueta">HTTP</text>
+  <text x="370" y="206" text-anchor="middle" class="etiqueta">/proyectos/villa-olivar/...</text>
+
+  <!-- Flecha cliente → servidor -->
+  <line x1="270" y1="215" x2="450" y2="215" class="flecha"/>
+  <line x1="450" y1="245" x2="270" y2="245" class="flecha"/>
+
+  <!-- Servidor -->
+  <rect x="450" y="40" width="250" height="280" class="nube" fill="#f5e8e8" stroke="#a14848"/>
+  <text x="575" y="65" text-anchor="middle" class="titulo">sinbad2.ujaen.es</text>
+  <text x="575" y="82" text-anchor="middle" class="etiqueta">contenedor Docker (s6-overlay)</text>
+
+  <!-- Servicio REST -->
+  <rect x="475" y="100" width="200" height="70" class="servidor"/>
+  <text x="575" y="125" text-anchor="middle" class="titulo">Servicio REST :8020</text>
+  <text x="575" y="142" text-anchor="middle">FastAPI multi-proyecto</text>
+  <text x="575" y="158" text-anchor="middle" class="etiqueta">ssmmaa/xmpp-registro:0.1</text>
+
+  <!-- Almacén -->
+  <rect x="475" y="190" width="200" height="55" class="servidor"/>
+  <text x="575" y="213" text-anchor="middle" class="titulo">Almacén en memoria</text>
+  <text x="575" y="231" text-anchor="middle" class="etiqueta">{proyecto: {id: registro}}</text>
+
+  <!-- proyectos.yaml -->
+  <rect x="475" y="265" width="200" height="40" class="servidor" fill="#fff3e0" stroke="#9c5a1d"/>
+  <text x="575" y="285" text-anchor="middle" class="titulo">proyectos.yaml (volumen)</text>
+  <text x="575" y="299" text-anchor="middle" class="etiqueta">catálogo de proyectos hospedados</text>
+
+  <!-- Conexión almacén ← yaml -->
+  <line x1="575" y1="265" x2="575" y2="248" class="flecha"/>
+</svg>

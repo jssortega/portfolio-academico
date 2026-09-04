@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 1440" font-family="Helvetica, Arial, sans-serif" font-size="13">
+  <title>Arquitectura de despliegue de un grupo en el Nivel 3 — visibilidad pública/privada y registro REST</title>
+  <desc>Despliegue de los cinco agentes de un grupo del Nivel 3 sobre dos PC del aula, coherente con la topología del laboratorio del §5.2. Regla de visibilidad: la Centralita 112 es siempre pública (obligatoria), el grupo elige dos especialistas como públicos y los otros dos quedan privados. Total: 3 agentes públicos + 2 privados. Los agentes públicos se registran en el servicio REST hospedado en sinbad2.ujaen.es para ser localizados por los demás agentes y por el coordinador del profesor. Las interacciones entre componentes se identifican mediante badges numerados explicados en la leyenda.</desc>
+
+  <defs>
+    <style>
+      .grupo { fill: #fafbfc; stroke: #6b7280; stroke-width: 2; stroke-dasharray: 8 5; }
+      .zona-publica { fill: #eaf5ec; stroke: #1e7e34; stroke-width: 1.5; }
+      .zona-privada { fill: #f1f3f6; stroke: #6b7280; stroke-width: 1.5; }
+      .pc { fill: #ffffff; stroke: #444; stroke-width: 1.6; }
+      .pc-coord { fill: #ffffff; stroke: #1c5a98; stroke-width: 2.5; }
+      .agente-publico { fill: #ffffff; stroke: #1e7e34; stroke-width: 2; }
+      .agente-privado { fill: #ffffff; stroke: #6b7280; stroke-width: 2; }
+      .agente-coord { fill: #eaf3fb; stroke: #1c5a98; stroke-width: 1.6; }
+      .centralita { fill: #ffffff; stroke: #1c5a98; stroke-width: 3; }
+      .ollama { fill: #fff7e6; stroke: #b86b00; stroke-width: 2; }
+      .servidor { fill: #eaf3fb; stroke: #1c5a98; stroke-width: 2.5; }
+      .registro-endpoint { fill: #fffaef; stroke: #b59a00; stroke-width: 1.4; }
+      .regla-caja { fill: #fffaef; stroke: #b59a00; stroke-width: 1.6; }
+      .regla-texto { font-size: 13px; fill: #1a1a1a; }
+      .regla-titulo { font-size: 14px; font-weight: 700; fill: #7a5b00; }
+      .nombre { fill: #1a1a1a; text-anchor: middle; font-weight: 700; font-size: 14px; }
+      .nombre-pc { font-size: 13px; font-weight: 700; fill: #1a1a1a; text-anchor: middle; }
+      .nombre-grande { fill: #1a1a1a; text-anchor: middle; font-weight: 700; font-size: 15px; }
+      .puerto { fill: #555; text-anchor: middle; font-size: 12px; font-family: 'Courier New', monospace; }
+      .alumno { font-size: 11px; text-anchor: middle; fill: #555; font-style: italic; }
+      .visibilidad { text-anchor: middle; font-size: 11px; font-style: italic; }
+      .marca-decision { text-anchor: middle; font-size: 11px; font-weight: 700; }
+      .titulo { font-size: 19px; font-weight: 700; fill: #1a1a1a; }
+      .subtitulo { font-size: 13px; font-weight: 600; text-anchor: middle; }
+      .nota { font-size: 11px; fill: #555; font-style: italic; }
+      .endpoint-text { font-size: 12px; font-family: 'Courier New', monospace; fill: #1a1a1a; text-anchor: middle; }
+      .badge-1 { fill: #1c5a98; }
+      .badge-2 { fill: #1e7e34; }
+      .badge-3 { fill: #a8242a; }
+      .badge-4 { fill: #5b3a8a; }
+      .badge-5 { fill: #b86b00; }
+      .badge-text { font-size: 11px; font-weight: 700; fill: #ffffff; text-anchor: middle; }
+      .leyenda-celda { fill: #ffffff; stroke: #d0d7e2; stroke-width: 1; }
+      .leyenda-texto { font-size: 12px; fill: #1a1a1a; }
+      .leyenda-titulo { font-size: 13px; font-weight: 700; fill: #1a1a1a; }
+    </style>
+  </defs>
+
+  <rect x="0" y="0" width="1240" height="1440" fill="#ffffff"/>
+
+  <!-- ===== Título ===== -->
+  <text class="titulo" x="620" y="40" text-anchor="middle">Arquitectura de despliegue de un grupo — Nivel 3</text>
+  <text x="620" y="64" text-anchor="middle" font-size="13" fill="#444">Coherente con la topología del laboratorio (§5.2). Las interacciones se numeran y se explican en la leyenda inferior.</text>
+
+  <!-- ===== Caja de regla destacada ===== -->
+  <rect class="regla-caja" x="40" y="90" width="1160" height="120" rx="10"/>
+  <text class="regla-titulo" x="60" y="120">Regla de visibilidad — total 3 públicos + 2 privados por grupo</text>
+  <text class="regla-texto" x="60" y="148">▸ <tspan font-weight="700" fill="#1c5a98">Centralita 112:</tspan> siempre PÚBLICA (obligatoria — no es decisión del grupo).</text>
+  <text class="regla-texto" x="60" y="170">▸ <tspan font-weight="700" fill="#1c5a98">Especialistas (Bomberos, Sanitario, Policía, Servicios Municipales):</tspan> el grupo elige <tspan font-weight="700">2 públicos</tspan> y los otros <tspan font-weight="700">2 quedan privados</tspan>.</text>
+  <text class="regla-texto" x="60" y="192">▸ <tspan font-weight="700" fill="#a8242a">La elección debe justificarse en la memoria.</tspan> Hay 6 combinaciones posibles. Los públicos se registran en sinbad2.ujaen.es; los privados se configuran en la Centralita.</text>
+
+  <!-- ===== sinbad2.ujaen.es · Servicio REST de registro ===== -->
+  <rect class="servidor" x="40" y="240" width="1160" height="160" rx="12"/>
+  <text class="nombre-grande" x="620" y="270">sinbad2.ujaen.es · Servicio REST de registro de agentes públicos</text>
+  <text class="nota" x="620" y="290" text-anchor="middle">IP pública · servidor mantenido por el profesor · permite a los agentes y al coordinador localizarse entre grupos</text>
+
+  <rect class="registro-endpoint" x="80" y="312" width="340" height="68" rx="8"/>
+  <text class="endpoint-text" x="250" y="340">POST /agentes</text>
+  <text class="nota" x="250" y="362" text-anchor="middle">alta del agente público al arrancar</text>
+
+  <rect class="registro-endpoint" x="450" y="312" width="340" height="68" rx="8"/>
+  <text class="endpoint-text" x="620" y="340">GET /agentes</text>
+  <text class="nota" x="620" y="362" text-anchor="middle">descubrimiento de los públicos vigentes</text>
+
+  <rect class="registro-endpoint" x="820" y="312" width="340" height="68" rx="8"/>
+  <text class="endpoint-text" x="990" y="340">DELETE /agentes/{id}</text>
+  <text class="nota" x="990" y="362" text-anchor="middle">baja al apagar el agente</text>
+
+  <!-- Badges sobre el servidor: recibe alta (1) y consulta (2) -->
+  <circle class="badge-1" cx="180" cy="312" r="14"/>
+  <text class="badge-text" x="180" y="316">1</text>
+  <circle class="badge-2" cx="550" cy="312" r="14"/>
+  <text class="badge-text" x="550" y="316">2</text>
+
+  <!-- ===== PC del Coordinador del profesor ===== -->
+  <rect class="pc-coord" x="450" y="430" width="340" height="170" rx="10"/>
+  <text class="nombre-pc" x="620" y="460">PC-Coordinador</text>
+  <text class="alumno" x="620" y="480">profesor · 192.168.1.10</text>
+  <rect class="agente-coord" x="490" y="500" width="260" height="80" rx="6"/>
+  <text class="nombre" x="620" y="528">Coordinador del profesor</text>
+  <text class="puerto" x="620" y="552">:8100</text>
+  <text class="visibilidad" x="620" y="572" fill="#1c5a98">fuera de los grupos</text>
+
+  <!-- Badges sobre el coordinador: descubre (2) e inyecta (3) -->
+  <circle class="badge-2" cx="466" cy="446" r="14"/>
+  <text class="badge-text" x="466" y="450">2</text>
+  <circle class="badge-3" cx="500" cy="446" r="14"/>
+  <text class="badge-text" x="500" y="450">3</text>
+
+  <!-- ===== Contenedor del grupo ===== -->
+  <rect class="grupo" x="40" y="630" width="1160" height="610" rx="14"/>
+  <text x="60" y="658" font-size="14" font-weight="700" fill="#1a1a1a">Grupo N · puertos asignados 8110 – 8114</text>
+
+  <!-- ===== Zona pública: PC-01 ===== -->
+  <rect class="zona-publica" x="70" y="680" width="1100" height="280" rx="10"/>
+  <text class="subtitulo" x="620" y="704" fill="#1e7e34">Zona pública del grupo · 3 agentes (1 obligatoria + 2 elegidos)</text>
+
+  <rect class="pc" x="100" y="720" width="1040" height="220" rx="10"/>
+  <text class="nombre-pc" x="620" y="748">PC-01</text>
+  <text class="alumno" x="620" y="768">alumno A · 192.168.1.11 (escucha en la IP del PC, alcanzable desde otros PC del aula)</text>
+
+  <!-- Centralita -->
+  <rect class="centralita" x="130" y="788" width="320" height="140" rx="10"/>
+  <text class="nombre" x="290" y="820">Centralita 112</text>
+  <text class="puerto" x="290" y="844">:8110</text>
+  <text class="visibilidad" x="290" y="868" fill="#1c5a98">PÚBLICA · entrada principal</text>
+  <text class="marca-decision" x="290" y="908" fill="#1c5a98">★ OBLIGATORIA (no negociable)</text>
+
+  <!-- Badges sobre la Centralita: alta (1), recibe escenario (3), orquesta (4) -->
+  <circle class="badge-1" cx="156" cy="804" r="14"/>
+  <text class="badge-text" x="156" y="808">1</text>
+  <circle class="badge-3" cx="190" cy="804" r="14"/>
+  <text class="badge-text" x="190" y="808">3</text>
+  <circle class="badge-4" cx="424" cy="804" r="14"/>
+  <text class="badge-text" x="424" y="808">4</text>
+
+  <!-- Bomberos (público elegido por el grupo) -->
+  <rect class="agente-publico" x="490" y="788" width="320" height="140" rx="10"/>
+  <text class="nombre" x="650" y="820">Bomberos</text>
+  <text class="puerto" x="650" y="844">:8111</text>
+  <text class="visibilidad" x="650" y="868" fill="#1e7e34">PÚBLICO</text>
+  <text class="marca-decision" x="650" y="908" fill="#7a5b00">▸ ELEGIDO POR EL GRUPO</text>
+
+  <!-- Badges sobre Bomberos: alta (1), recibe orquestación (4) -->
+  <circle class="badge-1" cx="516" cy="804" r="14"/>
+  <text class="badge-text" x="516" y="808">1</text>
+  <circle class="badge-4" cx="784" cy="804" r="14"/>
+  <text class="badge-text" x="784" y="808">4</text>
+
+  <!-- Sanitario (público elegido por el grupo) -->
+  <rect class="agente-publico" x="850" y="788" width="280" height="140" rx="10"/>
+  <text class="nombre" x="990" y="820">Sanitario</text>
+  <text class="puerto" x="990" y="844">:8112</text>
+  <text class="visibilidad" x="990" y="868" fill="#1e7e34">PÚBLICO</text>
+  <text class="marca-decision" x="990" y="908" fill="#7a5b00">▸ ELEGIDO POR EL GRUPO</text>
+
+  <!-- Badges sobre Sanitario: alta (1), recibe orquestación (4) -->
+  <circle class="badge-1" cx="876" cy="804" r="14"/>
+  <text class="badge-text" x="876" y="808">1</text>
+  <circle class="badge-4" cx="1104" cy="804" r="14"/>
+  <text class="badge-text" x="1104" y="808">4</text>
+
+  <!-- ===== Zona privada: PC-02 ===== -->
+  <rect class="zona-privada" x="70" y="980" width="1100" height="240" rx="10"/>
+  <text class="subtitulo" x="620" y="1004" fill="#444">Zona privada del grupo · 2 agentes exclusivos (sólo accesibles desde la Centralita)</text>
+
+  <rect class="pc" x="100" y="1020" width="1040" height="190" rx="10"/>
+  <text class="nombre-pc" x="620" y="1046">PC-02</text>
+  <text class="alumno" x="620" y="1066">alumno B · localhost (sólo procesos del propio PC)</text>
+
+  <!-- Policía (privado) -->
+  <rect class="agente-privado" x="130" y="1090" width="460" height="100" rx="8"/>
+  <text class="nombre" x="360" y="1118">Policía</text>
+  <text class="puerto" x="360" y="1142">:8113</text>
+  <text class="visibilidad" x="360" y="1170" fill="#444">PRIVADO · uno de los 2 no elegidos como públicos</text>
+
+  <!-- Badge sobre Policía: orquestación (4) -->
+  <circle class="badge-4" cx="156" cy="1106" r="14"/>
+  <text class="badge-text" x="156" y="1110">4</text>
+
+  <!-- Servicios Municipales (privado) -->
+  <rect class="agente-privado" x="650" y="1090" width="460" height="100" rx="8"/>
+  <text class="nombre" x="880" y="1118">Servicios Municipales</text>
+  <text class="puerto" x="880" y="1142">:8114</text>
+  <text class="visibilidad" x="880" y="1170" fill="#444">PRIVADO · uno de los 2 no elegidos como públicos</text>
+
+  <!-- Badge sobre Municipales: orquestación (4) -->
+  <circle class="badge-4" cx="676" cy="1106" r="14"/>
+  <text class="badge-text" x="676" y="1110">4</text>
+
+  <!-- ===== Leyenda de interacciones numeradas (una sola columna) ===== -->
+  <g transform="translate(40, 1260)">
+    <rect x="0" y="0" width="1160" height="160" fill="#fbfcfe" stroke="#d0d7e2" stroke-width="1" rx="8"/>
+    <text class="leyenda-titulo" x="24" y="28">Interacciones del sistema · cada participante lleva el número de la interacción en la que actúa</text>
+
+    <circle class="badge-1" cx="44" cy="58" r="12"/>
+    <text class="badge-text" x="44" y="62">1</text>
+    <text class="leyenda-texto" x="68" y="62"><tspan font-weight="700">Alta en el registro:</tspan> cada agente público envía POST /agentes a sinbad2.ujaen.es al arrancar y mantiene un heartbeat periódico.</text>
+
+    <circle class="badge-2" cx="44" cy="88" r="12"/>
+    <text class="badge-text" x="44" y="92">2</text>
+    <text class="leyenda-texto" x="68" y="92"><tspan font-weight="700">Descubrimiento:</tspan> el coordinador (y, eventualmente, agentes de otros grupos) consultan GET /agentes para localizar los públicos vigentes.</text>
+
+    <circle class="badge-3" cx="44" cy="118" r="12"/>
+    <text class="badge-text" x="44" y="122">3</text>
+    <text class="leyenda-texto" x="68" y="122"><tspan font-weight="700">Inyección de escenario:</tspan> el coordinador envía la incidencia mediante HTTP/A2A directamente a la Centralita del grupo.</text>
+
+    <circle class="badge-4" cx="44" cy="148" r="12"/>
+    <text class="badge-text" x="44" y="152">4</text>
+    <text class="leyenda-texto" x="68" y="152"><tspan font-weight="700">Orquestación interna:</tspan> la Centralita envía tareas A2A a los 4 especialistas del grupo (públicos en PC-01 y privados en PC-02).</text>
+  </g>
+</svg>

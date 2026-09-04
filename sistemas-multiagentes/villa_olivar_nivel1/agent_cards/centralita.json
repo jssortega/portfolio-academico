@@ -1,0 +1,32 @@
+{
+  "name": "centralita_villa_olivar",
+  "description": "Centralita 112 del sistema Villa Olivar. Punto de entrada único para todas las emergencias del grupo. Recibe alertas, las clasifica con LLM + FunctionTool y coordina la respuesta de los especialistas.",
+  "url": "http://192.168.1.11:8110",
+  "version": "1.0.0",
+  "capabilities": {
+    "streaming": true,
+    "pushNotifications": false
+  },
+  "skills": [
+    {
+      "id": "clasificar_emergencia",
+      "name": "Clasificar emergencia",
+      "description": "Clasifica una emergencia según tipo, presencia de heridos, materiales peligrosos y número de afectados, asignando prioridad baja, media, alta o crítica.",
+      "tags": ["centralita", "clasificacion", "prioridad"]
+    },
+    {
+      "id": "determinar_destinatarios",
+      "name": "Determinar destinatarios",
+      "description": "Determina los cuerpos de intervención (bomberos, sanitario, policía, municipal) que deben atender una emergencia según su tipo.",
+      "tags": ["centralita", "despacho", "destinatarios"]
+    },
+    {
+      "id": "coordinar_respuesta",
+      "name": "Coordinar respuesta de emergencia",
+      "description": "Coordina la respuesta integral a una emergencia: clasifica, determina los cuerpos intervinientes y genera el informe de resolución.",
+      "tags": ["centralita", "coordinacion", "publico"]
+    }
+  ],
+  "defaultInputModes": ["application/json", "text/plain"],
+  "defaultOutputModes": ["application/json"]
+}

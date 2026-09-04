@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 520" font-family="Helvetica, Arial, sans-serif" font-size="13">
+  <rect x="0" y="0" width="720" height="520" fill="#ffffff"/>
+  <title>Secuencia: alta con autotoken, heartbeats y baja</title>
+  <desc>Diagrama de secuencia que muestra cómo el agente genera y persiste su token, lo envía en el alta y lo usa como Bearer en heartbeat y baja.</desc>
+
+  <defs>
+    <marker id="flecha2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#333"/>
+    </marker>
+    <style>
+      .actor { fill: #f5f7fa; stroke: #333; stroke-width: 1.5; rx: 4; ry: 4; }
+      .actor-titulo { font-weight: bold; text-anchor: middle; }
+      .vida { stroke: #888; stroke-width: 1; stroke-dasharray: 4,3; }
+      .activacion { fill: #d8e3ef; stroke: #5b8db8; stroke-width: 1; }
+      .mensaje { stroke: #333; stroke-width: 1.5; fill: none; marker-end: url(#flecha2); }
+      .respuesta { stroke: #4a7a4a; stroke-width: 1.5; stroke-dasharray: 5,3; fill: none; marker-end: url(#flecha2); }
+      .etiqueta { font-size: 11px; fill: #333; }
+      .nota { fill: #fff8e1; stroke: #9c7a1d; stroke-width: 1; rx: 4; ry: 4; }
+    </style>
+  </defs>
+
+  <!-- Actores (h=40 uniforme; Disco local lleva subtítulo .runtime/tokens/ dentro del rect) -->
+  <rect x="40"  y="20" width="160" height="40" class="actor"/>
+  <text x="120" y="44" class="actor-titulo">Agente Centralita</text>
+  <line x1="120" y1="60" x2="120" y2="500" class="vida"/>
+
+  <rect x="240" y="20" width="160" height="40" class="actor"/>
+  <text x="320" y="44" class="actor-titulo">ClienteRegistro</text>
+  <line x1="320" y1="60" x2="320" y2="500" class="vida"/>
+
+  <rect x="420" y="20" width="160" height="40" class="actor"/>
+  <text x="500" y="36" class="actor-titulo">Disco local</text>
+  <text x="500" y="52" class="actor-titulo" style="font-weight:normal;font-size:11px;fill:#555">.runtime/tokens/</text>
+  <line x1="500" y1="60" x2="500" y2="500" class="vida"/>
+
+  <rect x="600" y="20" width="100" height="40" class="actor"/>
+  <text x="650" y="44" class="actor-titulo">Servidor REST</text>
+  <line x1="650" y1="60" x2="650" y2="500" class="vida"/>
+
+  <!-- Mensaje 1: alta() -->
+  <rect x="316" y="80" width="8" height="60" class="activacion"/>
+  <line x1="120" y1="90" x2="316" y2="90" class="mensaje"/>
+  <text x="220" y="84" text-anchor="middle" class="etiqueta">cliente.alta(grupo, rol, urls)</text>
+
+  <!-- Token: leer/generar -->
+  <line x1="324" y1="105" x2="500" y2="105" class="mensaje"/>
+  <text x="412" y="100" text-anchor="middle" class="etiqueta">¿existe centralita.token?</text>
+
+  <line x1="500" y1="125" x2="324" y2="125" class="respuesta"/>
+  <text x="412" y="120" text-anchor="middle" class="etiqueta">no → genera secrets.token_urlsafe(32)</text>
+
+  <!-- Persistir -->
+  <line x1="320" y1="138" x2="500" y2="138" class="mensaje"/>
+  <text x="412" y="155" text-anchor="middle" class="etiqueta">guardar con permisos 0o600</text>
+
+  <!-- POST alta -->
+  <rect x="646" y="170" width="8" height="40" class="activacion"/>
+  <line x1="324" y1="180" x2="646" y2="180" class="mensaje"/>
+  <text x="485" y="174" text-anchor="middle" class="etiqueta">POST /proyectos/villa-olivar/agentes  body: { token, ... }</text>
+
+  <line x1="650" y1="200" x2="324" y2="200" class="respuesta"/>
+  <text x="485" y="195" text-anchor="middle" class="etiqueta">201 Created  { id: "g1.centralita" }</text>
+
+  <line x1="316" y1="215" x2="120" y2="215" class="respuesta"/>
+  <text x="220" y="210" text-anchor="middle" class="etiqueta">id devuelto</text>
+
+  <!-- Bucle de heartbeats -->
+  <rect x="232" y="240" width="180" height="20" class="nota"/>
+  <text x="322" y="254" text-anchor="middle" class="etiqueta">cada 30 s — bucle de heartbeats</text>
+
+  <rect x="316" y="270" width="8" height="40" class="activacion"/>
+  <rect x="646" y="280" width="8" height="20" class="activacion"/>
+  <line x1="120" y1="280" x2="316" y2="280" class="mensaje"/>
+  <text x="220" y="274" text-anchor="middle" class="etiqueta">cliente.heartbeat()</text>
+
+  <line x1="324" y1="295" x2="646" y2="295" class="mensaje"/>
+  <text x="485" y="290" text-anchor="middle" class="etiqueta">POST .../id/g1.centralita/heartbeat   Authorization: Bearer &lt;token&gt;</text>
+
+  <line x1="650" y1="305" x2="324" y2="305" class="respuesta"/>
+  <text x="485" y="320" text-anchor="middle" class="etiqueta">204 No Content  (hash coincide ✓)</text>
+
+  <!-- Verificación negativa -->
+  <rect x="232" y="340" width="180" height="20" class="nota" fill="#f8e0e0" stroke="#a14848"/>
+  <text x="322" y="354" text-anchor="middle" class="etiqueta">otro cliente con token incorrecto</text>
+
+  <rect x="646" y="370" width="8" height="20" class="activacion"/>
+  <line x1="120" y1="380" x2="646" y2="380" class="mensaje" stroke="#a14848"/>
+  <text x="385" y="374" text-anchor="middle" class="etiqueta" fill="#a14848">POST .../id/g1.centralita/heartbeat   Authorization: Bearer otro</text>
+
+  <line x1="650" y1="390" x2="120" y2="390" class="respuesta" stroke="#a14848"/>
+  <text x="385" y="404" text-anchor="middle" class="etiqueta" fill="#a14848">403 Forbidden  (token inválido)</text>
+
+  <!-- Baja -->
+  <rect x="316" y="430" width="8" height="40" class="activacion"/>
+  <rect x="646" y="440" width="8" height="20" class="activacion"/>
+  <line x1="120" y1="440" x2="316" y2="440" class="mensaje"/>
+  <text x="220" y="434" text-anchor="middle" class="etiqueta">cliente.baja()</text>
+
+  <line x1="324" y1="455" x2="646" y2="455" class="mensaje"/>
+  <text x="485" y="450" text-anchor="middle" class="etiqueta">DELETE .../id/g1.centralita   Authorization: Bearer &lt;token&gt;</text>
+
+  <line x1="650" y1="465" x2="324" y2="465" class="respuesta"/>
+  <text x="485" y="480" text-anchor="middle" class="etiqueta">204 No Content (token persistido se conserva en disco)</text>
+</svg>

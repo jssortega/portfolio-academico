@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 380"
+     font-family="'Helvetica Neue', Arial, sans-serif">
+  <defs>
+    <marker id="arrow-sol-cs" viewBox="0 0 10 10" refX="10" refY="5"
+            markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#0f172a"/>
+    </marker>
+    <marker id="arrow-ret-cs" viewBox="0 0 10 10" refX="10" refY="5"
+            markerWidth="10" markerHeight="10" orient="auto">
+      <path d="M0,0 L10,5 L0,10" fill="none" stroke="#0f172a"
+            stroke-width="1.3"/>
+    </marker>
+  </defs>
+  <style>
+    .title { font-size: 17px; font-weight: 600; fill: #0f172a; }
+    .subtitle { font-size: 12px; fill: #475569; }
+    .lifeline-label { font-size: 13px; font-weight: 600;
+                       fill: #0f172a; text-anchor: middle; }
+    .msg-label { font-size: 12px; fill: #0f172a; }
+    .msg-meta  { font-size: 10.5px; fill: #475569;
+                  font-style: italic; }
+    .plazo     { font-size: 10.5px; fill: #b45309;
+                  font-weight: 600; }
+    .ll-head-sup { fill: #dbeafe; stroke: #2563eb; stroke-width: 1.5; }
+    .ll-head-any { fill: #ede9fe; stroke: #7c3aed; stroke-width: 1.5; }
+    .ll-line     { stroke: #94a3b8; stroke-width: 1;
+                    stroke-dasharray: 4 3; }
+  </style>
+
+  <!-- Fondo claro para legibilidad sobre temas oscuros -->
+  <rect width="100%" height="100%" fill="#ffffff"/>
+
+  <text x="380" y="30" text-anchor="middle" class="title">
+    Protocolo 2 · Consulta de estado (fipa-query)
+  </text>
+  <text x="380" y="50" text-anchor="middle" class="subtitle">
+    Iniciador: Supervisor · Destinatario: cualquier agente del grupo
+  </text>
+
+  <!-- Cabezas de las líneas de vida (rectángulos simétricos).
+       El subtítulo con los cinco roles posibles se coloca DEBAJO
+       del rectángulo del agente del grupo para que no se salga,
+       ya que su anchura supera la del recuadro. -->
+  <rect x="100" y="70" width="200" height="42" rx="6"
+        class="ll-head-sup"/>
+  <text x="200" y="96" class="lifeline-label">Supervisor</text>
+
+  <rect x="460" y="70" width="200" height="42" rx="6"
+        class="ll-head-any"/>
+  <text x="560" y="96" class="lifeline-label">
+    Agente del grupo
+  </text>
+  <text x="560" y="130" text-anchor="middle" class="msg-meta">
+    Centralita / Bomberos / Sanitario / Policía / Municipal
+  </text>
+
+  <!-- Líneas de vida -->
+  <line x1="200" y1="112" x2="200" y2="340" class="ll-line"/>
+  <line x1="560" y1="140" x2="560" y2="340" class="ll-line"/>
+
+  <!-- (1) query-ref ConsultaEstado -->
+  <line x1="200" y1="190" x2="555" y2="190" stroke="#0f172a"
+        stroke-width="1.6" marker-end="url(#arrow-sol-cs)"/>
+  <text x="378" y="182" text-anchor="middle" class="msg-label">
+    (1) query-ref · ConsultaEstado
+  </text>
+  <text x="378" y="208" text-anchor="middle" class="msg-meta">
+    conversation_id = nuevo UUID
+  </text>
+
+  <!-- (2) inform EstadoAgente -->
+  <line x1="555" y1="270" x2="205" y2="270" stroke="#0f172a"
+        stroke-width="1.6" marker-end="url(#arrow-ret-cs)"/>
+  <text x="380" y="262" text-anchor="middle" class="msg-label">
+    (2) inform · EstadoAgente
+  </text>
+  <text x="380" y="288" text-anchor="middle" class="msg-meta">
+    conversation_id = el del query-ref
+  </text>
+  <text x="600" y="282" class="plazo">≤ 2 s</text>
+
+  <text x="200" y="335" class="msg-meta">
+    Sin transición de estado en el seguimiento; es telemetría auxiliar.
+  </text>
+</svg>

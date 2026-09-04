@@ -1,0 +1,32 @@
+{
+  "name": "sanitario_villa_olivar",
+  "description": "Agente especialista en atención sanitaria de emergencias: triaje de víctimas, atención in situ, evacuación y coordinación de recursos médicos.",
+  "url": "http://192.168.1.11:8112",
+  "version": "1.0.0",
+  "capabilities": {
+    "streaming": true,
+    "pushNotifications": false
+  },
+  "skills": [
+    {
+      "id": "calcular_triaje",
+      "name": "Triaje de víctimas",
+      "description": "Clasifica víctimas según gravedad (verde, amarillo, rojo, negro) y prioriza la atención médica.",
+      "tags": ["sanitario", "triaje", "victimas", "clasificacion"]
+    },
+    {
+      "id": "gestionar_evacuacion",
+      "name": "Gestión de evacuación sanitaria",
+      "description": "Planifica la evacuación de heridos: asignación de ambulancias, hospitales de destino y rutas de evacuación.",
+      "tags": ["evacuacion", "ambulancia", "hospital", "transporte"]
+    },
+    {
+      "id": "evaluar_riesgo_sanitario",
+      "name": "Evaluación de riesgo sanitario",
+      "description": "Evalúa riesgos sanitarios derivados de la emergencia: exposición a sustancias tóxicas, riesgo de epidemia, necesidad de descontaminación.",
+      "tags": ["riesgo", "sanitario", "toxico", "descontaminacion"]
+    }
+  ],
+  "defaultInputModes": ["application/json", "text/plain"],
+  "defaultOutputModes": ["application/json"]
+}

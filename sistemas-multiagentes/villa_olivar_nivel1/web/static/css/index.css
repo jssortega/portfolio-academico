@@ -1,0 +1,232 @@
+body{
+    background-color: #010D14;
+    color: #FFF6CC;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    margin: 0px;
+    padding: 0px;
+
+    font-family: "Archivo Black", sans-serif;
+    font-weight: 100;
+
+    overflow: hidden;
+}
+
+.navbar{
+    width: 97%;
+    height: 70px;
+    margin-left: 25px;
+    margin-top: 15px;
+
+    display: flex;
+    justify-content: center;
+    align-content: center;
+
+    background-color: #13678A;
+    color: #FFF6CC;
+
+    border-radius: 15px;
+}
+
+.centralita{
+    font-family: "Archivo Black", sans-serif;
+    font-weight: 500;
+}
+
+.contenidoMain{
+    width: 96.5%;
+    height: 700px;
+    margin-left: 25px;
+    margin-top: 35px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+}
+
+.informacionGeneral{
+    height: 190px;
+
+    display: flex;
+    gap: 155px;
+}
+
+.estado{
+    height: 110px;
+    width: 450px;
+
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+
+    background-color: var(--color-fondo);
+}
+
+.barraEstado{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+
+    background-color: #13678A;
+    color: #FFF6CC;
+
+    border-radius: 15px;
+
+    width: 100%;
+    height: 50px;
+}
+
+.textoEstado{
+    height: 61px;
+
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.idEmergencia{
+    height: 110px;
+    width: 450px;
+
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+
+    background-color: #0A3548;
+}
+
+.barraTitulo{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+
+    background-color: #13678A;
+    color: #FFF6CC;
+
+    border-radius: 15px;
+
+    width: 100%;
+    height: 50px;
+}
+
+.textoId{
+    height: 61px;
+
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.agentesAct{
+    height: 110px;
+    width: 450px;
+
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+
+    background-color: #0A3548;
+
+}
+
+.textoAgentes{
+    height: 140px;
+    width: 450px;
+
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+
+    background-color: #0A3548;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    list-style: none;
+}
+
+.textoAgentes ul{
+    list-style: none; 
+    padding-left: 0px; 
+    width: 450px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.agente{
+    border-radius: 10px;
+    margin: 0px;
+    padding: 5px;
+    height: 20px;
+    width: 450px;
+}
+
+.mensajes{
+    height: 375px;
+}
+
+.cuadroMensajes{
+    height: 100%;
+    width: 100%;
+
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+
+    background-color: #0A3548;
+}
+
+.barraMensajes{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+
+    background-color: #13678A;
+    color: #FFF6CC;
+
+    border-radius: 15px;
+
+    width: 100%;
+    height: 50px;
+}
+
+.listMensajes ul{
+    max-height: 290px;
+
+    overflow-y: auto;
+    
+    list-style: none; 
+    padding-left: 0px;
+    margin-right: 10px;
+    margin-left: 10px;
+
+    display: flex;
+    flex-direction: column;
+
+}
+
+.mensaje{
+    background-color: #1d5d53;
+    border-radius: 10px;
+    margin: 5px;
+    padding: 5px;
+    height: 20px;
+}

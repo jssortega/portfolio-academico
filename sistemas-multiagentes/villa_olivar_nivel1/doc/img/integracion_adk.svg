@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 380" font-family="Helvetica, Arial, sans-serif" font-size="13">
+  <title>Integración ADK — funciones puras de logica/ envueltas como FunctionTool</title>
+  <desc>Cada función pura del módulo logica/ del Nivel 1 (por ejemplo evaluar_riesgo y planificar_intervencion) se envuelve sin modificar como FunctionTool de ADK en el módulo herramientas/ del Nivel 2. El LLM lee los docstrings de las funciones envueltas para decidir autónomamente cuál invocar ante cada situación.</desc>
+
+  <defs>
+    <marker id="flecha-wrap" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#5b3a8a"/>
+    </marker>
+    <style>
+      .titulo { font-size: 18px; font-weight: 700; fill: #1a1a1a; }
+      .subtitulo { font-size: 13px; fill: #444; text-anchor: middle; }
+      .modulo-n1 { fill: #eaf5ec; stroke: #1e7e34; stroke-width: 2; }
+      .modulo-n2 { fill: #f0eaf7; stroke: #5b3a8a; stroke-width: 2; }
+      .modulo-titulo { font-size: 13px; font-weight: 700; fill: #1a1a1a; }
+      .funcion { font-size: 12px; font-family: 'Courier New', monospace; fill: #1a1a1a; }
+      .nivel-marca { font-size: 12px; font-style: italic; text-anchor: middle; }
+      .arista { stroke: #5b3a8a; stroke-width: 2; fill: none; stroke-dasharray: 5 4; }
+      .arista-label { font-size: 11px; font-weight: 700; fill: #5b3a8a; text-anchor: middle; }
+    </style>
+  </defs>
+
+  <rect x="0" y="0" width="1100" height="380" fill="#ffffff"/>
+
+  <text class="titulo" x="550" y="40" text-anchor="middle">Integración ADK — funciones puras de logica/ envueltas como FunctionTool</text>
+  <text class="subtitulo" x="550" y="64">El LLM lee los docstrings de las funciones envueltas y decide autónomamente cuál invocar.</text>
+
+  <!-- Módulo Nivel 1 -->
+  <rect class="modulo-n1" x="80" y="110" width="380" height="180" rx="12"/>
+  <text class="modulo-titulo" x="100" y="140">logica/logica_bomberos.py</text>
+  <text class="funcion" x="100" y="170">def evaluar_riesgo(...):</text>
+  <text class="funcion" x="118" y="190" fill="#555">    """Evalúa nivel de riesgo del incidente."""</text>
+  <text class="funcion" x="118" y="210" fill="#555">    ...</text>
+  <text class="funcion" x="100" y="240">def planificar_intervencion(...):</text>
+  <text class="funcion" x="118" y="260" fill="#555">    """Diseña plan de intervención."""</text>
+  <text class="funcion" x="118" y="280" fill="#555">    ...</text>
+
+  <text class="nivel-marca" x="270" y="320" fill="#1e7e34" font-weight="700">Nivel 1 · funciones puras (preservadas)</text>
+
+  <!-- Aristas -->
+  <path class="arista" d="M 460 175 L 640 175" marker-end="url(#flecha-wrap)"/>
+  <path class="arista" d="M 460 245 L 640 245" marker-end="url(#flecha-wrap)"/>
+  <text class="arista-label" x="550" y="166">wrap</text>
+  <text class="arista-label" x="550" y="236">wrap</text>
+
+  <!-- Módulo Nivel 2 -->
+  <rect class="modulo-n2" x="640" y="110" width="380" height="180" rx="12"/>
+  <text class="modulo-titulo" x="660" y="140">herramientas/herramientas_bomberos.py</text>
+  <text class="funcion" x="660" y="170">FunctionTool(evaluar_riesgo)</text>
+  <text class="funcion" x="660" y="190" fill="#555"># lee docstring → describe la herramienta</text>
+  <text class="funcion" x="660" y="210" fill="#555"># al LLM</text>
+
+  <text class="funcion" x="660" y="240">FunctionTool(planificar_intervencion)</text>
+  <text class="funcion" x="660" y="260" fill="#555"># lee docstring → describe la herramienta</text>
+  <text class="funcion" x="660" y="280" fill="#555"># al LLM</text>
+
+  <text class="nivel-marca" x="830" y="320" fill="#5b3a8a" font-weight="700">Nivel 2 · FunctionTool ADK (envoltorios)</text>
+</svg>
